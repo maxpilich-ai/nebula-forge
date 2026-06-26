@@ -88,9 +88,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .step.active .ico{color:var(--cyan);border-color:rgba(35,224,255,.5);box-shadow:0 0 16px rgba(35,224,255,.25)}
 .step.done .ico{color:var(--green);border-color:rgba(63,240,168,.4)}
 .step .ico svg{width:18px;height:18px}
-.step .meta{flex:1;min-width:0}
-.step .meta .t{font-size:.82rem;font-weight:600;color:var(--txt)}
-.step .meta .s{font-size:.72rem;color:var(--txt-mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step .meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.step .meta .t{font-size:.82rem;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.step .meta .s{display:block;font-size:.72rem;color:var(--txt-mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .step.active .meta .s{color:var(--cyan)}
 .step .chk{width:16px;height:16px;flex:none;opacity:0;color:var(--green);transition:opacity .2s}
 .step.done .chk{opacity:1}
@@ -156,7 +156,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .choice.sel::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(35,224,255,.1),rgba(138,91,255,.08));pointer-events:none}
 .choice::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--violet));opacity:0;transition:opacity .25s var(--ease)}
 .choice.sel::after{opacity:1}
-.choice .c-name{font-weight:600;font-size:.9rem;line-height:1.3;position:relative;color:#fff}
+.choice .c-name{font-weight:600;font-size:.9rem;line-height:1.3;position:relative;color:#fff;overflow-wrap:break-word}
+.choice.has-deal .c-name{padding-right:52px}
 .choice .c-tag{font-size:.74rem;color:var(--txt-mut);margin-top:5px;position:relative;line-height:1.4}
 .choice .c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;position:relative}
 .choice .c-price{font-family:var(--mono);font-weight:700;font-size:.96rem;color:#fff}
@@ -182,6 +183,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .compat.warn{background:rgba(255,194,77,.08);border-color:rgba(255,194,77,.3);color:var(--gold)}
 .compat svg{width:16px;height:16px;flex:none}
 .live-note{margin-top:12px;font-size:.76rem;line-height:1.55;color:var(--txt-dim)}
+.est{margin-top:16px;display:flex;flex-direction:column;gap:13px}
+.est-tag{font-family:var(--mono);font-size:.58rem;color:var(--txt-mut);text-transform:uppercase;letter-spacing:.06em;margin-left:5px}
 
 .bom{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .bom-row{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;padding:5px 0;color:var(--txt-dim)}
@@ -372,7 +375,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <div class="panel panel-pad live">
       <h3><span class="pulse"></span>Your build</h3>
       <div class="compat" id="compat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="compatTxt">All parts compatible — hand-built &amp; bench-tested in Minnesota</span></div>
-      <p class="live-note">We don't show predicted FPS or temperatures — the only way to know those for sure is to benchmark the actual machine. We stress-test and benchmark every build on your exact hardware and send you the real numbers in your build report before it ships.</p>
+
+      <div class="est">
+        <div class="meter">
+          <div class="m-top"><span class="k">Gaming performance <span class="est-tag">est.</span></span><span class="v" id="fpsV">—</span></div>
+          <div class="m-track"><div class="m-fill fps" id="fpsBar"></div></div>
+        </div>
+        <div class="meter">
+          <div class="m-top"><span class="k">Cooling headroom <span class="est-tag">est.</span></span><span class="v" id="thrV">—</span></div>
+          <div class="m-track"><div class="m-fill thr" id="thrBar"></div></div>
+        </div>
+        <div class="meter">
+          <div class="m-top"><span class="k">Power draw <span class="est-tag">est.</span></span><span class="v" id="pwrV">—</span></div>
+          <div class="m-track"><div class="m-fill pwr" id="pwrBar"></div></div>
+        </div>
+      </div>
+      <p class="live-note">Live estimates from published benchmarks for the parts you picked — a ballpark that updates as you swap parts, not a measured result. Every build is stress-tested for stability before it ships.</p>
 
       <div class="bom">
         <span class="eyebrow">Your configuration</span>
@@ -633,7 +651,7 @@ function renderChoices(){
   $('#choices').innerHTML=PARTS[cat].map(p=>{
     const pr=sell(cat,p), s=state.sel[cat]===p.id;
     const specs=Object.entries(p.specs).slice(0,3).map(([k,v])=>`${v}`).join(' · ');
-    return `<button class="choice ${s?'sel':''}" data-id="${p.id}">
+    return `<button class="choice ${s?'sel':''} ${pr.deal?'has-deal':''}" data-id="${p.id}">
       ${pr.deal?`<span class="c-deal">-${pr.deal}%</span>`:''}
       <div class="c-name">${p.name}</div>
       <div class="c-tag">${specs}</div>
@@ -675,6 +693,14 @@ function renderLive(){
   else addonRow.hidden=true;
   tween($('#grandV'),m.sub+bf.fee+m.addons);
   tween($('#topPrice'),m.sub+bf.fee+m.addons);
+  /* live estimates — ballpark, update as parts change */
+  const estTemp=Math.round(80-(m.thermal/100)*30);
+  $('#fpsV').textContent='~'+m.fpsNum+' fps';
+  $('#fpsBar').style.transform='scaleX('+(m.fps/100)+')';
+  $('#thrV').textContent='~'+estTemp+'°C load';
+  $('#thrBar').style.transform='scaleX('+(m.thermal/100)+')';
+  $('#pwrV').textContent='~'+m.watts+' W';
+  $('#pwrBar').style.transform='scaleX('+Math.min(1,m.pwrPct/100)+')';
   renderHelper();
   renderSetup();
   renderBuildShow();
@@ -782,7 +808,7 @@ function applyPreset(name){ state.sel={...PRESETS[name]}; renderStage(); renderC
 $('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub);
   alert(`Build request started!\n\nTotal: $${(m.sub+bf.fee).toLocaleString()} (parts + ${bf.name.replace('· ','')} build)\n\nIn the live site this opens your quote form — no deposit, 24-hour reply.`); };
 
-$('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, overnight stress testing, and full manufacturer warranty with RMAs handled by us. No hidden fees.';
+$('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, a 2-hour stress test, and full manufacturer warranty with RMAs handled by us. No hidden fees.';
 
 /* ---------- Boot ---------- */
 renderSteps(); renderPresets(); renderUseChips(); renderSetup(); buildShowSkeleton(); renderStage(); renderChoices(); renderLive();

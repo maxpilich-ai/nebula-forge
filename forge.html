@@ -181,6 +181,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   background:rgba(63,240,168,.08);border:1px solid rgba(63,240,168,.25);font-size:.8rem;color:var(--green)}
 .compat.warn{background:rgba(255,194,77,.08);border-color:rgba(255,194,77,.3);color:var(--gold)}
 .compat svg{width:16px;height:16px;flex:none}
+.live-note{margin-top:12px;font-size:.76rem;line-height:1.55;color:var(--txt-dim)}
 
 .bom{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .bom-row{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;padding:5px 0;color:var(--txt-dim)}
@@ -369,11 +370,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   <!-- RIGHT: live system -->
   <aside class="col-rail col-right rise d2">
     <div class="panel panel-pad live">
-      <h3><span class="pulse"></span>Live system</h3>
-      <div class="meter"><div class="m-top"><span class="k">Gaming performance</span><span class="v" id="fpsV">—</span></div><div class="m-track"><div class="m-fill fps" id="fpsBar"></div></div></div>
-      <div class="meter"><div class="m-top"><span class="k">Power draw</span><span class="v" id="pwrV">—</span></div><div class="m-track"><div class="m-fill pwr" id="pwrBar"></div></div></div>
-      <div class="meter"><div class="m-top"><span class="k">Thermal headroom</span><span class="v" id="thrV">—</span></div><div class="m-track"><div class="m-fill thr" id="thrBar"></div></div></div>
-      <div class="compat" id="compat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="compatTxt">All parts compatible</span></div>
+      <h3><span class="pulse"></span>Your build</h3>
+      <div class="compat" id="compat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="compatTxt">All parts compatible — hand-built &amp; bench-tested in Minnesota</span></div>
+      <p class="live-note">We don't show predicted FPS or temperatures — the only way to know those for sure is to benchmark the actual machine. We stress-test and benchmark every build on your exact hardware and send you the real numbers in your build report before it ships.</p>
 
       <div class="bom">
         <span class="eyebrow">Your configuration</span>
@@ -666,19 +665,6 @@ function compute(){
 }
 function renderLive(){
   const m=compute();
-  $('#fpsV').textContent=`~${m.fpsNum} fps · 1440p ultra`;
-  $('#pwrV').textContent=`${m.watts} W / ${m.psuCap} W`;
-  const tlabel=m.thermal>78?'Excellent':m.thermal>55?'Good':'Tight';
-  $('#thrV').textContent=`${tlabel} · ${m.thermal}%`;
-  requestAnimationFrame(()=>{
-    $('#fpsBar').style.transform=`scaleX(${m.fps/100})`;
-    $('#pwrBar').style.transform=`scaleX(${m.pwrPct/100})`;
-    $('#thrBar').style.transform=`scaleX(${m.thermal/100})`;
-  });
-  const compat=$('#compat'),ct=$('#compatTxt');
-  if(m.okPower){compat.classList.remove('warn');ct.textContent='All parts compatible · healthy power headroom';}
-  else{compat.classList.add('warn');ct.textContent='Tip: size up the PSU for safe headroom under load';}
-
   $('#bom').innerHTML=m.bom.map(b=>`<div class="bom-row"><span class="nm">${b.name}</span><span class="pp">$${b.price.toLocaleString()}</span></div>`).join('');
   const bf=buildFee(m.sub);
   $('#tierName').textContent=bf.name;
@@ -731,10 +717,10 @@ function renderHelper(){
   const r=recommendPSU(), cur=getPart('psu',state.sel.psu);
   $('#psuRecV').textContent=`${r.target} W`;
   if(r.pick.id===state.sel.psu){
-    $('#psuRecNote').innerHTML=`Your build pulls about <b>${r.watts} W</b> under load. The <b>${cur.name}</b> you picked has comfortable headroom — you're all set.`;
+    $('#psuRecNote').innerHTML=`Estimated from your parts' rated power, this build draws roughly <b>${r.watts} W</b> under load. The <b>${cur.name}</b> you picked has comfortable headroom — you're all set.`;
     $('#psuFix').hidden=true;
   }else{
-    $('#psuRecNote').innerHTML=`Your build pulls about <b>${r.watts} W</b> under load. We'd pair it with the <b>${r.pick.name}</b> (${r.pick.label}) for safe, efficient headroom.`;
+    $('#psuRecNote').innerHTML=`Estimated from your parts' rated power, this build draws roughly <b>${r.watts} W</b> under load. We'd pair it with the <b>${r.pick.name}</b> (${r.pick.label}) for safe, efficient headroom.`;
     $('#psuFix').hidden=false;
     $('#psuFix').textContent=`Switch to the ${r.pick.label} PSU`;
   }

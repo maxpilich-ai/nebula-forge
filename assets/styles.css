@@ -4,13 +4,13 @@
    ============================================================ */
 
 :root {
-  /* Core palette */
-  --obsidian-0: #000000;
-  --obsidian-1: #05060a;
-  --obsidian-2: #0a0c14;
-  --obsidian-3: #11141d;
-  --obsidian-4: #1a1e2a;
-  --obsidian-5: #262b3a;
+  /* Core palette — softened, slightly warm near-blacks (less clinical) */
+  --obsidian-0: #06070c;
+  --obsidian-1: #0b0a12;
+  --obsidian-2: #110f1a;
+  --obsidian-3: #181623;
+  --obsidian-4: #221f30;
+  --obsidian-5: #2d2a3c;
 
   /* Plasma cyan (primary accent) */
   --plasma-100: #d4faff;
@@ -249,12 +249,12 @@ h1, h2, h3, h4, h5 {
   line-height: 1.05;
 }
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--plasma-500);
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--plasma-300);
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -504,10 +504,10 @@ h1, h2, h3, h4, h5 {
   background: rgba(0, 212, 255, 0.08);
   border: 1px solid rgba(0, 212, 255, 0.18);
   color: var(--plasma-300);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  font-weight: 500;
 }
 .pill-dot {
   width: 6px; height: 6px;
@@ -548,9 +548,9 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 64px;
 }
 .nf-footer h5 {
-  font-size: 12px; font-family: var(--font-mono);
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-400);
+  font-size: 13px; font-family: var(--font-body);
+  letter-spacing: 0.02em; font-weight: 600;
+  color: var(--text-300);
   margin-bottom: 20px;
 }
 .nf-footer ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
@@ -575,11 +575,10 @@ h1, h2, h3, h4, h5 {
   position: absolute;
   bottom: 32px; left: 50%;
   transform: translateX(-50%);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.08em;
   color: var(--text-400);
-  text-transform: uppercase;
   display: flex; flex-direction: column;
   align-items: center; gap: 12px;
 }
@@ -844,3 +843,56 @@ section[id], a[id], div[id] { scroll-margin-top: 100px; }
 .rig-plate-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
 .rig-plate-chips span{font-family:var(--font-mono);font-size:12px;color:var(--text-200);
   padding:7px 13px;border-radius:99px;background:rgba(8,10,16,.5);border:1px solid var(--surface-line)}
+
+/* ============================================================
+   COOL LAYER — tasteful motion, GPU-cheap, accessible
+   All re-enabled motion is transform/opacity only and gated
+   behind prefers-reduced-motion: no-preference.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Bring back the slow ambient nebula drift (transform only — the
+     expensive blur stays off, so it's smooth on M-series). */
+  .nf-neb-a { animation: nebDriftA 46s ease-in-out infinite !important; }
+  .nf-neb-b { animation: nebDriftB 58s ease-in-out infinite !important; }
+  .nf-neb-c { animation: nebDriftC 64s ease-in-out infinite !important; }
+
+  /* Gentle starfield parallax drift (transform only). */
+  .starfield::before { animation: drift 90s linear infinite !important; }
+  .starfield::after  { animation: drift 140s linear infinite reverse !important; }
+
+  /* Headline gradient slowly shimmers instead of sitting flat. */
+  .gradient-text {
+    background-size: 220% 220%;
+    animation: vfShimmer 9s ease-in-out infinite;
+  }
+  @keyframes vfShimmer {
+    0%,100% { background-position: 0% 50%; }
+    50%     { background-position: 100% 50%; }
+  }
+
+  /* Primary CTAs get a soft living glow + a light sheen sweep on hover. */
+  .btn-primary { animation: vfGlow 3.6s ease-in-out infinite; }
+  @keyframes vfGlow {
+    0%,100% { box-shadow: 0 8px 24px rgba(0,168,255,0.30), inset 0 1px 0 rgba(255,255,255,0.3); }
+    50%     { box-shadow: 0 10px 30px rgba(0,212,255,0.45), inset 0 1px 0 rgba(255,255,255,0.35); }
+  }
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; left: -120%;
+    width: 60%; height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: skewX(-18deg); pointer-events: none;
+    transition: left 0.6s var(--ease-out-expo);
+  }
+  .btn-primary:hover::after { left: 140%; }
+
+  /* Fade-up reveal gets a touch of scale so sections "arrive" rather
+     than just slide — still compositor-only. */
+  .fade-up { transform: translate3d(0, 34px, 0) scale(0.985); }
+  .fade-up.visible { transform: translate3d(0, 0, 0) scale(1); }
+
+  /* Cards lift a hair more and warm their edge on hover. */
+  .nf-rig-card:hover,
+  .nf-pricing-card:hover,
+  .glass-hover:hover { border-color: var(--surface-line-hi); }
+}

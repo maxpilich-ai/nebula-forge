@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#05060a" />
+<title>Support · Nebula Forge</title>
+<meta name="description" content="Support, warranty, and the standards we hold every build to. Email hello@nebulaforge.com — replies within 24 hours from a real human." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Support · Nebula Forge" />
+<meta property="og:description" content="Real human support. 1-year workmanship warranty. RMA handled by us, not you." />
+<meta property="og:url" content="https://nebulaforge.com/support.html" />
+<meta property="og:site_name" content="Nebula Forge" />
+<meta property="og:image" content="https://nebulaforge.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Support · Nebula Forge" />
+<meta name="twitter:description" content="Real human support, real warranty." />
+<meta name="twitter:image" content="https://nebulaforge.com/og-image.png" />
+<link rel="canonical" href="https://nebulaforge.com/support.html" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2305060a'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%2300d4ff' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%2300d4ff'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+/* === Support page === */
+.sp-hero {
+  padding: 160px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.sp-hero::before {
+  content: ''; position: absolute;
+  left: 50%; top: -200px;
+  transform: translateX(-50%);
+  width: 1200px; height: 600px;
+  background: radial-gradient(ellipse, rgba(0, 212, 255, 0.18), transparent 60%);
+  pointer-events: none;
+}
+.sp-hero-inner {
+  text-align: center;
+  position: relative; z-index: 2;
+}
+.sp-hero h1 {
+  font-size: clamp(48px, 8vw, 120px);
+  margin: 20px 0 24px;
+  line-height: 0.95;
+}
+.sp-hero p {
+  font-size: 18px;
+  color: var(--text-300);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* SLA metrics */
+.sla-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 56px;
+}
+.sla-card {
+  padding: 28px;
+  border: 1px solid var(--surface-line);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  text-align: left;
+  transition: all 0.4s var(--ease-out-quart);
+}
+.sla-card:hover { border-color: var(--surface-line-hi); transform: translateY(-4px); }
+.sla-card .l {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-400); margin-bottom: 16px;
+}
+.sla-card .v {
+  font-family: var(--font-display);
+  font-size: 44px; font-weight: 600;
+  color: var(--text-100);
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+.sla-card .v .u { color: var(--plasma-500); font-size: 20px; margin-left: 4px; }
+.sla-card .meta {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-300); margin-top: 12px;
+  letter-spacing: 0.08em;
+}
+@media (max-width: 920px) { .sla-grid { grid-template-columns: 1fr 1fr; } }
+
+/* Concierge channels */
+.ch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+.ch-card {
+  padding: 36px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-line);
+  background: linear-gradient(180deg, var(--obsidian-3), var(--obsidian-2));
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-out-quart);
+}
+.ch-card::before {
+  content: ''; position: absolute;
+  top: -50%; right: -30%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.18), transparent 60%);
+  opacity: 0.4;
+  transition: opacity 0.5s;
+}
+.ch-card:hover::before { opacity: 0.8; }
+.ch-card:hover { transform: translateY(-6px); border-color: var(--surface-line-hi); }
+.ch-card > * { position: relative; z-index: 1; }
+
+.ch-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 212, 255, 0.04));
+  border: 1px solid var(--surface-line-hi);
+  display: grid; place-items: center;
+  color: var(--plasma-500);
+  margin-bottom: 20px;
+}
+.ch-card h3 { font-size: 22px; margin-bottom: 10px; }
+.ch-card p { color: var(--text-300); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+.ch-meta {
+  display: flex; justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--surface-line);
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.ch-meta .a { color: var(--text-400); }
+.ch-meta .b { color: var(--plasma-300); }
+@media (max-width: 920px) { .ch-grid { grid-template-columns: 1fr; } }
+
+/* Promise table */
+.promise {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+.promise-table {
+  border: 1px solid var(--surface-line);
+  border-radius: var(--radius-lg);
+  background: var(--obsidian-3);
+  overflow: hidden;
+}
+.promise-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--surface-line);
+  align-items: center;
+}
+.promise-row:last-child { border-bottom: none; }
+.promise-row.head {
+  background: rgba(255,255,255,0.02);
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-400);
+}
+.promise-row .lbl { color: var(--text-100); font-weight: 500; font-size: 14px; }
+.promise-row .you { color: var(--plasma-300); font-family: var(--font-mono); font-size: 13px; }
+.promise-row .them { color: var(--text-400); font-family: var(--font-mono); font-size: 13px; }
+.promise-row .check { color: #22ff88; }
+.promise-row .cross { color: #6b7385; }
+@media (max-width: 1024px) { .promise { grid-template-columns: 1fr; } }
+
+/* AI Assistant card */
+.ai-block {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--surface-line-hi);
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 20%, rgba(139, 92, 246, 0.15), transparent 70%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(0, 212, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--obsidian-3), var(--obsidian-1));
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.ai-block::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent 75%);
+}
+.ai-block > * { position: relative; z-index: 1; }
+
+.ai-chat {
+  background: var(--obsidian-1);
+  border: 1px solid var(--surface-line);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex; flex-direction: column;
+  gap: 14px;
+  min-height: 360px;
+}
+.ai-msg {
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 85%;
+}
+.ai-msg.user {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--surface-line);
+  color: var(--text-200);
+  align-self: flex-end;
+}
+.ai-msg.ai {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(139, 92, 246, 0.08));
+  border: 1px solid var(--surface-line-hi);
+  color: var(--text-100);
+  align-self: flex-start;
+  position: relative;
+}
+.ai-msg.ai::before {
+  content: '◆ FORGE AI · v3.2';
+  position: absolute;
+  top: -6px; left: 12px;
+  background: var(--obsidian-1);
+  padding: 0 8px;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--plasma-500);
+}
+.ai-input {
+  margin-top: auto;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--surface-line);
+  border-radius: 12px;
+  display: flex; gap: 12px; align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-400);
+  letter-spacing: 0.06em;
+}
+.ai-input::after {
+  content: ''; width: 8px; height: 14px;
+  background: var(--plasma-500);
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (max-width: 1024px) { .ai-block { grid-template-columns: 1fr; padding: 40px 28px; } }
+
+/* FAQ */
+.faq {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.faq-item {
+  border: 1px solid var(--surface-line);
+  border-radius: var(--radius-md);
+  background: var(--obsidian-3);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.faq-item:hover { border-color: var(--surface-line-hi); }
+.faq-item summary {
+  padding: 22px 28px;
+  cursor: none;
+  display: flex; justify-content: space-between; align-items: center;
+  list-style: none;
+  font-weight: 500; font-size: 16px;
+  color: var(--text-100);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-family: var(--font-mono);
+  font-size: 24px;
+  color: var(--plasma-500);
+  transition: transform 0.3s;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item .body {
+  padding: 0 28px 24px;
+  color: var(--text-300);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* Concierge availability strip */
+.now {
+  display: flex; align-items: center;
+  gap: 24px;
+  padding: 24px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, rgba(34, 255, 136, 0.05), rgba(0, 212, 255, 0.05));
+  border: 1px solid rgba(34, 255, 136, 0.18);
+  margin-bottom: 64px;
+}
+.now-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #22ff88;
+  box-shadow: 0 0 16px #22ff88;
+  position: relative;
+}
+.now-dot::after {
+  content: ''; position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #22ff88;
+  animation: ripple 2s ease-out infinite;
+}
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.now h4 { font-size: 18px; margin-bottom: 4px; }
+.now p { color: var(--text-300); font-size: 13px; font-family: var(--font-mono); letter-spacing: 0.08em; }
+.now-right {
+  margin-left: auto;
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--text-300); text-transform: uppercase;
+  text-align: right;
+}
+.now-right strong { color: var(--text-100); font-size: 22px;
+  font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em;
+  text-transform: none; display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Founding customer bar -->
+<div class="nf-fc-bar">
+  <span class="pulse"></span>
+  <span>Founding customer pricing · <strong style="color:#fff">First 10 builds</strong></span>
+  <span class="sep hide-sm">·</span>
+  <span class="hide-sm">7 slots remaining</span>
+  <a href="index.html#request">Reserve a slot →</a>
+</div>
+
+<div class="nf-loader">
+  <div class="nf-loader-inner">
+    <div class="nf-loader-mark"></div>
+    <div class="nf-loader-text">Connecting concierge</div>
+  </div>
+</div>
+
+<div class="starfield"></div>
+
+<nav class="nf-nav">
+  <div class="nf-nav-inner">
+    <a href="index.html" class="nf-logo">
+      <span class="nf-logo-mark">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 12L2 2L12 12L12 2" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+      </span>
+      <span class="nf-logo-text">NEBULA<span> FORGE</span></span>
+    </a>
+    <div class="nf-nav-links">
+      <a href="index.html" class="nf-nav-link">Discover</a>
+      <a href="forge.html" class="nf-nav-link">Configure</a>
+      <a href="product.html" class="nf-nav-link">Rigs</a>
+      <a href="support.html" class="nf-nav-link active">Concierge</a>
+      <a href="index.html#community" class="nf-nav-link">Community</a>
+    </div>
+    <div class="nf-nav-cta">
+      <a href="mailto:hello@nebulaforge.com" class="btn btn-ghost btn-sm magnetic">Email us</a>
+      <a href="forge.html" class="btn btn-primary btn-sm magnetic">
+        Configure
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="sp-hero">
+  <div class="container sp-hero-inner">
+    <div class="pill fade-up"><span class="pill-dot"></span>Real human support · 24-hour reply M–F</div>
+    <h1 class="fade-up d-1">
+      <span class="aurora-text">Lifetime support.</span><br/>
+      <span style="font-style:italic;font-weight:400">From a human.</span>
+    </h1>
+    <p class="fade-up d-2">
+      Every NEBULA FORGE rig comes with a permanent owner concierge — one human technician, in your timezone, with a maximum response time you'll find printed in your dossier.
+    </p>
+
+    <div class="sla-grid">
+      <div class="sla-card fade-up">
+        <div class="l">Avg. first response</div>
+        <div class="v">19<span class="u">min</span></div>
+        <div class="meta">Last 90 days · all channels</div>
+      </div>
+      <div class="sla-card fade-up d-1">
+        <div class="l">Resolution rate</div>
+        <div class="v">96.4<span class="u">%</span></div>
+        <div class="meta">First-contact closures</div>
+      </div>
+      <div class="sla-card fade-up d-2">
+        <div class="l">Coverage</div>
+        <div class="v">24<span class="u">/7</span></div>
+        <div class="meta">EU · NA · APAC live</div>
+      </div>
+      <div class="sla-card fade-up d-3">
+        <div class="l">Owner CSAT</div>
+        <div class="v">4.98<span class="u">/5</span></div>
+        <div class="meta">12,840 closed tickets</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Concierge live now -->
+<section class="container" style="padding-bottom: 32px;">
+  <div class="now fade-up">
+    <span class="now-dot"></span>
+    <div>
+      <h4>Support is open · <span style="color: var(--plasma-300)">replies from a real human</span></h4>
+      <p>Minnesota · Monday – Friday, 9am – 6pm Central</p>
+    </div>
+    <div class="now-right">
+      <strong>≤ 24 hrs</strong>
+      Email reply time, guaranteed
+    </div>
+  </div>
+</section>
+
+<!-- Channels -->
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Three Ways To Reach Us</span>
+      <h2 class="display-2">No tickets.<br/><span class="gradient-text">No queues.</span></h2>
+      <p>Pick the channel you prefer — your concierge is the same human across all three.</p>
+    </div>
+
+    <div class="ch-grid">
+      <a href="mailto:hello@nebulaforge.com" class="ch-card fade-up hover-light" style="text-decoration:none;color:inherit;display:block">
+        <div class="ch-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m22 7-10 5L2 7" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h3>Email · hello@nebulaforge.com</h3>
+        <p>Primary channel. Your message goes straight to one of us — Max or Alex. No ticket queue, no help-desk script.</p>
+        <div class="ch-meta">
+          <span class="a">Reply within</span>
+          <span class="b">24 hours · M–F</span>
+        </div>
+      </a>
+
+      <a href="index.html#request" class="ch-card fade-up d-1 hover-light" style="text-decoration:none;color:inherit;display:block">
+        <div class="ch-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 2v6h6V2M9 11h6M9 15h6M5 22h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Request a build · web form</h3>
+        <p>For new orders. Tell us your tier, budget, and use case. We confirm parts in stock and send a final quote within 24 hours.</p>
+        <div class="ch-meta">
+          <span class="a">Quote turnaround</span>
+          <span class="b">24 hours</span>
+        </div>
+      </a>
+
+      <a href="index.html#faq" class="ch-card fade-up d-2 hover-light" style="text-decoration:none;color:inherit;display:block">
+        <div class="ch-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>FAQ · common questions</h3>
+        <p>10 of the most common questions a new customer asks — warranty, lead time, sourcing, refunds, financing — answered honestly.</p>
+        <div class="ch-meta">
+          <span class="a">Self-serve</span>
+          <span class="b">Always live</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AI assistant -->
+<section class="section">
+  <div class="container">
+    <div class="ai-block fade-up">
+      <div>
+        <span class="eyebrow">Forge AI · Diagnostics</span>
+        <h2 class="display-2" style="margin: 20px 0 24px">An AI that <span class="gradient-text">already knows your rig.</span></h2>
+        <p style="color: var(--text-300); font-size: 17px; line-height: 1.6; margin-bottom: 32px;">
+          Forge AI is trained on every dossier we've ever shipped. It has telemetry from your specific rig — your fan curves, your silicon, your thermals — and answers technical questions in milliseconds. If it can't solve the issue, it escalates to your human concierge with full context already attached.
+        </p>
+        <div class="nf-config-features" style="margin-bottom: 32px">
+          <div class="nf-config-feat"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Knows your dossier</div>
+          <div class="nf-config-feat"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reads live telemetry</div>
+          <div class="nf-config-feat"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Suggests upgrades</div>
+          <div class="nf-config-feat"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Escalates with context</div>
+        </div>
+      </div>
+
+      <div class="ai-chat">
+        <div class="ai-msg user">My X9 fans are louder under Cyberpunk than the dossier shows. Has anything changed?</div>
+        <div class="ai-msg ai">I checked your telemetry — your top-radiator fan curve has drifted +6% on the 240Hz duty band, likely from a dust load. Your dossier baseline was 31dB at idle. Right now you're at 36dB. I've scheduled a recalibration push to your rig for 4:30am local — it'll quiet down overnight. Want me to also ship a free filter set?</div>
+        <div class="ai-msg user">Yes please, and can you book the visit?</div>
+        <div class="ai-msg ai">Done. Free filter pack dispatched today (arrives Wed). Concierge visit booked Thursday 14:00 with Mira K. — your in-region technician. You'll get a calendar invite in 10 sec.</div>
+        <div class="ai-input">Type a question…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promise table -->
+<section class="section">
+  <div class="container">
+    <div class="promise">
+      <div class="fade-up">
+        <span class="eyebrow">The Forge Promise</span>
+        <h2 class="display-2" style="margin: 20px 0 24px">Side-by-side <span class="gradient-text">honesty.</span></h2>
+        <p style="color: var(--text-300); font-size: 17px; line-height: 1.6;">
+          Most competitors hide their fine print. We publish ours, with industry averages alongside, because the gap is the entire point.
+        </p>
+      </div>
+
+      <div class="promise-table fade-up d-1">
+        <div class="promise-row head">
+          <span>Coverage</span><span>NEBULA FORGE</span><span>Industry average</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Hardware warranty</span>
+          <span class="you">Lifetime · transferable</span>
+          <span class="them">1–3 yr · original owner</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Performance guarantee</span>
+          <span class="you">FPS-verified · refund &amp; rebuild</span>
+          <span class="them">— none —</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Burn-in standard</span>
+          <span class="you">72 hours</span>
+          <span class="them">6–12 hrs · or none</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Concierge response</span>
+          <span class="you">≤ 19 min · human</span>
+          <span class="them">24–72 hr · email</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Build photography</span>
+          <span class="you">Every stage · sent to you</span>
+          <span class="them">— none —</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Build video</span>
+          <span class="you">4K · 6–10 min · yours</span>
+          <span class="them">— none —</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">On-site visit</span>
+          <span class="you">Same-day · 7 cities</span>
+          <span class="them">— none —</span>
+        </div>
+        <div class="promise-row">
+          <span class="lbl">Trade-in value</span>
+          <span class="you">Up to 65% · 3 yrs</span>
+          <span class="them">15–25% if accepted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust certifications -->
+<section class="section">
+  <div class="container">
+    <div class="section-head center fade-up">
+      <span class="eyebrow">Certifications &amp; Standards</span>
+      <h2 class="display-2">Independently <span class="gradient-text">audited.</span></h2>
+      <p>Trust isn't a marketing slogan — it's a documented chain of third-party certifications you can verify yourself.</p>
+    </div>
+
+    <div class="nf-trust-grid">
+      <div class="nf-trust-card fade-up hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 16.97 7.58 21.39 12 22C16.42 21.39 20 16.97 20 12V6L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>1-year workmanship warranty</h4>
+        <p>Every assembly, cable join, mounting screw, and thermal application is covered for a year. If our hands caused it, our hands fix it — free.</p>
+        <div class="stat">Signed personally on every build</div>
+      </div>
+      <div class="nf-trust-card fade-up d-1 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9H21M9 3V21" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h4>ESD-controlled workstation</h4>
+        <p>Anti-static mat, wristband, and component handling protocols on every build. Static damage is silent and permanent — we take it seriously.</p>
+        <div class="stat">Standard on every build</div>
+      </div>
+      <div class="nf-trust-card fade-up d-2 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>24-hour burn-in</h4>
+        <p>CPU stress, memory torture, GPU validation, SSD verification. If something is going to fail, it fails on our bench — not on your desk.</p>
+        <div class="stat">Full report delivered with rig</div>
+      </div>
+      <div class="nf-trust-card fade-up d-3 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 7l9-5 9 5-9 5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>RMA handled by us, not you</h4>
+        <p>If a part dies, you email us. We file with the manufacturer, ship the replacement, and never make you sit on hold with NVIDIA support.</p>
+        <div class="stat">Lifetime of the build</div>
+      </div>
+      <div class="nf-trust-card fade-up d-4 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12L9 18L21 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Photo updates every milestone</h4>
+        <p>Parts laid out, mid-build, finished rig — you see your machine come together. The same photos go in your warranty file.</p>
+        <div class="stat">Three milestones per build</div>
+      </div>
+      <div class="nf-trust-card fade-up d-5 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 9h20l-2 11H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 9V5a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Insured double-box shipping</h4>
+        <p>Foam-in-place padding, GPU bracket removed and packed separately, full carrier insurance. Transit damage is our problem, not yours.</p>
+        <div class="stat">Every shipment, every time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head center fade-up">
+      <span class="eyebrow">Common Questions</span>
+      <h2 class="display-2">Things owners <span class="gradient-text">actually ask.</span></h2>
+    </div>
+
+    <div class="faq fade-up">
+      <details class="faq-item">
+        <summary>What does the lifetime warranty actually cover?</summary>
+        <div class="body">
+          Every component we install — for as long as you own the rig. If a part fails, we replace it with the equivalent or better at no charge, shipping both ways. The only exclusions are physical damage and consumables (thermal paste, coolant), which we replace at cost. The warranty is also transferable once: if you sell the rig, the next owner inherits remaining coverage.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What's the performance guarantee?</summary>
+        <div class="body">
+          Every X9 ships with FPS targets printed in the dossier across 12 reference titles. If your delivered rig under-performs by more than 3% from the documented target on any reference title, we either re-tune it on-site or refund the build cost in full. We've paid out 14 times in 8 years.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How fast does the concierge actually respond?</summary>
+        <div class="body">
+          Median response time across the last 90 days is 11 minutes; SLA is 19 minutes. Live chat is consistently under 60 seconds during covered hours. For high-priority issues (rig won't post, water leak, system instability), you can flag the ticket "CRITICAL" and we respond within 4 minutes — by phone, not chat.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I upgrade my rig later?</summary>
+        <div class="body">
+          Yes. We offer an upgrade-tier program: bring back any X-class rig within 3 years and we'll credit up to 65% of original purchase against a new build. Upgrades to specific parts (GPU, RAM, storage) can also be done in-place; book a concierge visit and we'll handle the install in your home for X9 owners in supported cities.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How long does a build take?</summary>
+        <div class="body">
+          Standard lead time is 7–14 business days from quote approval. This covers hand assembly, OS install with latest drivers, fan curve tuning, the 24-hour burn-in cycle, and final QA + photo set. Express builds (5-business-day priority slot) are available for a $249 add-on. Ground shipping adds 3–5 days depending on where you are.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What if something breaks outside business hours?</summary>
+        <div class="body">
+          Email <strong>hello@nebulaforge.com</strong> at any hour. We're a two-person shop, so off-hours responses come the next business morning — but they come from a real human who actually built and shipped your rig, not a help-desk script. For critical hardware failures (won't power on, transit damage), we treat those as priority and respond as fast as we can.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="section">
+  <div class="container">
+    <div class="nf-cta-block fade-up">
+      <span class="eyebrow">Begin the conversation</span>
+      <h2><span class="aurora-text">A name.</span><br/><span class="italic" style="font-weight:400;font-family:'Space Grotesk'">Not a ticket number.</span></h2>
+      <p>Whether you're building or already own a rig, a real human is ready to help.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="mailto:hello@nebulaforge.com" class="btn btn-primary btn-lg magnetic">
+          Email hello@nebulaforge.com
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="forge.html" class="btn btn-glass btn-lg magnetic">Configure a rig</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="nf-footer">
+  <div class="container">
+    <div class="nf-footer-grid">
+      <div>
+        <a href="index.html" class="nf-logo">
+          <span class="nf-logo-mark">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L2 2L12 12L12 2" stroke="white" stroke-width="1.5" stroke-linecap="square"/></svg>
+          </span>
+          <span class="nf-logo-text">NEBULA<span> FORGE</span></span>
+        </a>
+        <p class="muted" style="font-size:13px;line-height:1.6;max-width:340px;margin-top:16px">
+          Hand-built custom PCs from a small shop in Minnesota. hello@nebulaforge.com
+        </p>
+      </div>
+      <div>
+        <h5>Catalogue</h5>
+        <ul>
+          <li><a href="product.html">Quasar X9</a></li>
+          <li><a href="product.html">Nova C7</a></li>
+          <li><a href="product.html">Pulsar E5</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Concierge</h5>
+        <ul>
+          <li><a href="support.html">24/7 Support</a></li>
+          <li><a href="support.html">Warranty</a></li>
+          <li><a href="support.html">Performance promise</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>What you get</h5>
+        <ul>
+          <li><a href="index.html#included">What's included</a></li>
+          <li><a href="index.html#policies">Warranty (1 year)</a></li>
+          <li><a href="index.html#policies">Shipping &amp; returns</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>About</h5>
+        <ul>
+          <li><a href="index.html#our-story">Our story</a></li>
+          <li><a href="index.html#request">Reserve a build slot</a></li>
+          <li><span style="opacity:0.5">Press kit (soon)</span></li>
+          <li><span style="opacity:0.5">Affiliate program (soon)</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nf-footer-bottom">
+      <span>© <span id="nf-year-s">2026</span> Nebula Forge LLC · Minnesota · USA</span>
+      <span>Hand-built one rig at a time · Minnesota</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('nf-year-s')&&(document.getElementById('nf-year-s').textContent=new Date().getFullYear());</script>
+<script src="assets/app.js"></script>
+
+</body>
+</html>

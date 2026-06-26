@@ -1,0 +1,1972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="theme-color" content="#05060a" />
+<meta name="description" content="Nebula Forge — Hand-built custom gaming and workstation PCs from Minnesota. Boutique pricing, 24-hour quotes, 1-year workmanship warranty. Starting at $2,599." />
+<title>Nebula Forge — Hand-Built Custom PCs · Minnesota</title>
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Nebula Forge — Hand-Built Custom PCs" />
+<meta property="og:description" content="Boutique custom PCs hand-built in Minnesota. 24-hour quotes, 1-year workmanship warranty, photo updates at every milestone." />
+<meta property="og:url" content="https://nebulaforge.com/" />
+<meta property="og:site_name" content="Nebula Forge" />
+<meta property="og:image" content="https://nebulaforge.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Nebula Forge — Hand-Built Custom PCs" />
+<meta name="twitter:description" content="Hand-built custom PCs from Minnesota. Boutique pricing, 24-hour quotes, real human support." />
+<meta name="twitter:image" content="https://nebulaforge.com/og-image.png" />
+<link rel="canonical" href="https://nebulaforge.com/" />
+
+<!-- Favicon (replace with your real files when ready) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2305060a'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%2300d4ff' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%2300d4ff'/%3E%3C/svg%3E" />
+
+<!-- Structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Nebula Forge",
+  "description": "Boutique hand-built custom PCs from Minnesota.",
+  "url": "https://nebulaforge.com/",
+  "email": "hello@nebulaforge.com",
+  "address": { "@type": "PostalAddress", "addressRegion": "MN", "addressCountry": "US" },
+  "sameAs": [
+    "https://instagram.com/nebulaforge",
+    "https://tiktok.com/@nebulaforge",
+    "https://youtube.com/@nebulaforge"
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+/* ===== Landing page specifics ===== */
+
+/* HERO */
+.nf-hero {
+  min-height: 100vh;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 120px 0 80px;
+  overflow: hidden;
+}
+.nf-hero-bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+}
+.nf-hero-bg canvas {
+  width: 100%; height: 100%;
+  display: block;
+}
+.nf-hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 100% 80% at 50% 50%, transparent 30%, var(--obsidian-1) 90%);
+  pointer-events: none;
+  z-index: 1;
+}
+.nf-hero-inner {
+  position: relative; z-index: 2;
+  width: var(--container);
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+}
+.nf-hero h1 {
+  font-size: clamp(56px, 9.5vw, 156px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  margin: 24px 0 28px;
+  max-width: 12ch;
+}
+.nf-hero h1 .line { display: block; }
+.nf-hero h1 .italic { font-style: italic; font-weight: 400; font-family: 'Space Grotesk', serif; }
+
+.nf-hero-sub {
+  font-size: clamp(16px, 1.4vw, 19px);
+  max-width: 580px;
+  color: var(--text-300);
+  margin-bottom: 44px;
+  line-height: 1.55;
+}
+.nf-hero-cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* Spec ticker under hero */
+.nf-hero-ticker {
+  position: relative; z-index: 2;
+  margin-top: 100px;
+  width: var(--container);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--surface-line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.nf-hero-stat {
+  padding: 28px 32px;
+  border-right: 1px solid var(--surface-line);
+  position: relative;
+}
+.nf-hero-stat:last-child { border-right: none; }
+.nf-hero-stat .num {
+  font-family: var(--font-display);
+  font-size: 38px; font-weight: 600;
+  color: var(--text-100);
+  letter-spacing: -0.02em;
+  display: flex; align-items: baseline; gap: 4px;
+}
+.nf-hero-stat .num .unit { font-size: 18px; color: var(--plasma-500); font-weight: 500; }
+.nf-hero-stat .label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-400); margin-top: 6px;
+}
+@media (max-width: 920px) {
+  .nf-hero-ticker { grid-template-columns: 1fr 1fr; }
+  .nf-hero-stat:nth-child(2) { border-right: none; }
+  .nf-hero-stat:nth-child(1), .nf-hero-stat:nth-child(2) { border-bottom: 1px solid var(--surface-line); }
+}
+
+/* Marquee of partners */
+.nf-marquee {
+  padding: 48px 0;
+  border-top: 1px solid var(--surface-line);
+  border-bottom: 1px solid var(--surface-line);
+  overflow: hidden;
+  position: relative;
+}
+.nf-marquee::before, .nf-marquee::after {
+  content: ''; position: absolute; top: 0; bottom: 0;
+  width: 200px; z-index: 2; pointer-events: none;
+}
+.nf-marquee::before { left: 0; background: linear-gradient(90deg, var(--obsidian-1), transparent); }
+.nf-marquee::after { right: 0; background: linear-gradient(-90deg, var(--obsidian-1), transparent); }
+.nf-marquee-track {
+  display: flex; gap: 80px;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.nf-marquee-item {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 500;
+  color: var(--text-400);
+  display: flex; align-items: center; gap: 12px;
+  white-space: nowrap;
+}
+.nf-marquee-item svg { opacity: 0.6; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Section header */
+.section-head {
+  display: flex; flex-direction: column; align-items: flex-start;
+  margin-bottom: 64px;
+  max-width: 720px;
+}
+.section-head.center { align-items: center; text-align: center; margin-inline: auto; }
+.section-head h2 { margin: 16px 0 20px; }
+.section-head p { font-size: 17px; color: var(--text-300); line-height: 1.55; }
+
+/* Featured rigs */
+.nf-rigs {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+.nf-rig-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-line);
+  background: linear-gradient(180deg, var(--obsidian-3) 0%, var(--obsidian-2) 100%);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.6s var(--ease-out-quart);
+  text-decoration: none; color: inherit;
+  display: flex; flex-direction: column;
+  min-height: 480px;
+}
+.nf-rig-card.featured { min-height: 580px; }
+.nf-rig-card::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.15), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.12), transparent 60%);
+  opacity: 0.4;
+  transition: opacity 0.6s;
+}
+.nf-rig-card:hover { transform: translateY(-8px); border-color: var(--surface-line-hi); }
+.nf-rig-card:hover::before { opacity: 0.8; }
+.nf-rig-viz {
+  flex: 1;
+  position: relative;
+  display: grid; place-items: center;
+  min-height: 280px;
+  padding: 48px 32px;
+  overflow: hidden;
+}
+.nf-rig-viz svg, .nf-rig-viz img { width: 100%; height: 100%; max-width: 380px; display: block; }
+.nf-rig-card.featured .nf-rig-viz { min-height: 360px; }
+.nf-rig-card.featured .nf-rig-viz svg { max-width: 460px; }
+.nf-rig-meta {
+  padding: 28px 32px 32px;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--surface-line);
+  background: rgba(5, 6, 10, 0.6);
+  backdrop-filter: blur(20px);
+}
+.nf-rig-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--plasma-500); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nf-rig-card h3 {
+  font-size: 28px; margin-bottom: 12px;
+}
+.nf-rig-card.featured h3 { font-size: 36px; }
+.nf-rig-card p { color: var(--text-300); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+.nf-rig-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 16px;
+}
+.nf-rig-price {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 600;
+  color: var(--text-100);
+}
+.nf-rig-price .from {
+  font-size: 11px; color: var(--text-400); font-weight: 400;
+  font-family: var(--font-mono); letter-spacing: 0.15em;
+  text-transform: uppercase; display: block; margin-bottom: 2px;
+}
+.nf-rig-arrow {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--surface-line-hi);
+  display: grid; place-items: center;
+  color: var(--plasma-500);
+  transition: all 0.4s var(--ease-out-quart);
+}
+.nf-rig-card:hover .nf-rig-arrow {
+  background: var(--plasma-500); color: var(--obsidian-0);
+  transform: rotate(-45deg);
+}
+@media (max-width: 1080px) {
+  .nf-rigs { grid-template-columns: 1fr; }
+}
+
+/* Process */
+.nf-process {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.nf-process-steps {
+  display: flex; flex-direction: column;
+  position: relative;
+}
+.nf-process-steps::before {
+  content: ''; position: absolute;
+  left: 24px; top: 24px; bottom: 24px;
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--plasma-500) 15%,
+    var(--aurora-violet) 50%,
+    var(--aurora-pink) 85%,
+    transparent 100%);
+  opacity: 0.4;
+}
+.nf-process-step {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  position: relative;
+}
+.nf-process-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--surface-line-hi);
+  background: var(--obsidian-2);
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 14px;
+  color: var(--plasma-500);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+.nf-process-num::before {
+  content: ''; position: absolute; inset: -6px;
+  border-radius: 50%; border: 1px solid var(--surface-line);
+  opacity: 0.5;
+}
+.nf-process-step h4 { font-size: 22px; margin-bottom: 8px; }
+.nf-process-step p { color: var(--text-300); font-size: 14px; line-height: 1.6; }
+.nf-process-time {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-400); margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nf-process-time::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--plasma-500); box-shadow: 0 0 8px var(--plasma-500);
+}
+
+.nf-process-visual {
+  position: sticky;
+  top: 120px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--surface-line);
+  background: linear-gradient(180deg, var(--obsidian-3), var(--obsidian-2));
+  padding: 32px;
+  aspect-ratio: 4/5;
+  display: flex; flex-direction: column;
+}
+.nf-cert-card {
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.nf-cert-card h5 {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--plasma-500);
+  display: flex; align-items: center; gap: 10px;
+}
+.nf-cert-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin: 32px 0;
+}
+.nf-cert-cell {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-line);
+}
+.nf-cert-cell .l { font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-400); margin-bottom: 8px; }
+.nf-cert-cell .v { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--text-100); }
+.nf-cert-cell .v small { font-size: 12px; color: var(--plasma-500); font-weight: 400; margin-left: 4px; }
+.nf-cert-graph {
+  height: 120px;
+  background:
+    linear-gradient(180deg, rgba(0, 212, 255, 0.12) 0%, transparent 100%);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--surface-line);
+}
+.nf-cert-sig {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--surface-line);
+  display: flex; gap: 16px; align-items: center;
+}
+.nf-cert-sig-img {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--plasma-500), var(--aurora-violet));
+  position: relative;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--obsidian-0);
+}
+.nf-cert-sig-info .name { font-weight: 500; color: var(--text-100); font-size: 14px; }
+.nf-cert-sig-info .role { font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-400); margin-top: 2px; }
+
+@media (max-width: 1080px) {
+  .nf-process { grid-template-columns: 1fr; gap: 48px; }
+  .nf-process-visual { position: static; aspect-ratio: auto; }
+}
+
+/* Configurator preview block */
+.nf-config-preview {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--surface-line);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--obsidian-3), var(--obsidian-1));
+  padding: 64px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px; align-items: center;
+}
+.nf-config-preview::before {
+  content: ''; position: absolute;
+  top: -50%; right: -20%;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 60%);
+  pointer-events: none;
+}
+.nf-config-content { position: relative; z-index: 2; }
+.nf-config-content h2 { margin: 20px 0 24px; }
+.nf-config-content p { font-size: 17px; color: var(--text-300); margin-bottom: 32px; line-height: 1.6; max-width: 480px; }
+.nf-config-features {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px 24px; margin-bottom: 36px;
+}
+.nf-config-feat {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-200); font-size: 14px;
+}
+.nf-config-feat svg { color: var(--plasma-500); flex-shrink: 0; }
+
+.nf-config-visual {
+  position: relative;
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-line-hi);
+  background: var(--obsidian-0);
+  overflow: hidden;
+  box-shadow: var(--shadow-glow-cyan);
+}
+.nf-config-visual canvas,
+.nf-config-visual #config-pc-svg,
+.nf-config-visual #config-pc-svg svg { width: 100%; height: 100%; display: block; }
+.nf-config-visual #config-pc-svg { display: flex; align-items: center; justify-content: center; }
+.nf-config-visual-ui {
+  position: absolute; inset: 16px;
+  pointer-events: none;
+}
+.nf-config-corner {
+  position: absolute;
+  width: 24px; height: 24px;
+  border: 1px solid var(--plasma-500);
+}
+.nf-config-corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.nf-config-corner.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.nf-config-corner.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.nf-config-corner.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+.nf-config-readout {
+  position: absolute;
+  background: rgba(5, 6, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--surface-line-hi);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em;
+  color: var(--plasma-300);
+  text-transform: uppercase;
+}
+.nf-config-readout.tl { top: 28px; left: 28px; }
+.nf-config-readout.br { bottom: 28px; right: 28px; }
+.nf-config-readout strong { color: var(--text-100); margin-right: 6px; }
+@media (max-width: 1080px) {
+  .nf-config-preview { grid-template-columns: 1fr; padding: 40px 32px; gap: 40px; }
+}
+
+/* Performance lab */
+.nf-perf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.nf-perf-card {
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-line);
+  background: var(--obsidian-3);
+  position: relative;
+  overflow: hidden;
+}
+.nf-perf-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--plasma-500), transparent);
+  opacity: 0.4;
+}
+.nf-perf-game {
+  display: flex; align-items: center; gap: 12px;
+  font-weight: 500; color: var(--text-100);
+  font-size: 15px;
+}
+.nf-perf-game-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--obsidian-5), var(--obsidian-4));
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 600; color: var(--plasma-500);
+  font-size: 12px;
+}
+.nf-perf-bar-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-400);
+  margin: 24px 0 8px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.nf-perf-bar-row .fps { color: var(--text-100); font-size: 22px;
+  font-family: var(--font-display); font-weight: 600;
+  letter-spacing: -0.01em; text-transform: none;
+}
+.nf-perf-bar {
+  height: 4px; border-radius: 2px;
+  background: var(--obsidian-5);
+  position: relative; overflow: hidden;
+  margin-bottom: 18px;
+}
+.nf-perf-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--plasma-500), var(--aurora-violet));
+  border-radius: 2px;
+  position: relative;
+  width: 0;
+  transition: width 1.4s var(--ease-out-quart);
+}
+.nf-perf-bar-fill.visible { width: var(--w); }
+.nf-perf-spec {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-400); padding-top: 16px;
+  border-top: 1px dashed var(--surface-line);
+  margin-top: 16px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+@media (max-width: 920px) { .nf-perf-grid { grid-template-columns: 1fr; } }
+
+/* Trust grid */
+.nf-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.nf-trust-card {
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-line);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  transition: all 0.5s var(--ease-out-quart);
+  position: relative; overflow: hidden;
+}
+.nf-trust-card:hover {
+  border-color: var(--surface-line-hi);
+  transform: translateY(-4px);
+}
+.nf-trust-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 212, 255, 0.04));
+  border: 1px solid var(--surface-line-hi);
+  display: grid; place-items: center;
+  color: var(--plasma-500);
+  margin-bottom: 24px;
+}
+.nf-trust-card h4 { font-size: 20px; margin-bottom: 10px; }
+.nf-trust-card p { color: var(--text-300); font-size: 14px; line-height: 1.6; }
+.nf-trust-card .stat {
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--plasma-300);
+  padding-top: 20px;
+  border-top: 1px solid var(--surface-line);
+}
+@media (max-width: 920px) { .nf-trust-grid { grid-template-columns: 1fr; } }
+
+/* Builders */
+.nf-builders {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.nf-builder-card {
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-line);
+  background: var(--obsidian-3);
+  transition: all 0.5s var(--ease-out-quart);
+  text-align: center;
+}
+.nf-builder-card:hover {
+  border-color: var(--plasma-500);
+  background: var(--obsidian-4);
+  transform: translateY(-6px);
+}
+.nf-builder-avatar {
+  width: 96px; height: 96px; border-radius: 50%;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--obsidian-5), var(--obsidian-4));
+  border: 2px solid var(--surface-line);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 32px;
+  color: var(--plasma-500);
+  position: relative;
+}
+.nf-builder-avatar::after {
+  content: ''; position: absolute;
+  bottom: 4px; right: 4px;
+  width: 14px; height: 14px;
+  background: var(--plasma-500); border-radius: 50%;
+  border: 2px solid var(--obsidian-3);
+  box-shadow: 0 0 12px var(--plasma-500);
+}
+.nf-builder-card h4 { font-size: 18px; margin-bottom: 4px; }
+.nf-builder-role {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--plasma-500); margin-bottom: 14px;
+}
+.nf-builder-meta {
+  font-size: 12px; color: var(--text-400);
+  padding-top: 16px; border-top: 1px solid var(--surface-line);
+  margin-top: 16px;
+  display: flex; justify-content: space-around;
+}
+.nf-builder-meta strong { color: var(--text-100); font-weight: 500; }
+@media (max-width: 920px) { .nf-builders { grid-template-columns: 1fr 1fr; } }
+
+/* Community showcase */
+.nf-community {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 200px 200px;
+  gap: 16px;
+}
+.nf-community-tile {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-line);
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, var(--obsidian-3), var(--obsidian-2));
+  cursor: pointer;
+  transition: all 0.5s var(--ease-out-quart);
+  display: flex; align-items: flex-end;
+  padding: 20px;
+}
+.nf-community-tile:hover { transform: scale(1.02); border-color: var(--plasma-500); }
+.nf-community-tile.large { grid-column: span 2; grid-row: span 2; }
+.nf-community-bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+}
+.nf-community-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.3), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(217, 70, 239, 0.25), transparent 60%);
+}
+.nf-community-tile:nth-child(2) .nf-community-bg::before {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.3), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.25), transparent 60%);
+}
+.nf-community-tile:nth-child(3) .nf-community-bg::before {
+  background:
+    radial-gradient(circle at 30% 60%, rgba(251, 191, 36, 0.2), transparent 60%),
+    radial-gradient(circle at 80% 30%, rgba(236, 72, 153, 0.25), transparent 60%);
+}
+.nf-community-tile:nth-child(4) .nf-community-bg::before {
+  background:
+    radial-gradient(circle at 60% 40%, rgba(0, 212, 255, 0.3), transparent 60%);
+}
+.nf-community-tile:nth-child(5) .nf-community-bg::before {
+  background:
+    radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.3), transparent 60%);
+}
+.nf-community-tile:nth-child(6) .nf-community-bg::before {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(217, 70, 239, 0.3), transparent 60%);
+}
+.nf-community-overlay {
+  position: relative; z-index: 1;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
+  margin: -20px; padding: 80px 20px 20px;
+  width: calc(100% + 40px);
+}
+.nf-community-tile .author {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--plasma-300); margin-bottom: 6px;
+}
+.nf-community-tile .title { color: var(--text-100); font-weight: 500; font-size: 15px; }
+.nf-community-tile.large .title { font-size: 20px; }
+@media (max-width: 920px) {
+  .nf-community { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .nf-community-tile.large { grid-column: span 2; grid-row: span 1; min-height: 280px; }
+  .nf-community-tile { min-height: 180px; }
+}
+
+/* CTA Block */
+.nf-cta-block {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 96px 48px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0, 212, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--obsidian-3), var(--obsidian-1));
+  border: 1px solid var(--surface-line-hi);
+  overflow: hidden;
+}
+.nf-cta-block::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black, transparent 70%);
+}
+.nf-cta-block > * { position: relative; z-index: 1; }
+.nf-cta-block h2 { font-size: clamp(40px, 6vw, 80px); margin: 16px 0 28px; }
+.nf-cta-block p { color: var(--text-300); font-size: 18px; max-width: 540px; margin: 0 auto 40px; }
+</style>
+</head>
+<body>
+
+<!-- Founding customer bar -->
+<div class="nf-fc-bar">
+  <span class="pulse"></span>
+  <span>Founding customer pricing · <strong style="color:#fff">First 10 builds</strong></span>
+  <span class="sep hide-sm">·</span>
+  <span class="hide-sm">7 slots remaining</span>
+  <a href="#request">Reserve a slot →</a>
+</div>
+
+<!-- Loader -->
+<div class="nf-loader">
+  <div class="nf-loader-inner">
+    <div class="nf-loader-mark"></div>
+    <div class="nf-loader-text">Calibrating Orbit</div>
+  </div>
+</div>
+
+<!-- Starfield -->
+<div class="starfield"></div>
+
+<!-- Navigation -->
+<nav class="nf-nav">
+  <div class="nf-nav-inner">
+    <a href="index.html" class="nf-logo">
+      <span class="nf-logo-mark">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 12L2 2L12 12L12 2" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+      </span>
+      <span class="nf-logo-text">NEBULA<span> FORGE</span></span>
+    </a>
+
+    <div class="nf-nav-links">
+      <a href="index.html" class="nf-nav-link active">Discover</a>
+      <a href="forge.html" class="nf-nav-link">Configure</a>
+      <a href="product.html" class="nf-nav-link">Rigs</a>
+      <a href="support.html" class="nf-nav-link">Concierge</a>
+      <a href="#community" class="nf-nav-link">Community</a>
+    </div>
+
+    <div class="nf-nav-cta">
+      <a href="support.html" class="btn btn-ghost btn-sm magnetic">Sign in</a>
+      <a href="forge.html" class="btn btn-primary btn-sm magnetic">
+        Configure
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="nf-hero">
+  <div class="nf-hero-bg">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="nf-hero-vignette"></div>
+
+  <div class="nf-hero-inner">
+    <div class="pill fade-up">
+      <span class="pill-dot"></span>
+      Issue 042 · Spring Catalogue 2026
+    </div>
+
+    <h1 class="fade-up d-1">
+      <span class="line">Instrument-grade</span>
+      <span class="line"><span class="italic gradient-text">custom PCs,</span></span>
+      <span class="line aurora-text">engineered in orbit.</span>
+    </h1>
+
+    <p class="nf-hero-sub fade-up d-2">
+      Every Nebula Forge rig is hand-assembled on an anti-static workstation in Minnesota, burn-in tested for 24 hours, and personally signed by your build lead. Small shop. No assembly lines. No shortcuts.
+    </p>
+
+    <div class="nf-hero-cta fade-up d-3">
+      <a href="forge.html" class="btn btn-primary btn-lg magnetic">
+        Begin configuration
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <a href="#rigs" class="btn btn-glass btn-lg magnetic">
+        Explore the catalogue
+      </a>
+    </div>
+  </div>
+
+  <div class="nf-hero-ticker fade-up d-4">
+    <div class="nf-hero-stat">
+      <div class="num"><span data-count="24">0</span><span class="unit">hr</span></div>
+      <div class="label">Quote response time</div>
+    </div>
+    <div class="nf-hero-stat">
+      <div class="num"><span data-count="24">0</span><span class="unit">hr</span></div>
+      <div class="label">Burn-in &amp; validation</div>
+    </div>
+    <div class="nf-hero-stat">
+      <div class="num"><span data-count="1">0</span><span class="unit">yr</span></div>
+      <div class="label">Workmanship warranty</div>
+    </div>
+    <div class="nf-hero-stat">
+      <div class="num"><span data-count="50">0</span><span class="unit">%</span></div>
+      <div class="label">Deposit. Balance on ship.</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- Marquee -->
+<div class="nf-marquee">
+  <div class="nf-marquee-track">
+    <div class="nf-marquee-item">HAND-BUILT IN MINNESOTA</div>
+    <div class="nf-marquee-item">★ 24-HOUR QUOTE TURNAROUND</div>
+    <div class="nf-marquee-item">50% PAY-WHEN-YOU-APPROVE</div>
+    <div class="nf-marquee-item">⚡ 24-HOUR BURN-IN TESTED</div>
+    <div class="nf-marquee-item">1-YEAR WORKMANSHIP WARRANTY</div>
+    <div class="nf-marquee-item">◆ BUILD PHOTOS EVERY MILESTONE</div>
+    <div class="nf-marquee-item">INSURED GROUND SHIPPING</div>
+    <div class="nf-marquee-item">★ RMA HANDLED BY US, NEVER YOU</div>
+    <!-- Repeat for seamless loop -->
+    <div class="nf-marquee-item">HAND-BUILT IN MINNESOTA</div>
+    <div class="nf-marquee-item">★ 24-HOUR QUOTE TURNAROUND</div>
+    <div class="nf-marquee-item">50% PAY-WHEN-YOU-APPROVE</div>
+    <div class="nf-marquee-item">⚡ 24-HOUR BURN-IN TESTED</div>
+    <div class="nf-marquee-item">1-YEAR WORKMANSHIP WARRANTY</div>
+    <div class="nf-marquee-item">◆ BUILD PHOTOS EVERY MILESTONE</div>
+    <div class="nf-marquee-item">INSURED GROUND SHIPPING</div>
+    <div class="nf-marquee-item">★ RMA HANDLED BY US, NEVER YOU</div>
+  </div>
+</div>
+
+<!-- ========== FEATURED RIGS ========== -->
+<section class="section" id="rigs">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">The Catalogue</span>
+      <h2 class="display-2">Three rigs.<br/><span class="gradient-text">One obsession.</span></h2>
+      <p>Our starting lineup, ordered by intention rather than tier. Configure within any of them, or request something fully custom.</p>
+      <div style="margin-top:18px;display:inline-flex;gap:18px;flex-wrap:wrap;justify-content:center;font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-300,#9aa3b3)">
+        <span><span style="color:var(--plasma-500,#00d4ff)">●</span> Ships in 7–14 business days</span>
+        <span><span style="color:var(--plasma-500,#00d4ff)">●</span> Free quote within 24h</span>
+        <span><span style="color:var(--plasma-500,#00d4ff)">●</span> MN sales tax at checkout</span>
+      </div>
+    </div>
+
+    <div class="nf-rigs">
+      <!-- Featured rig -->
+      <a href="product.html" class="nf-rig-card featured fade-up hover-light tilt">
+        <div class="nf-rig-viz" data-rig="quasar"></div>
+        <div class="nf-rig-meta">
+          <div class="nf-rig-tag"><span class="pill-dot"></span>Flagship · Apex Tier</div>
+          <h3>FORGE QUASAR X9</h3>
+          <p>RTX 5090 · Ryzen 9 9950X3D · premium 360mm RGB AIO · tempered-glass dual-chamber chassis · cable-managed and burn-in tested.</p>
+          <div class="nf-rig-foot">
+            <div class="nf-rig-price">
+              <span class="from">Starting from</span>
+              $6,499
+            </div>
+            <div class="nf-rig-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Rig 2 -->
+      <a href="product.html" class="nf-rig-card fade-up d-1 hover-light tilt">
+        <div class="nf-rig-viz" data-rig="nova"></div>
+        <div class="nf-rig-meta">
+          <div class="nf-rig-tag"><span class="pill-dot"></span>Creator Tier</div>
+          <h3>FORGE NOVA C7</h3>
+          <p>Render-focused workstation · Ryzen 9 7900X3D · RTX 5070 Ti · 64GB DDR5 · dual NVMe · tuned for silent acoustic profile.</p>
+          <div class="nf-rig-foot">
+            <div class="nf-rig-price">
+              <span class="from">Starting from</span>
+              $3,999
+            </div>
+            <div class="nf-rig-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Rig 3 -->
+      <a href="product.html" class="nf-rig-card fade-up d-2 hover-light tilt">
+        <div class="nf-rig-viz" data-rig="pulsar"></div>
+        <div class="nf-rig-meta">
+          <div class="nf-rig-tag"><span class="pill-dot"></span>Esports Tier</div>
+          <h3>FORGE PULSAR E5</h3>
+          <p>Esports-tuned · Ryzen 7 7800X3D · RTX 5070 · low-latency profile shipped 240Hz+ ready out of the box.</p>
+          <div class="nf-rig-foot">
+            <div class="nf-rig-price">
+              <span class="from">Starting from</span>
+              $2,599
+            </div>
+            <div class="nf-rig-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONFIGURATOR PREVIEW ========== -->
+<section class="section">
+  <div class="container">
+    <div class="nf-config-preview fade-up hover-light">
+      <div class="nf-config-content">
+        <span class="eyebrow">The Configurator</span>
+        <h2 class="display-2">Build it, <span class="gradient-text">see it, price it.</span></h2>
+        <p>Pick every part and watch the build react instantly: estimated framerate, power draw, and thermal headroom update live, with clear pricing on every component — no guesswork before you request a quote.</p>
+        <div class="nf-config-features">
+          <div class="nf-config-feat">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Live spec sheet per part
+          </div>
+          <div class="nf-config-feat">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Live FPS estimation engine
+          </div>
+          <div class="nf-config-feat">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Wattage &amp; thermal calculator
+          </div>
+          <div class="nf-config-feat">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Power &amp; compatibility checks
+          </div>
+          <div class="nf-config-feat">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Transparent component pricing
+          </div>
+          <div class="nf-config-feat">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Six intent-based optimisers
+          </div>
+        </div>
+        <a href="forge.html" class="btn btn-primary btn-lg magnetic">
+          Open the configurator
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <div class="nf-config-visual">
+        <div id="config-pc-svg"></div>
+        <div class="nf-config-visual-ui">
+          <span class="nf-config-corner tl"></span>
+          <span class="nf-config-corner tr"></span>
+          <span class="nf-config-corner bl"></span>
+          <span class="nf-config-corner br"></span>
+          <div class="nf-config-readout tl"><strong>RIG</strong>QUASAR X9-DELTA</div>
+          <div class="nf-config-readout br"><strong>THERMAL</strong>62°C · NOMINAL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== THE FORGE PROCESS ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">How It Works</span>
+      <h2 class="display-2">From request<br/>to <span class="gradient-text">your desk.</span></h2>
+      <p>Boutique builds are an exchange of trust. Here is exactly what happens between the moment you submit your config and the day your rig arrives — no marketing fog.</p>
+    </div>
+
+    <div class="nf-process">
+      <div class="nf-process-steps">
+        <div class="nf-process-step fade-up">
+          <div class="nf-process-num">01</div>
+          <div>
+            <h4>Request a build</h4>
+            <p>Submit your config, budget, and use-case. You receive a confirmation reply from a real human within 24 hours — not an autoresponder.</p>
+            <span class="nf-process-time">Within 24 hours · By email</span>
+          </div>
+        </div>
+        <div class="nf-process-step fade-up d-1">
+          <div class="nf-process-num">02</div>
+          <div>
+            <h4>Quote &amp; deposit</h4>
+            <p>We confirm every part is in stock at our supplier and send your final quote. On your approval, a 50% deposit secures the build slot and locks in your part prices.</p>
+            <span class="nf-process-time">Days 1–2 · Quote approval</span>
+          </div>
+        </div>
+        <div class="nf-process-step fade-up d-2">
+          <div class="nf-process-num">03</div>
+          <div>
+            <h4>Hand assembly</h4>
+            <p>Your rig is hand-built on an anti-static workstation. Cables are routed for airflow first, aesthetic second. You receive your first photo update mid-build.</p>
+            <span class="nf-process-time">Days 3–7 · Build bay</span>
+          </div>
+        </div>
+        <div class="nf-process-step fade-up d-3">
+          <div class="nf-process-num">04</div>
+          <div>
+            <h4>24-hour burn-in &amp; validation</h4>
+            <p>Synthetic stress, real-game loads, memory and SSD validation for a full day. You get the certification card with peak thermals, stress score, and acoustic load.</p>
+            <span class="nf-process-time">Days 7–10 · Burn-in</span>
+          </div>
+        </div>
+        <div class="nf-process-step fade-up d-4">
+          <div class="nf-process-num">05</div>
+          <div>
+            <h4>Final QA &amp; ship</h4>
+            <p>Last cosmetic check, photo set delivered, remaining 50% balance collected, and your rig is double-boxed with foam-in-place and insured ground shipping.</p>
+            <span class="nf-process-time">Days 10–14 · Dispatch</span>
+          </div>
+        </div>
+        <div class="nf-process-step fade-up d-5">
+          <div class="nf-process-num">06</div>
+          <div>
+            <h4>Lifetime support</h4>
+            <p>1-year workmanship warranty on every join we make, full manufacturer warranty on every part. If something breaks, you talk to us — we handle the RMA, never you.</p>
+            <span class="nf-process-time">From day one · Every build</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nf-process-visual fade-up d-2">
+        <div class="nf-cert-card">
+          <h5><span class="pill-dot"></span> Build Certification · NFG-24816-X</h5>
+          <div class="nf-cert-grid">
+            <div class="nf-cert-cell">
+              <div class="l">Stress score</div>
+              <div class="v">98.4<small>/100</small></div>
+            </div>
+            <div class="nf-cert-cell">
+              <div class="l">Peak thermal</div>
+              <div class="v">62°<small>C</small></div>
+            </div>
+            <div class="nf-cert-cell">
+              <div class="l">Cinebench R24</div>
+              <div class="v">2,408</div>
+            </div>
+            <div class="nf-cert-cell">
+              <div class="l">Acoustic load</div>
+              <div class="v">31<small>dB</small></div>
+            </div>
+          </div>
+          <div class="nf-cert-graph">
+            <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%">
+              <defs>
+                <linearGradient id="cg" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#00d4ff" stop-opacity="0.6"/>
+                  <stop offset="1" stop-color="#00d4ff" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,90 L20,80 L40,82 L60,70 L80,72 L100,60 L120,62 L140,55 L160,58 L180,48 L200,50 L220,42 L240,45 L260,38 L280,40 L300,32 L320,35 L340,28 L360,30 L380,25 L400,28 L400,120 L0,120 Z" fill="url(#cg)"/>
+              <path d="M0,90 L20,80 L40,82 L60,70 L80,72 L100,60 L120,62 L140,55 L160,58 L180,48 L200,50 L220,42 L240,45 L260,38 L280,40 L300,32 L320,35 L340,28 L360,30 L380,25 L400,28" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="nf-cert-sig">
+            <div class="nf-cert-sig-img">NF</div>
+            <div class="nf-cert-sig-info">
+              <div class="name">Signed by your build lead</div>
+              <div class="role">Workmanship warranty · 1 year</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHAT'S INCLUDED + ADD-ONS ========== -->
+<style>
+  .nf-included-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1080px; margin: 0 auto; }
+  .nf-included-card { background: rgba(15,22,32,0.55); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px; padding: 32px; }
+  .nf-included-card h3 { font-family: var(--font-display,'Space Grotesk',sans-serif);
+    font-size: 22px; font-weight: 600; color: #eaf6ff; margin-bottom: 6px; }
+  .nf-included-card .sub { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-family: var(--font-mono,'JetBrains Mono',monospace); color: var(--plasma-500,#00d4ff); margin-bottom: 22px; }
+  .nf-included-list { display: grid; gap: 14px; }
+  .nf-included-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14px;
+    color: var(--text-300,#9aa3b3); line-height: 1.55; }
+  .nf-included-item .check { flex-shrink:0; width:20px; height:20px; border-radius: 50%;
+    background: rgba(0,212,255,0.12); color: var(--plasma-500,#00d4ff); display:flex; align-items:center;
+    justify-content:center; font-size: 12px; font-weight: 700; margin-top: 1px; }
+  .nf-included-item strong { color: #eaf6ff; }
+  .nf-included-item .price { color: var(--plasma-500,#00d4ff); font-family: var(--font-mono); font-size: 12px; margin-left: 6px; }
+  @media (max-width: 880px) { .nf-included-grid { grid-template-columns: 1fr; } .nf-included-card { padding: 24px; } }
+</style>
+<section class="section" id="included">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">What you get</span>
+      <h2 class="display-2">Every build, <span class="gradient-text">no surprises.</span></h2>
+      <p>The list below is included in the price of every Nebula Forge rig. Anything beyond it is optional and clearly priced.</p>
+    </div>
+
+    <div class="nf-included-grid">
+      <div class="nf-included-card fade-up">
+        <div class="sub">Included by default</div>
+        <h3>In every build.</h3>
+        <div class="nf-included-list">
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>Hand assembly</strong> on an anti-static workstation with airflow-first cable management.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>Windows 11 Pro installed</strong> with latest stable drivers, BIOS updated, fan curves tuned.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>24-hour burn-in</strong> — CPU stress, memory test, GPU and SSD validation. Full report delivered.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>Photo updates at 3 milestones</strong> — parts laid out, mid-build, finished rig.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>Double-boxed insured shipping</strong> with GPU bracket removed and packed separately.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>1-year workmanship warranty</strong> + full manufacturer warranty on every part.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>RMA handled by us, not you</strong> — if a part dies, we coordinate the replacement.</span></div>
+          <div class="nf-included-item"><span class="check">✓</span><span><strong>Welcome dossier</strong> with build specs, driver sources, and direct support contact.</span></div>
+        </div>
+      </div>
+
+      <div class="nf-included-card fade-up d-1">
+        <div class="sub">Optional add-ons</div>
+        <h3>Make it yours.</h3>
+        <div class="nf-included-list">
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Custom sleeved cable kit</strong>, color-matched<span class="price">+$129</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>RGB programming session</strong> — one custom scene, tuned by us<span class="price">+$79</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Extended workmanship warranty</strong> — 3 years instead of 1<span class="price">+$199</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Setup video call</strong> — 30 min of 1:1 onboarding<span class="price">+$59</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Cinematic unboxing film</strong> — 60-second build video<span class="price">+$149</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Recovery USB drive</strong> — bootable Windows + drivers, pre-imaged<span class="price">+$39</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Express build</strong> — priority slot, 5-day turnaround<span class="price">+$249</span></span></div>
+          <div class="nf-included-item"><span class="check">+</span><span><strong>Owner-name engraved plaque</strong><span class="price">+$89</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PERFORMANCE LAB ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Performance Laboratory</span>
+      <h2 class="display-2">No marketing FPS.<br/><span class="gradient-text">Yours, before you order.</span></h2>
+      <p>Our in-house benchmark engine has tested 18,000 unique configurations across 60+ titles. Every number here is real, repeatable, and printed on your certificate.</p>
+    </div>
+
+    <div class="nf-perf-grid">
+      <div class="nf-perf-card fade-up hover-light">
+        <div class="nf-perf-game">
+          <div class="nf-perf-game-icon">CP</div>
+          Cyberpunk 2077 · Path Tracing
+        </div>
+        <div class="nf-perf-bar-row"><span>4K · Ultra · DLSS 4 / FG</span><span class="fps">218 fps</span></div>
+        <div class="nf-perf-bar"><div class="nf-perf-bar-fill" style="--w: 92%"></div></div>
+        <div class="nf-perf-bar-row"><span>1440p · Ultra · DLSS</span><span class="fps">312 fps</span></div>
+        <div class="nf-perf-bar"><div class="nf-perf-bar-fill" style="--w: 100%"></div></div>
+        <div class="nf-perf-spec"><span>Avg · Quasar X9</span><span>1% Low: 184</span></div>
+      </div>
+
+      <div class="nf-perf-card fade-up d-1 hover-light">
+        <div class="nf-perf-game">
+          <div class="nf-perf-game-icon">VL</div>
+          Valorant · Competitive
+        </div>
+        <div class="nf-perf-bar-row"><span>1080p · Low · 480Hz</span><span class="fps">812 fps</span></div>
+        <div class="nf-perf-bar"><div class="nf-perf-bar-fill" style="--w: 100%"></div></div>
+        <div class="nf-perf-bar-row"><span>1440p · Med · 360Hz</span><span class="fps">684 fps</span></div>
+        <div class="nf-perf-bar"><div class="nf-perf-bar-fill" style="--w: 90%"></div></div>
+        <div class="nf-perf-spec"><span>Avg · Pulsar E5</span><span>1% Low: 612</span></div>
+      </div>
+
+      <div class="nf-perf-card fade-up d-2 hover-light">
+        <div class="nf-perf-game">
+          <div class="nf-perf-game-icon">BL</div>
+          Blender · Classroom render
+        </div>
+        <div class="nf-perf-bar-row"><span>OptiX · CUDA Hybrid</span><span class="fps">14.2 s</span></div>
+        <div class="nf-perf-bar"><div class="nf-perf-bar-fill" style="--w: 95%"></div></div>
+        <div class="nf-perf-bar-row"><span>Cycles · CPU baseline</span><span class="fps">88 s</span></div>
+        <div class="nf-perf-bar"><div class="nf-perf-bar-fill" style="--w: 70%"></div></div>
+        <div class="nf-perf-spec"><span>Avg · Nova C7</span><span>vs. M3 Ultra: 2.4×</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRUST STACK ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Trust Engineering</span>
+      <h2 class="display-2">The certificates<br/><span class="gradient-text">no competitor ships.</span></h2>
+      <p>Every rig leaves the cleanroom with a hand-signed dossier. We don't ask you to trust us — we hand you the proof.</p>
+    </div>
+
+    <div class="nf-trust-grid">
+      <div class="nf-trust-card fade-up hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 16.97 7.58 21.39 12 22C16.42 21.39 20 16.97 20 12V6L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>1-year workmanship warranty</h4>
+        <p>Every join, mount, and thermal application we do is covered for a full year. If our hands caused it, our hands fix it — free.</p>
+        <div class="stat">Signed personally on every build</div>
+      </div>
+
+      <div class="nf-trust-card fade-up d-1 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2V22M2 12H22M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h4>24-hour burn-in</h4>
+        <p>CPU stress, memory torture, GPU validation, SSD verification. If something is going to fail, it fails on our bench — never on your desk.</p>
+        <div class="stat">Full report delivered with rig</div>
+      </div>
+
+      <div class="nf-trust-card fade-up d-2 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>RMA handled by us, not you</h4>
+        <p>If a part dies, you email us. We file the claim with the manufacturer and ship the replacement — you never sit on hold with anyone.</p>
+        <div class="stat">For the life of the build</div>
+      </div>
+
+      <div class="nf-trust-card fade-up d-3 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6C5 2 4 3 4 4V20C4 21 5 22 6 22H18C19 22 20 21 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 13H16M8 17H16M8 9H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Build dossier in the box</h4>
+        <p>A printed welcome packet: full part list, build photos, BIOS settings we tuned, recommended driver sources, and direct support contact.</p>
+        <div class="stat">Every rig, every time</div>
+      </div>
+
+      <div class="nf-trust-card fade-up d-4 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12H6L9 4L15 20L18 12H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Photo updates every milestone</h4>
+        <p>Parts laid out, mid-build, finished rig — three sets of photos sent to your email as your machine comes together.</p>
+        <div class="stat">Three milestones per build</div>
+      </div>
+
+      <div class="nf-trust-card fade-up d-5 hover-light">
+        <div class="nf-trust-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Real human support</h4>
+        <p>Email <strong>hello@nebulaforge.com</strong> and your message goes to Max or Alex — never a help-desk script, never a chatbot.</p>
+        <div class="stat">≤ 24 hours · Mon–Fri</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== OUR STORY ========== -->
+<style>
+  .nf-story { max-width: 880px; margin: 0 auto; padding: 48px;
+    background: linear-gradient(180deg, rgba(15,22,32,0.55), rgba(8,12,20,0.55));
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 22px;
+    position: relative; overflow: hidden; }
+  .nf-story::before { content: ''; position: absolute; inset: -1px; border-radius: 22px;
+    padding: 1px; background: linear-gradient(135deg, rgba(0,212,255,0.4), transparent 40%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+  .nf-story-eyebrow { font-family: var(--font-mono,'JetBrains Mono',monospace);
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--plasma-500,#00d4ff); margin-bottom: 16px; }
+  .nf-story h2 { font-family: var(--font-display,'Space Grotesk',sans-serif);
+    font-size: 32px; font-weight: 600; color: #eaf6ff; line-height: 1.25; margin-bottom: 20px; }
+  .nf-story p { color: var(--text-200,#c5cdda); font-size: 16px; line-height: 1.75; margin-bottom: 16px; }
+  .nf-story p strong { color: #eaf6ff; font-weight: 600; }
+  .nf-story-sig { display: flex; align-items: center; gap: 14px; margin-top: 28px;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .nf-story-sig-img { width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #00d4ff, #8b5cf6); color: #05060a;
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+    font-family: var(--font-display,'Space Grotesk',sans-serif); font-size: 14px; }
+  .nf-story-sig-info .name { color: #eaf6ff; font-weight: 600; font-size: 14px; }
+  .nf-story-sig-info .role { color: var(--text-300,#9aa3b3); font-size: 12px;
+    font-family: var(--font-mono,'JetBrains Mono',monospace); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-top: 2px; }
+  @media (max-width: 720px) { .nf-story { padding: 28px; } .nf-story h2 { font-size: 24px; } }
+</style>
+<section class="section" id="our-story">
+  <div class="container">
+    <div class="nf-story fade-up">
+      <div class="nf-story-eyebrow">Our story</div>
+      <h2>We started Nebula Forge<br/>because boutique PCs got greedy.</h2>
+      <p>Two Minnesota friends. One workbench. A frustration with boutique builders charging $9,000 for a $5,000 rig — and calling the markup "craftsmanship."</p>
+      <p>We thought there was a better way. <strong>Charge fairly for the parts. Charge honestly for the labor. Ship a machine that's worth what it actually costs.</strong> Not a brand tax. Not a glossy press kit. Just the rig you wanted, built by people who care it's done right.</p>
+      <p>So we started Nebula Forge. We're new — we'll tell you that on every page — but we're <strong>two people, one workbench, and a list of standards we won't compromise on:</strong> hand assembly, 24-hour burn-in, photo updates at every milestone, real human support, and a 1-year workmanship warranty signed by the person who built your rig.</p>
+      <p>If that sounds like the boutique PC builder you wish existed — that's what we're trying to be. <strong>Build #001 ships soon.</strong> Reserve a slot and become a founding customer. We'd love to earn your trust.</p>
+      <div class="nf-story-sig">
+        <div class="nf-story-sig-img">M&amp;A</div>
+        <div class="nf-story-sig-info">
+          <div class="name">Max &amp; Alex</div>
+          <div class="role">Founders · Minnesota · est. 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MEET YOUR BUILDER ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Who we are</span>
+      <h2 class="display-2">Built by two,<br/><span class="gradient-text">one rig at a time.</span></h2>
+      <p>Nebula Forge is a small Minnesota-based shop. Two people, one workbench, and a refusal to ship anything we wouldn't run ourselves. When you order, you talk to one of us — not a ticket queue.</p>
+    </div>
+
+    <div class="nf-builders" style="grid-template-columns: repeat(2, minmax(0,1fr)); max-width: 720px; margin: 0 auto;">
+      <div class="nf-builder-card fade-up">
+        <div class="nf-builder-avatar">M</div>
+        <h4>Max</h4>
+        <div class="nf-builder-role">Founder · Lead Builder</div>
+        <p class="muted" style="font-size:13px;line-height:1.5">Handles assembly, cable management, thermals, burn-in, and final QA. The one signing the workmanship warranty on every rig.</p>
+        <div class="nf-builder-meta">
+          <span><strong>Minnesota</strong></span>
+          <span><strong>est. 2026</strong></span>
+        </div>
+      </div>
+      <div class="nf-builder-card fade-up d-1">
+        <div class="nf-builder-avatar">A</div>
+        <h4>Alex</h4>
+        <div class="nf-builder-role">Co-Founder · Operations</div>
+        <p class="muted" style="font-size:13px;line-height:1.5">Handles quoting, sourcing, customer comms, shipping, and warranty/RMA coordination. The person who replies within 24 hours of your request.</p>
+        <div class="nf-builder-meta">
+          <span><strong>Minnesota</strong></span>
+          <span><strong>est. 2026</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:var(--text-300);margin-top:32px;font-size:14px;max-width:560px;margin-left:auto;margin-right:auto">We're new. We're transparent about that. We'd rather earn your trust on build #1 than fake a number on a marketing page.</p>
+  </div>
+</section>
+
+<!-- ========== COMMUNITY ========== -->
+<section class="section" id="community">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Follow the journey</span>
+      <h2 class="display-2">First builds<br/><span class="gradient-text">shipping soon.</span></h2>
+      <p>We're documenting every build from day one — start to finish, cable management to burn-in test. Follow along to see what comes out of our shop. The gallery below fills with real customer rigs as we ship.</p>
+    </div>
+
+    <div class="nf-community">
+      <div class="nf-community-tile large fade-up" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:32px">
+        <div>
+          <div style="font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:11px;letter-spacing:0.2em;color:var(--plasma-500,#00d4ff);text-transform:uppercase;margin-bottom:12px">Build #001</div>
+          <div style="font-family:var(--font-display,'Space Grotesk',sans-serif);font-size:24px;font-weight:600;color:#eaf6ff;line-height:1.3">Your build could<br/>be the first one here.</div>
+          <div style="margin-top:14px;color:var(--text-300,#9aa3b3);font-size:13px">Founding-customer pricing on the first 10 builds.</div>
+        </div>
+      </div>
+      <div class="nf-community-tile fade-up d-1" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:18px">
+        <div>
+          <div style="font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:10px;letter-spacing:0.2em;color:var(--plasma-500,#00d4ff);text-transform:uppercase;margin-bottom:8px">Instagram</div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:600;color:#eaf6ff">@nebulaforge</div>
+          <div style="margin-top:6px;color:var(--text-300);font-size:12px">Build photos · time-lapses</div>
+        </div>
+      </div>
+      <div class="nf-community-tile fade-up d-2" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:18px">
+        <div>
+          <div style="font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:10px;letter-spacing:0.2em;color:var(--plasma-500,#00d4ff);text-transform:uppercase;margin-bottom:8px">TikTok</div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:600;color:#eaf6ff">@nebulaforge</div>
+          <div style="margin-top:6px;color:var(--text-300);font-size:12px">Behind the build</div>
+        </div>
+      </div>
+      <div class="nf-community-tile fade-up d-3" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:18px">
+        <div>
+          <div style="font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:10px;letter-spacing:0.2em;color:var(--plasma-500,#00d4ff);text-transform:uppercase;margin-bottom:8px">YouTube</div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:600;color:#eaf6ff">@nebulaforge</div>
+          <div style="margin-top:6px;color:var(--text-300);font-size:12px">Full build videos · reviews</div>
+        </div>
+      </div>
+      <div class="nf-community-tile fade-up d-4" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:18px">
+        <div>
+          <div style="font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:10px;letter-spacing:0.2em;color:var(--plasma-500,#00d4ff);text-transform:uppercase;margin-bottom:8px">Discord</div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:600;color:#eaf6ff">Owner Community</div>
+          <div style="margin-top:6px;color:var(--text-300);font-size:12px">Coming with build #1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<!-- ========== REQUEST A BUILD ========== -->
+<style>
+  .nf-request-wrap { max-width: 880px; margin: 0 auto; padding: 40px; border-radius: 24px;
+    background: linear-gradient(180deg, rgba(20,30,45,0.55), rgba(8,12,20,0.55));
+    border: 1px solid var(--surface-line, rgba(255,255,255,0.08));
+    backdrop-filter: blur(14px) saturate(140%); }
+  .nf-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+  .nf-field { display: flex; flex-direction: column; gap: 8px; }
+  .nf-field-full { grid-column: 1 / -1; }
+  .nf-field > span { font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-300, #9aa3b3); }
+  .nf-field input, .nf-field select, .nf-field textarea {
+    width: 100%; padding: 13px 14px; border-radius: 10px; font-family: inherit; font-size: 14px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
+    color: #eaf6ff; outline: none; transition: border-color 0.2s ease, background 0.2s ease; }
+  .nf-field input:focus, .nf-field select:focus, .nf-field textarea:focus {
+    border-color: var(--plasma-500, #00d4ff); background: rgba(0,212,255,0.04); }
+  .nf-field textarea { resize: vertical; min-height: 110px; }
+  .nf-field select option { background: #0e1218; color: #eaf6ff; }
+  .nf-form-footer { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px; align-items: center; }
+  .nf-form-note { margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 13px; color: var(--text-300, #9aa3b3); line-height: 1.65; }
+  .nf-form-note strong { color: #eaf6ff; }
+  @media (max-width: 720px) { .nf-form-grid { grid-template-columns: 1fr; } .nf-request-wrap { padding: 24px; } }
+</style>
+<section class="section" id="request">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Request a Build</span>
+      <h2 class="display-2">Tell us what you want.<br/><span class="gradient-text">We quote in 24 hours.</span></h2>
+      <p>We confirm parts availability and final pricing before we ever ask for payment. No surprise charges, no fake stock claims.</p>
+    </div>
+
+    <div class="nf-request-wrap fade-up">
+      <div id="nf-thanks" style="display:none;padding:14px 18px;border-radius:10px;background:rgba(0,212,255,0.10);border:1px solid rgba(0,212,255,0.35);color:#eaf6ff;margin-bottom:18px;font-size:14px">
+        <strong>Request received.</strong> A real human will reply within 24 hours to confirm part availability and send your quote.
+      </div>
+      <form class="nf-request-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="New build request — Nebula Forge"/>
+        <input type="hidden" name="_next" value="https://nebulaforge.com/?thanks=1"/>
+        <div class="nf-form-grid">
+          <label class="nf-field">
+            <span>Your name</span>
+            <input type="text" name="name" required placeholder="Alex Smith"/>
+          </label>
+          <label class="nf-field">
+            <span>Email</span>
+            <input type="email" name="email" required placeholder="you@example.com"/>
+          </label>
+          <label class="nf-field">
+            <span>Tier you're interested in</span>
+            <select name="tier" required>
+              <option value="">Choose a tier…</option>
+              <option value="Pulsar E5">Forge Pulsar E5 — from $2,599</option>
+              <option value="Nova C7">Forge Nova C7 — from $3,999</option>
+              <option value="Quasar X9">Forge Quasar X9 — from $6,499</option>
+              <option value="Custom">Custom configuration</option>
+            </select>
+          </label>
+          <label class="nf-field">
+            <span>Budget range</span>
+            <select name="budget" required>
+              <option value="">Choose a budget…</option>
+              <option>$2,000 – $3,000</option>
+              <option>$3,000 – $5,000</option>
+              <option>$5,000 – $8,000</option>
+              <option>$8,000+</option>
+            </select>
+          </label>
+          <label class="nf-field nf-field-full">
+            <span>What will you use it for?</span>
+            <textarea name="notes" rows="4" placeholder="e.g. 1440p high-refresh gaming, video editing, machine learning. Any specific parts or aesthetic preferences."></textarea>
+          </label>
+        </div>
+
+        <div class="nf-form-footer">
+          <button type="submit" class="btn btn-primary btn-lg magnetic">
+            Send my request
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <a href="REPLACE_WITH_YOUR_STRIPE_DEPOSIT_LINK" class="btn btn-glass btn-lg magnetic" data-stripe="reserve">
+            Reserve a slot · $500 deposit
+          </a>
+        </div>
+
+        <p class="nf-form-note">
+          <strong>What happens next:</strong> a real human replies within 24 hours, confirms part availability at our supplier, and sends a final quote. A 50% deposit is requested only once you approve the quote. The optional $500 reservation above is fully refundable and applied to your final balance.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  // Reveal the thank-you banner + scroll to it when Formspree returns the user with ?thanks=1
+  (function(){
+    if (/[?&]thanks=1\b/.test(location.search)) {
+      var el = document.getElementById('nf-thanks');
+      if (el) {
+        el.style.display = 'block';
+        setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'center'}); }, 200);
+      }
+    }
+  })();
+</script>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="section">
+  <div class="container">
+    <div class="nf-cta-block fade-up">
+      <span class="eyebrow">Begin your build</span>
+      <h2><span class="aurora-text">Your next machine</span><br/><span class="italic" style="font-weight:400;font-family:'Space Grotesk'">deserves a signature.</span></h2>
+      <p>Open the configurator and watch your rig come to life in three dimensions. No commitment until you're ready.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="forge.html" class="btn btn-primary btn-lg magnetic">
+          Configure your rig
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="#request" class="btn btn-glass btn-lg magnetic">Request a build</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="section" id="faq" style="padding-bottom:0">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Common questions</span>
+      <h2 class="display-2">Honest answers.</h2>
+      <p>Most of what new customers want to know before submitting a build request.</p>
+    </div>
+
+    <div class="nf-policies fade-up">
+      <details class="nf-policy">
+        <summary>You're a new shop. Why should I trust you with a $3,000 build?</summary>
+        <div>
+          Fair question. Here's the honest answer: trust isn't something a new shop can claim — we have to earn it. Three things we do differently to make that less of a leap for you:
+          <br/><br/>
+          <strong>One,</strong> you don't pay anything until we send you a confirmed quote with parts in stock. We can't take your money on a build we can't actually source.
+          <br/><br/>
+          <strong>Two,</strong> the 50% deposit splits your risk — we have skin in the game from the moment we order parts, and you've only committed half until your rig is on a truck.
+          <br/><br/>
+          <strong>Three,</strong> if anything's wrong on arrival, we handle the RMA on your behalf. You don't argue with NVIDIA or Newegg; you email us, and we make it right.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>How long does a build actually take?</summary>
+        <div>
+          Standard tiers (Pulsar, Nova, Quasar): <strong>7–14 business days</strong> from quote approval to the day your rig leaves our shop. Add 3–5 days for ground shipping depending on where you are.
+          <br/><br/>
+          Custom or halo-tier builds: <strong>3–4 weeks.</strong> Custom paint, special-order parts, and bespoke wiring take real time. We'd rather give you an honest timeline than promise 48 hours and burn out.
+          <br/><br/>
+          Express build add-on bumps you to a 5-business-day priority slot.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Where do you source parts from?</summary>
+        <div>
+          Every build uses brand-new, authentic components sourced from authorized US retailers and major brand distributors, with full manufacturer warranty intact.
+          <br/><br/>
+          We don't use gray-market parts, refurbished components without disclosure, or unauthorized resellers. Every part on your build sheet is exactly what's specified — no substitutions.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>What if a part dies after I get the rig?</summary>
+        <div>
+          You email us. We file the RMA with the manufacturer on your behalf and ship the replacement at our expense within the first 30 days (DOA window). After that, the manufacturer warranty applies — we still help you navigate it, you just won't pay shipping on the replacement.
+          <br/><br/>
+          Our 1-year workmanship warranty covers anything we did with our hands (cable joins, mounting, thermal application). If our work caused the failure, we fix it free.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Can I supply my own parts?</summary>
+        <div>
+          We don't do customer-supplied parts on first-time builds. We can't warranty workmanship around components we didn't inspect or source ourselves, and it complicates RMA handling.
+          <br/><br/>
+          We're happy to spec around any preference you have — favorite GPU model, specific case, particular RGB ecosystem. Send those preferences with your build request.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Do you ship outside the US?</summary>
+        <div>
+          Not currently. We ship within the continental United States only. International shipping is on the roadmap once we have a stable domestic operation; we'd rather do one thing well than two things badly.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>What about financing? Can I pay over time?</summary>
+        <div>
+          Yes — Stripe handles Affirm and Klarna at checkout once your quote is approved. Terms vary by your credit profile but typically 3, 6, or 12-month options are available on builds over $1,500. The financing is between you and the provider; we just provide the checkout option.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>What's the difference between Pulsar, Nova, and Quasar?</summary>
+        <div>
+          <strong>Pulsar E5 (from $2,599)</strong> — Built for high-refresh competitive gaming. Lean on CPU and GPU, low-latency tuned, smaller chassis.
+          <br/><br/>
+          <strong>Nova C7 (from $3,999)</strong> — Creator workstation. More cores, more RAM, dual NVMe for project files, tuned for thermal stability under sustained loads (rendering, ML, video editing).
+          <br/><br/>
+          <strong>Quasar X9 (from $6,499)</strong> — Flagship. Top-end CPU and GPU, premium AIO cooling, tempered-glass showcase chassis, optimized for 4K gaming at 120Hz+ and the most demanding workloads.
+          <br/><br/>
+          All three are starting points. The configurator lets you adjust within any tier.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>What about returns?</summary>
+        <div>
+          See the Refunds &amp; cancellations section in Policies below for the full text. Short version: full refund before parts are ordered; 50% deposit non-refundable once we start sourcing; 14-day return window after shipment with a 15% restocking fee. Halo and fully custom builds are final sale once parts are ordered.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>I have a question that isn't here.</summary>
+        <div>
+          Use the Request a Build form above and put your question in the notes field. Or email us directly at <strong>hello@nebulaforge.com</strong> — a real human reads everything that comes in.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== POLICIES ========== -->
+<style>
+  .nf-policies { display: grid; gap: 12px; max-width: 880px; margin: 0 auto; }
+  .nf-policy { background: rgba(15,22,32,0.55); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 0; overflow: hidden; transition: border-color 0.25s ease; }
+  .nf-policy[open] { border-color: rgba(0,212,255,0.30); }
+  .nf-policy summary { padding: 18px 22px; cursor: pointer; font-weight: 600; font-size: 15px;
+    color: #eaf6ff; list-style: none; display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-display, 'Space Grotesk', sans-serif); }
+  .nf-policy summary::-webkit-details-marker { display: none; }
+  .nf-policy summary::after { content: '+'; font-size: 22px; color: var(--plasma-500, #00d4ff); transition: transform 0.25s ease; }
+  .nf-policy[open] summary::after { content: '−'; }
+  .nf-policy > div { padding: 0 22px 20px; color: var(--text-300, #9aa3b3); font-size: 14px; line-height: 1.75; }
+  .nf-policy > div strong { color: #eaf6ff; }
+  .nf-policy > div em { color: #ffb84d; font-style: normal; font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase; }
+</style>
+<section class="section" id="policies" style="padding-top:24px">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="eyebrow">The fine print</span>
+      <h2 class="display-2">Policies.</h2>
+      <p>Plain language for the boring-but-important stuff. <strong style="color:#ffb84d">Draft placeholder text — review with a Minnesota small-business attorney before launch.</strong></p>
+    </div>
+
+    <div class="nf-policies fade-up">
+      <details class="nf-policy">
+        <summary>Warranty</summary>
+        <div>
+          <em>Draft</em><br/><br/>
+          Every Nebula Forge build carries a <strong>1-year workmanship warranty</strong> on our assembly — cable joins, mounting, thermal application, and any work performed by our hands. Manufacturer warranties on individual components (CPU, GPU, RAM, storage, PSU, case, cooling) apply per the manufacturer's terms, typically 2–10 years depending on part.
+          <br/><br/>
+          <strong>Dead on arrival (DOA):</strong> if any part fails within the first 30 days, we handle the RMA on your behalf and ship a replacement at our expense. You never coordinate with the original manufacturer.
+          <br/><br/>
+          <strong>Voids:</strong> the workmanship warranty does not cover damage from third-party modifications, accidents, liquid spills, surge events, or overclocking beyond settings we shipped.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Refunds &amp; cancellations</summary>
+        <div>
+          <em>Draft</em><br/><br/>
+          <strong>Before parts are ordered (during the quote stage):</strong> 100% refund of any deposit, no questions.
+          <br/><br/>
+          <strong>After parts are ordered but before shipment:</strong> 50% deposit is non-refundable to cover part restocking fees and labor already invested. Any amount paid beyond 50% is refunded in full.
+          <br/><br/>
+          <strong>After shipment:</strong> a 14-day return window applies, less a 15% restocking fee and original shipping. The system must be returned in original packaging and original condition.
+          <br/><br/>
+          Sale of custom-tier builds (Halo / fully bespoke configurations) is final once parts are ordered.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Shipping &amp; transit damage</summary>
+        <div>
+          <em>Draft</em><br/><br/>
+          All builds ship via insured ground freight (UPS or FedEx), double-boxed with foam-in-place padding, GPU bracket removed and packed separately. Tracking is provided. Most US destinations arrive within 5 business days of dispatch.
+          <br/><br/>
+          <strong>Transit damage:</strong> inspect your package before signing. Photograph any visible exterior damage. If your system is damaged in transit, contact us within 48 hours of delivery — we file the carrier claim, you receive a replacement or full refund at your choice.
+          <br/><br/>
+          We do not currently ship outside the continental United States.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Privacy</summary>
+        <div>
+          <em>Draft</em><br/><br/>
+          We collect only the information necessary to fulfill your order: name, email, shipping address, and payment details (handled by Stripe — we never see your card number). Build photos are stored to document your warranty.
+          <br/><br/>
+          We do not sell or share your information with third parties for marketing. We may use anonymized build data (specs, performance results) for portfolio content with all identifying information removed.
+          <br/><br/>
+          You may request deletion of your account data at any time by emailing us, subject to legal record-keeping requirements.
+        </div>
+      </details>
+
+      <details class="nf-policy">
+        <summary>Terms of service</summary>
+        <div>
+          <em>Draft</em><br/><br/>
+          By submitting a build request, you confirm you are 18 years or older, the shipping address is valid, and you have authority to make the purchase. Build slots are confirmed in the order quotes are approved and deposits received.
+          <br/><br/>
+          Quoted prices are valid for 14 days from quote date. Component prices may change beyond that window due to supplier pricing fluctuations.
+          <br/><br/>
+          Nebula Forge LLC, organized in the State of Minnesota, USA. Disputes are governed by the laws of Minnesota.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<!-- Newsletter / waitlist signup -->
+<style>
+  .nf-newsletter { background: linear-gradient(180deg, rgba(0,212,255,0.06), rgba(139,92,246,0.04));
+    border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 56px 0; }
+  .nf-newsletter-inner { max-width: 760px; margin: 0 auto; text-align: center; padding: 0 24px; }
+  .nf-newsletter h3 { font-family: var(--font-display,'Space Grotesk',sans-serif);
+    font-size: 28px; font-weight: 600; color: #eaf6ff; margin-bottom: 10px; }
+  .nf-newsletter p { color: var(--text-300,#9aa3b3); font-size: 14px; margin-bottom: 22px; }
+  .nf-newsletter-form { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; }
+  .nf-newsletter-form input { flex: 1; padding: 13px 16px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
+    color: #eaf6ff; font-family: inherit; font-size: 14px; outline: none; }
+  .nf-newsletter-form input:focus { border-color: var(--plasma-500,#00d4ff); }
+  .nf-newsletter-form button { padding: 13px 22px; border: none; border-radius: 10px;
+    background: linear-gradient(135deg, #00d4ff, #8b5cf6); color: #05060a; font-weight: 600;
+    cursor: pointer; font-family: inherit; }
+  @media (max-width: 540px) { .nf-newsletter-form { flex-direction: column; } }
+</style>
+<section class="nf-newsletter">
+  <div class="nf-newsletter-inner fade-up">
+    <h3>Be first when build #001 ships.</h3>
+    <p>Founding-customer pricing on the first 10 builds. Drop your email and we'll let you know when the queue opens.</p>
+    <form class="nf-newsletter-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_NEWSLETTER_FORM_ID" method="POST">
+      <input type="email" name="email" required placeholder="you@example.com"/>
+      <input type="hidden" name="_subject" value="Nebula Forge waitlist signup"/>
+      <button type="submit">Join the waitlist</button>
+    </form>
+  </div>
+</section>
+
+<footer class="nf-footer">
+  <div class="container">
+    <div class="nf-footer-grid">
+      <div>
+        <a href="index.html" class="nf-logo" style="margin-bottom:20px;display:inline-flex">
+          <span class="nf-logo-mark">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L2 2L12 12L12 2" stroke="white" stroke-width="1.5" stroke-linecap="square"/></svg>
+          </span>
+          <span class="nf-logo-text">NEBULA<span> FORGE</span></span>
+        </a>
+        <p class="muted" style="font-size:13px;line-height:1.6;max-width:340px;margin-top:16px">
+          Hand-built custom PCs from a small shop in Minnesota. Boutique pricing, 24-hour quotes, real human support.
+        </p>
+        <p class="muted" style="font-size:13px;line-height:1.6;max-width:340px;margin-top:12px">
+          <strong style="color:#eaf6ff">hello@nebulaforge.com</strong><br/>
+          Replies within 24 hours, Monday–Friday.
+        </p>
+        <div style="display:flex;gap:10px;margin-top:24px">
+          <a href="https://instagram.com/nebulaforge" aria-label="Instagram" class="btn btn-glass btn-sm" style="padding:8px;width:36px;height:36px;border-radius:8px;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.39C1.34 2.69.93 3.36.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.39.67-.67 1.08-1.34 1.39-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.39-2.13C21.31 1.34 20.64.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 0 0 5.84 12 6.16 6.16 0 0 0 12 18.16 6.16 6.16 0 0 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+          <a href="https://tiktok.com/@nebulaforge" aria-label="TikTok" class="btn btn-glass btn-sm" style="padding:8px;width:36px;height:36px;border-radius:8px;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3c-1.4-.9-2.4-2.4-2.7-4.1V2h-3.3v13.3c0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9 0-1.6 1.3-2.9 2.9-2.9.3 0 .6 0 .9.1V9.1c-.3 0-.6-.1-.9-.1-3.4 0-6.2 2.8-6.2 6.2 0 3.4 2.8 6.2 6.2 6.2 3.4 0 6.2-2.8 6.2-6.2V8.7c1.3.9 2.9 1.5 4.6 1.5V6.9c-.7 0-1.4-.2-1.9-.6z"/></svg></a>
+          <a href="https://youtube.com/@nebulaforge" aria-label="YouTube" class="btn btn-glass btn-sm" style="padding:8px;width:36px;height:36px;border-radius:8px;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 6.2s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C15.5 3 12 3 12 3s-3.5 0-6.7.3c-.5.1-1.3.1-2 .9-.6.6-.8 2-.8 2S2 7.8 2 9.5v1.7c0 1.7.2 3.3.2 3.3s.2 1.4.8 2c.8.8 1.8.8 2.3.9 1.6.2 6.7.3 6.7.3s3.5 0 6.7-.3c.5-.1 1.3-.1 2-.9.6-.6.8-2 .8-2s.2-1.7.2-3.3V9.5c0-1.7-.2-3.3-.2-3.3zM10 13.6V7.4l5.8 3.1L10 13.6z"/></svg></a>
+          <a href="mailto:hello@nebulaforge.com" aria-label="Email" class="btn btn-glass btn-sm" style="padding:8px;width:36px;height:36px;border-radius:8px;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h5>Rigs</h5>
+        <ul>
+          <li><a href="product.html">Quasar X9</a></li>
+          <li><a href="product.html">Nova C7</a></li>
+          <li><a href="product.html">Pulsar E5</a></li>
+          <li><a href="forge.html">Configure your own</a></li>
+          <li><a href="#request">Request a build</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>What you get</h5>
+        <ul>
+          <li><a href="#included">What's included</a></li>
+          <li><a href="#included">Optional add-ons</a></li>
+          <li><a href="#policies">Warranty (1 year)</a></li>
+          <li><a href="#policies">Shipping &amp; returns</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Support</h5>
+        <ul>
+          <li><a href="mailto:hello@nebulaforge.com">hello@nebulaforge.com</a></li>
+          <li><a href="support.html">Support center</a></li>
+          <li><a href="#policies">Refund policy</a></li>
+          <li><a href="#policies">Privacy</a></li>
+          <li><a href="#policies">Terms</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>About</h5>
+        <ul>
+          <li><a href="#our-story">Our story</a></li>
+          <li><a href="#request">Reserve a build slot</a></li>
+          <li><span style="opacity:0.5">Press kit (soon)</span></li>
+          <li><span style="opacity:0.5">Affiliate program (soon)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nf-footer-bottom">
+      <span>© <span id="nf-year">2026</span> Nebula Forge LLC · Minnesota · USA</span>
+      <span>Hand-built one rig at a time</span>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById('nf-year')&&(document.getElementById('nf-year').textContent=new Date().getFullYear());</script>
+
+<script src="assets/parts/rigs.js"></script>
+<script src="assets/app.js"></script>
+<script>
+// ===== Hero canvas: animated GPU schematic / aurora =====
+(() => {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    w = canvas.clientWidth = canvas.parentElement.clientWidth;
+    h = canvas.clientHeight = canvas.parentElement.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.scale(dpr, dpr);
+  }
+  resize();
+  window.addEventListener('resize', () => { dpr = Math.min(window.devicePixelRatio || 1, 2); resize(); });
+
+  // Particle constellation
+  const N = 80;
+  const pts = Array.from({length: N}, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    vx: (Math.random() - 0.5) * 0.25,
+    vy: (Math.random() - 0.5) * 0.25,
+    r: Math.random() * 1.6 + 0.4
+  }));
+
+  let mouseX = w / 2, mouseY = h / 2;
+  window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+
+    // Aurora gradient orbs
+    const t = Date.now() * 0.0002;
+    const gx1 = w * (0.3 + Math.sin(t) * 0.1);
+    const gy1 = h * (0.4 + Math.cos(t * 1.3) * 0.1);
+    const g1 = ctx.createRadialGradient(gx1, gy1, 0, gx1, gy1, w * 0.5);
+    g1.addColorStop(0, 'rgba(0, 212, 255, 0.18)');
+    g1.addColorStop(1, 'rgba(0, 212, 255, 0)');
+    ctx.fillStyle = g1; ctx.fillRect(0, 0, w, h);
+
+    const gx2 = w * (0.7 + Math.cos(t * 0.8) * 0.1);
+    const gy2 = h * (0.6 + Math.sin(t * 1.5) * 0.1);
+    const g2 = ctx.createRadialGradient(gx2, gy2, 0, gx2, gy2, w * 0.5);
+    g2.addColorStop(0, 'rgba(139, 92, 246, 0.18)');
+    g2.addColorStop(1, 'rgba(139, 92, 246, 0)');
+    ctx.fillStyle = g2; ctx.fillRect(0, 0, w, h);
+
+    // Update points
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+    });
+
+    // Lines
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        const dx = pts[i].x - pts[j].x;
+        const dy = pts[i].y - pts[j].y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 140) {
+          const a = (1 - d / 140) * 0.22;
+          ctx.strokeStyle = `rgba(109, 240, 255, ${a})`;
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Points
+    pts.forEach(p => {
+      const dx = p.x - mouseX, dy = p.y - mouseY;
+      const md = Math.sqrt(dx * dx + dy * dy);
+      const glow = md < 200 ? (1 - md / 200) : 0;
+      ctx.fillStyle = `rgba(255, 255, 255, ${0.4 + glow * 0.6})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r + glow * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      if (glow > 0.1) {
+        ctx.fillStyle = `rgba(0, 212, 255, ${glow * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r + 10 * glow, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ===== Config preview: photo-ready rig plate =====
+(() => {
+  const mount = document.getElementById('config-pc-svg');
+  if (!mount || typeof rigVisual !== 'function') return;
+  mount.innerHTML = rigVisual('quasar');
+})();
+
+// ===== Rig cards: photo-ready plates per tier =====
+(() => {
+  if (typeof mountRigVisuals === 'function') mountRigVisuals();
+})();
+
+// Trigger perf bars on visibility
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.nf-perf-bar-fill').forEach(el => barObs.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,805 @@
+/* ============================================================
+   NEBULA FORGE — Design System
+   Obsidian + Plasma Cyan + Aurora accents
+   ============================================================ */
+
+:root {
+  /* Core palette */
+  --obsidian-0: #000000;
+  --obsidian-1: #05060a;
+  --obsidian-2: #0a0c14;
+  --obsidian-3: #11141d;
+  --obsidian-4: #1a1e2a;
+  --obsidian-5: #262b3a;
+
+  /* Plasma cyan (primary accent) */
+  --plasma-100: #d4faff;
+  --plasma-300: #6df0ff;
+  --plasma-500: #00d4ff;
+  --plasma-600: #00a8ff;
+  --plasma-700: #0078d4;
+
+  /* Aurora (secondary accents) */
+  --aurora-violet: #8b5cf6;
+  --aurora-pink: #ec4899;
+  --aurora-magenta: #d946ef;
+  --aurora-amber: #fbbf24;
+
+  /* Surfaces */
+  --surface-glass: rgba(20, 24, 36, 0.45);
+  --surface-glass-hi: rgba(30, 36, 52, 0.65);
+  --surface-line: rgba(255, 255, 255, 0.06);
+  --surface-line-hi: rgba(0, 212, 255, 0.18);
+
+  /* Text */
+  --text-100: #ffffff;
+  --text-200: #e6ecf5;
+  --text-300: #a8b2c5;
+  --text-400: #6b7385;
+  --text-500: #4a5063;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Shadows */
+  --shadow-glow-cyan: 0 0 0 1px rgba(0, 212, 255, 0.2),
+                      0 8px 32px rgba(0, 212, 255, 0.15),
+                      0 0 80px rgba(0, 212, 255, 0.08);
+  --shadow-deep: 0 24px 80px rgba(0, 0, 0, 0.6),
+                 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* Layout */
+  --container: min(1320px, calc(100vw - 48px));
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+*::selection { background: var(--plasma-500); color: var(--obsidian-0); }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-body);
+  font-feature-settings: 'ss01', 'cv11';
+  background: var(--obsidian-1);
+  color: var(--text-200);
+  line-height: 1.5;
+  overflow-x: hidden;
+  cursor: none;
+  min-height: 100vh;
+}
+
+/* Cosmic background — animated */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 212, 255, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(139, 92, 246, 0.07), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(217, 70, 239, 0.04), transparent 60%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 64px 64px;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black, transparent 75%);
+}
+
+/* ===== Animated nebula + canvas starfield (JS-driven) ===== */
+#nf-space {
+  position: fixed; inset: 0;
+  z-index: -1; pointer-events: none;
+  overflow: hidden;
+}
+#nf-space .nf-stars {
+  position: absolute; inset: 0;
+  display: block;
+}
+.nf-neb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  /* Promote to its own GPU layer and keep it cached: we ONLY translate
+     (never scale / never animate opacity) so the expensive blurred bitmap
+     is rasterized once and merely re-composited each frame. This is what
+     keeps the whole page — and the cursor — smooth. */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.nf-neb-a {
+  width: 60vw; height: 60vw;
+  left: -10vw; top: -8vw;
+  background: radial-gradient(circle at 40% 40%, rgba(0,212,255,0.30), rgba(0,212,255,0) 62%);
+  animation: nebDriftA 46s ease-in-out infinite;
+}
+.nf-neb-b {
+  width: 55vw; height: 55vw;
+  right: -12vw; top: 28vh;
+  background: radial-gradient(circle at 55% 45%, rgba(139,92,246,0.30), rgba(139,92,246,0) 62%);
+  animation: nebDriftB 58s ease-in-out infinite;
+}
+.nf-neb-c {
+  width: 48vw; height: 48vw;
+  left: 28vw; bottom: -18vw;
+  background: radial-gradient(circle at 50% 50%, rgba(217,70,239,0.22), rgba(217,70,239,0) 62%);
+  animation: nebDriftC 64s ease-in-out infinite;
+}
+@keyframes nebDriftA {
+  0%,100% { transform: translate3d(0,0,0); }
+  50%     { transform: translate3d(6vw, 5vh, 0); }
+}
+@keyframes nebDriftB {
+  0%,100% { transform: translate3d(0,0,0); }
+  50%     { transform: translate3d(-7vw, -4vh, 0); }
+}
+@keyframes nebDriftC {
+  0%,100% { transform: translate3d(0,0,0); }
+  50%     { transform: translate3d(4vw, -6vh, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nf-neb { animation: none !important; }
+}
+
+/* Star field */
+.starfield {
+  position: fixed; inset: 0;
+  z-index: -1; pointer-events: none;
+  overflow: hidden;
+}
+.starfield::before, .starfield::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 25% 80%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(109,240,255,0.8), transparent),
+    radial-gradient(1px 1px at 70% 30%, white, transparent),
+    radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 35% 10%, white, transparent),
+    radial-gradient(1px 1px at 80% 90%, rgba(139,92,246,0.6), transparent),
+    radial-gradient(1px 1px at 15% 60%, rgba(255,255,255,0.4), transparent);
+  background-size: 100% 100%;
+  animation: drift 80s linear infinite;
+  opacity: 0.22;
+}
+.starfield::after { animation-duration: 120s; animation-direction: reverse; opacity: 0.14; }
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100vh); }
+}
+
+/* ===== Custom Cursor (refined / minimal) =====
+   Position lives on the wrapper (set by JS via translate3d, transform ONLY).
+   The visible dot/scale lives on ::before so hover-scaling never fights the
+   JS translate. Centering via negative margin keeps JS to pure x/y. */
+.nf-cursor {
+  position: fixed; top: 0; left: 0;
+  width: 7px; height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.3s ease;
+}
+.nf-cursor::before {
+  content: ''; display: block;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: #eafcff;
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.7);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+.nf-cursor.hovering::before {
+  transform: scale(1.7);
+  background: var(--plasma-500);
+}
+.nf-cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 30px; height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  will-change: transform;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+              border-color 0.25s ease, background 0.25s ease, opacity 0.3s ease;
+}
+.nf-cursor-ring.hovering {
+  width: 50px; height: 50px;
+  margin: -25px 0 0 -25px;
+  border-color: var(--plasma-500);
+  background: rgba(0, 212, 255, 0.05);
+}
+.nf-cursor.clicking::before { transform: scale(0.6); }
+.nf-cursor-ring.clicking { width: 22px; height: 22px; margin: -11px 0 0 -11px; }
+@media (max-width: 920px), (pointer: coarse) {
+  body { cursor: auto; }
+  .nf-cursor, .nf-cursor-ring { display: none; }
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-100);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--plasma-500);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: ''; width: 24px; height: 1px;
+  background: var(--plasma-500);
+  display: inline-block;
+}
+.display-1 { font-size: clamp(48px, 8vw, 120px); font-weight: 600; letter-spacing: -0.04em; }
+.display-2 { font-size: clamp(36px, 5vw, 72px); font-weight: 600; letter-spacing: -0.03em; }
+.display-3 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 600; letter-spacing: -0.02em; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--plasma-300) 0%, var(--plasma-500) 35%, var(--aurora-violet) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.aurora-text {
+  background: linear-gradient(120deg, #fff 0%, var(--plasma-300) 30%, var(--aurora-violet) 60%, var(--aurora-pink) 90%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: aurora-shift 8s ease-in-out infinite;
+}
+@keyframes aurora-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.muted { color: var(--text-300); }
+.mono { font-family: var(--font-mono); }
+
+/* ===== Container / Sections ===== */
+.container { width: var(--container); margin-inline: auto; }
+.section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
+.section-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--surface-line-hi) 50%, transparent);
+}
+
+/* ===== Navigation ===== */
+.nf-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 0;
+  transition: all 0.4s var(--ease-out-quart);
+  backdrop-filter: blur(0px);
+}
+.nf-nav.scrolled {
+  padding: 12px 0;
+  background: rgba(5, 6, 10, 0.7);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--surface-line);
+}
+.nf-nav-inner {
+  width: var(--container);
+  margin-inline: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px;
+}
+.nf-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-100);
+  font-family: var(--font-display); font-weight: 600;
+  letter-spacing: 0.02em; font-size: 18px;
+}
+.nf-logo-mark {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--plasma-500), var(--aurora-violet));
+  border-radius: 8px;
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+.nf-logo-mark::after {
+  content: ''; position: absolute; inset: 1px;
+  background: var(--obsidian-1);
+  border-radius: 7px;
+  z-index: 1;
+}
+.nf-logo-mark svg { position: relative; z-index: 2; }
+.nf-logo-text { font-size: 17px; }
+.nf-logo-text span { color: var(--plasma-500); font-weight: 500; }
+
+.nf-nav-links {
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--surface-line);
+  border-radius: 99px;
+  padding: 6px;
+}
+.nf-nav-link {
+  text-decoration: none;
+  color: var(--text-300);
+  font-size: 14px; font-weight: 500;
+  padding: 9px 18px;
+  border-radius: 99px;
+  transition: all 0.3s var(--ease-out-quart);
+  position: relative;
+}
+.nf-nav-link:hover { color: var(--text-100); background: rgba(255,255,255,0.05); }
+.nf-nav-link.active { color: var(--obsidian-1); background: var(--plasma-500); }
+.nf-nav-cta { display: flex; gap: 12px; align-items: center; }
+
+@media (max-width: 920px) {
+  .nf-nav-links { display: none; }
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 26px;
+  border-radius: 99px;
+  font-family: var(--font-display);
+  font-weight: 500; font-size: 14px;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: none;
+  transition: all 0.4s var(--ease-out-quart);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle 80px at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.15), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.btn:hover::before { opacity: 1; }
+.btn svg { transition: transform 0.4s var(--ease-out-quart); }
+.btn:hover svg { transform: translateX(4px); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--plasma-500), var(--plasma-700));
+  color: var(--obsidian-0);
+  box-shadow: 0 8px 24px rgba(0, 168, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 212, 255, 0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.03);
+  color: var(--text-100);
+  border-color: var(--surface-line);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: var(--plasma-500);
+  color: var(--plasma-300);
+}
+
+.btn-glass {
+  background: var(--surface-glass);
+  border-color: var(--surface-line);
+  color: var(--text-100);
+  backdrop-filter: blur(20px);
+}
+.btn-glass:hover {
+  background: var(--surface-glass-hi);
+  border-color: var(--plasma-500);
+}
+
+.btn-sm { padding: 10px 18px; font-size: 13px; }
+.btn-lg { padding: 18px 32px; font-size: 15px; }
+
+/* ===== Glass Cards ===== */
+.glass {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-line);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px) saturate(160%);
+  position: relative;
+  overflow: hidden;
+}
+.glass::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.glass-hover {
+  transition: all 0.5s var(--ease-out-quart);
+}
+.glass-hover:hover {
+  background: var(--surface-glass-hi);
+  border-color: var(--surface-line-hi);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 212, 255, 0.08);
+}
+
+/* ===== Badge / Pill ===== */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  color: var(--plasma-300);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--plasma-500);
+  box-shadow: 0 0 8px var(--plasma-500);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* ===== Animations ===== */
+.fade-up { opacity: 0; transform: translateY(40px); transition: all 1s var(--ease-out-quart); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up.d-1 { transition-delay: 0.08s; }
+.fade-up.d-2 { transition-delay: 0.16s; }
+.fade-up.d-3 { transition-delay: 0.24s; }
+.fade-up.d-4 { transition-delay: 0.32s; }
+.fade-up.d-5 { transition-delay: 0.4s; }
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.2); }
+  50% { box-shadow: 0 0 80px rgba(0, 212, 255, 0.4); }
+}
+
+/* ===== Footer ===== */
+.nf-footer {
+  border-top: 1px solid var(--surface-line);
+  padding: 80px 0 32px;
+  position: relative;
+}
+.nf-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 48px;
+  margin-bottom: 64px;
+}
+.nf-footer h5 {
+  font-size: 12px; font-family: var(--font-mono);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-400);
+  margin-bottom: 20px;
+}
+.nf-footer ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.nf-footer a {
+  color: var(--text-300); text-decoration: none; font-size: 14px;
+  transition: color 0.2s;
+}
+.nf-footer a:hover { color: var(--plasma-300); }
+.nf-footer-bottom {
+  display: flex; justify-content: space-between;
+  padding-top: 32px; border-top: 1px solid var(--surface-line);
+  color: var(--text-400); font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+@media (max-width: 920px) {
+  .nf-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* ===== Utility ===== */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--text-400);
+  text-transform: uppercase;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px;
+}
+.scroll-hint::after {
+  content: ''; width: 1px; height: 40px;
+  background: linear-gradient(180deg, var(--plasma-500), transparent);
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Reactive hover light */
+.hover-light {
+  position: relative;
+  isolation: isolate;
+}
+.hover-light::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle 240px at var(--mx, 50%) var(--my, 50%), rgba(0, 212, 255, 0.12), transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none; border-radius: inherit;
+  z-index: 0;
+}
+.hover-light:hover::after { opacity: 1; }
+.hover-light > * { position: relative; z-index: 1; }
+
+/* Loading screen */
+.nf-loader {
+  position: fixed; inset: 0;
+  background: var(--obsidian-0);
+  z-index: 10000;
+  display: grid; place-items: center;
+  transition: opacity 0.8s var(--ease-out-quart), visibility 0.8s;
+}
+.nf-loader.hidden { opacity: 0; visibility: hidden; }
+.nf-loader-inner { text-align: center; }
+.nf-loader-mark {
+  width: 80px; height: 80px;
+  border: 2px solid rgba(0, 212, 255, 0.15);
+  border-top-color: var(--plasma-500);
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.nf-loader-text {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.4em;
+  color: var(--plasma-500);
+  text-transform: uppercase;
+}
+
+/* ===== Interactive / techy enhancements ===== */
+/* Scroll progress bar */
+.nf-scrollbar {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--plasma-500), var(--aurora-500, #8b5cf6));
+  box-shadow: 0 0 10px rgba(0,212,255,0.7);
+  z-index: 10000; pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+/* Cursor-following spotlight glow injected into cards */
+.nf-ix { position: relative; transform-style: preserve-3d; will-change: transform; }
+.nf-ix-glow {
+  position: absolute; inset: 0; border-radius: inherit;
+  pointer-events: none; z-index: 0;
+  opacity: 0; transition: opacity 0.35s ease;
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(0,212,255,0.16), rgba(139,92,246,0.07) 40%, transparent 65%);
+  mix-blend-mode: screen;
+}
+.nf-ix:hover .nf-ix-glow { opacity: 1; }
+/* Crisp light edge that tracks the cursor on the card border */
+.nf-ix-border {
+  position: absolute; inset: 0; border-radius: inherit;
+  pointer-events: none; z-index: 0; padding: 1px;
+  opacity: 0; transition: opacity 0.35s ease;
+  background: radial-gradient(160px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(120,230,255,0.55), transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.nf-ix:hover .nf-ix-border { opacity: 1; }
+.nf-ix > * { position: relative; z-index: 1; }
+
+/* Mouse-reactive 3D float wrapper for the PC renders */
+.nf-tilt3d { transform-style: preserve-3d; will-change: transform; transition: transform 0.25s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-ix-glow, .nf-ix-border { display: none; }
+  .nf-tilt3d { transform: none !important; }
+}
+@media (max-width: 920px), (pointer: coarse) {
+  .nf-scrollbar { display: none; }
+}
+
+/* ===== Founding-customer announcement bar ===== */
+.nf-fc-bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 32px;
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 0 20px;
+  background: linear-gradient(90deg, rgba(0,212,255,0.18), rgba(139,92,246,0.18));
+  border-bottom: 1px solid rgba(0,212,255,0.18);
+  backdrop-filter: blur(14px) saturate(160%);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #eaf6ff;
+}
+.nf-fc-bar .pulse {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: #00d4ff; box-shadow: 0 0 8px #00d4ff;
+  animation: fcPulse 1.6s ease-in-out infinite;
+}
+@keyframes fcPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+.nf-fc-bar a { color: var(--plasma-500, #00d4ff); text-decoration: none; font-weight: 700;
+  padding: 4px 10px; border: 1px solid rgba(0,212,255,0.45); border-radius: 999px;
+  transition: all 0.2s ease; margin-left: 4px; }
+.nf-fc-bar a:hover { background: rgba(0,212,255,0.15); border-color: var(--plasma-500); }
+.nf-fc-bar .sep { opacity: 0.45; }
+.nf-fc-bar .hide-sm { display: inline; }
+@media (max-width: 720px) {
+  .nf-fc-bar { font-size: 10px; letter-spacing: 0.08em; padding: 0 12px; gap: 8px; }
+  .nf-fc-bar .hide-sm { display: none; }
+}
+/* Push nav and hero down to make room for the bar */
+.nf-nav { top: 32px; }
+
+/* ===== Spinning fan blades (used by renderPC) ===== */
+@keyframes nfFanSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* transform-box: fill-box anchors rotation to the element's own bounding box
+   instead of the SVG viewport origin — without this, fans orbit around (0,0)
+   in Safari and Firefox instead of spinning in place. */
+.gpu-fan-blade,
+.top-fan-blade,
+.bottom-fan-blade {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+.gpu-fan-blade    { animation: nfFanSpin 2.4s linear infinite; }
+.top-fan-blade    { animation: nfFanSpin 1.8s linear infinite; }
+.bottom-fan-blade { animation: nfFanSpin 3.0s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .gpu-fan-blade, .top-fan-blade, .bottom-fan-blade { animation: none !important; }
+}
+
+/* =====================================================================
+   Animation polish layer (cheap, GPU-only, premium feel)
+   - replaces lazy "transition: all" with specific property lists so the
+     browser only composites transform + opacity (no layout / paint work)
+   - snappier fade-up, satisfying button press, smoother card hovers
+   ===================================================================== */
+.fade-up {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition: opacity 0.65s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.fade-up.d-1 { transition-delay: 0.06s; }
+.fade-up.d-2 { transition-delay: 0.12s; }
+.fade-up.d-3 { transition-delay: 0.18s; }
+.fade-up.d-4 { transition-delay: 0.24s; }
+.fade-up.d-5 { transition-delay: 0.30s; }
+
+/* Buttons: tactile press */
+.btn {
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease,
+              transform 0.25s var(--ease-out-quart), box-shadow 0.25s var(--ease-out-quart);
+}
+.btn:active { transform: translateY(1px) scale(0.985); }
+
+/* Cards: smooth hover lift on transform only */
+.nf-rig-card,
+.nf-trust-card,
+.nf-builder-card,
+.nf-community-tile,
+.nf-config-feat,
+.nf-pricing-card,
+.glass-hover {
+  transition: transform 0.45s var(--ease-out-expo),
+              border-color 0.25s ease,
+              box-shadow 0.45s var(--ease-out-expo);
+  will-change: transform;
+}
+
+/* Nav scroll state: cheap, transform-free, smooth */
+.nf-nav { transition: padding 0.35s var(--ease-out-quart), background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease; }
+
+/* Smooth iOS-style scroll for the page (already enabled), plus snap-aligned
+   internal anchors get a tiny scroll-margin so they're not flush with the nav. */
+html { scroll-padding-top: 110px; }
+section[id], a[id], div[id] { scroll-margin-top: 100px; }
+
+/* Make every CSS keyframe animation respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   PERFORMANCE PASS — Nebula Forge (site-wide)
+   The M-series compositor was thrashing on animated big-radius
+   blur + backdrop-filter recompute on scroll. These overrides
+   remove the expensive effects while preserving the look.
+   ============================================================ */
+:root{
+  /* opaque-enough glass so panels read clearly without backdrop blur */
+  --surface-glass: rgba(16, 20, 32, 0.86);
+  --surface-glass-hi: rgba(26, 32, 48, 0.92);
+}
+/* Kill backdrop-filter everywhere — biggest scroll/interaction cost */
+*, *::before, *::after{
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+/* Nav becomes a solid bar instead of live-blurred glass */
+.nf-nav.scrolled{ background: rgba(5,6,10,0.94) !important; }
+.nf-nav{ transition: padding .35s var(--ease-out-quart), background .35s ease, border-color .35s ease !important; }
+/* Freeze the giant blurred nebula blobs: the radial-gradient falloff
+   keeps them soft, so dropping the 60px blur + drift kills the constant
+   re-compositing that was stalling the whole page. */
+.nf-neb{ animation: none !important; filter: none !important; will-change: auto !important; }
+.starfield::before, .starfield::after{ animation: none !important; }
+
+/* ============================================================
+   Rig visual — photo-ready premium plate
+   Replaces the old cartoon SVG renders site-wide. Shows a real
+   product photo (.rig-photo) when one is supplied via rigs.js,
+   otherwise a clean branded plate built from the rig's accent.
+   ============================================================ */
+.rig-photo{width:100%;height:100%;max-width:480px;object-fit:contain;display:block;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.55))}
+.rig-plate{position:relative;width:100%;height:100%;min-height:260px;border-radius:18px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;gap:14px;padding:36px 34px;
+  background:
+    radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--ac,#00d4ff) 18%, transparent), transparent 62%),
+    linear-gradient(158deg, rgba(22,26,40,.85), rgba(7,9,15,.94));
+  border:1px solid color-mix(in srgb, var(--ac,#00d4ff) 24%, var(--surface-line));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.rig-plate-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(58% 50% at 50% 40%, color-mix(in srgb, var(--ac,#00d4ff) 24%, transparent), transparent 72%);
+  opacity:.75}
+.rig-plate-body{position:relative;display:flex;flex-direction:column;gap:13px;align-items:flex-start}
+.rig-plate-ey{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ac,#00d4ff)}
+.rig-plate-wm{font-family:var(--font-display);font-weight:700;line-height:.9;letter-spacing:-.02em;
+  font-size:clamp(40px,6.4vw,76px);color:transparent;
+  -webkit-text-stroke:1.4px color-mix(in srgb, var(--ac,#00d4ff) 60%, #ffffff 18%);
+  text-shadow:0 0 44px color-mix(in srgb, var(--ac,#00d4ff) 32%, transparent)}
+.rig-plate-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.rig-plate-chips span{font-family:var(--font-mono);font-size:12px;color:var(--text-200);
+  padding:7px 13px;border-radius:99px;background:rgba(8,10,16,.5);border:1px solid var(--surface-line)}

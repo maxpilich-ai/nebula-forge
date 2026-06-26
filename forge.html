@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The Forge — Build Your Nebula Forge PC</title>
+<meta name="description" content="Configure your hand-built custom PC. Premium components, transparent pricing, built by hand in Minnesota."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NEBULA FORGE — "THE FORGE" configurator
+   Design system: deep-space glass + holographic aurora.
+   Performance rules: animate ONLY transform/opacity. No layout
+   thrash, no per-frame blur, reduced-motion aware.
+   ============================================================ */
+:root{
+  --bg:#04060d; --bg-2:#070b16; --panel:rgba(13,19,34,.92);
+  --panel-solid:#0c1220; --line:rgba(140,170,255,.12); --line-2:rgba(140,170,255,.22);
+  --txt:#eaf1ff; --txt-dim:#9fb0d4; --txt-mut:#647399;
+  --cyan:#23e0ff; --violet:#8a5bff; --magenta:#ff4dc4; --gold:#ffc24d; --green:#3ff0a8;
+  --accent:var(--cyan);
+  --radius:18px; --radius-sm:12px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --font:'Inter',system-ui,sans-serif; --display:'Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:rgba(35,224,255,.3);color:#fff}
+
+/* ---------- Ambient background (cheap, compositor-only) ---------- */
+.bg-wrap{position:fixed;inset:0;z-index:-2;background:
+   radial-gradient(1200px 800px at 75% -5%, rgba(35,224,255,.10), transparent 60%),
+   radial-gradient(1000px 700px at 10% 100%, rgba(138,91,255,.12), transparent 60%),
+   linear-gradient(180deg,var(--bg),var(--bg-2))}
+.bg-stars{position:fixed;inset:0;z-index:-2;opacity:.5;background-image:
+    radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 60% 70%, #cfe6ff, transparent),
+    radial-gradient(1px 1px at 80% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 35% 85%, #bcd4ff, transparent),
+    radial-gradient(1px 1px at 90% 60%, #fff, transparent),
+    radial-gradient(2px 2px at 50% 50%, rgba(255,255,255,.7), transparent);
+  background-size:480px 480px,520px 520px,420px 420px,560px 560px,500px 500px,600px 600px}
+/* Static soft glows — NO blur filter, NO animation (radial edge is already soft). Cheap. */
+.aurora{position:fixed;z-index:-1;border-radius:50%;opacity:.4;pointer-events:none}
+.aurora.a1{width:42vw;height:42vw;top:-12vw;right:-8vw;background:radial-gradient(circle,rgba(35,224,255,.30),transparent 62%)}
+.aurora.a2{width:40vw;height:40vw;bottom:-14vw;left:-10vw;background:radial-gradient(circle,rgba(138,91,255,.28),transparent 62%)}
+.aurora.a3{width:28vw;height:28vw;top:42%;left:56%;background:radial-gradient(circle,rgba(255,77,196,.16),transparent 62%)}
+/* ---------- Top bar ---------- */
+.nf-top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:18px;
+  padding:14px clamp(16px,3vw,38px);
+  background:linear-gradient(180deg,rgba(4,6,13,.97),rgba(6,9,18,.92));border-bottom:1px solid var(--line)}
+.nf-brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;letter-spacing:.5px;font-size:1.05rem}
+.nf-brand .mark{width:30px;height:30px;border-radius:9px;position:relative;background:
+  radial-gradient(circle at 30% 30%,var(--cyan),transparent 60%),radial-gradient(circle at 70% 70%,var(--violet),transparent 60%);
+  box-shadow:0 0 18px rgba(35,224,255,.5);flex:none}
+.nf-brand .mark::after{content:"";position:absolute;inset:7px;border-radius:50%;border:1.5px solid rgba(255,255,255,.8)}
+.nf-brand b{color:#fff}.nf-brand span{color:var(--txt-mut);font-weight:500}
+.nf-top .spacer{flex:1}
+.nf-back{font-size:.82rem;color:var(--txt-dim);display:flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--line);border-radius:99px;transition:.25s var(--ease)}
+.nf-back:hover{border-color:var(--line-2);color:#fff;transform:translateY(-1px)}
+.price-pill{display:flex;align-items:baseline;gap:8px;padding:9px 18px;border-radius:99px;
+  background:linear-gradient(120deg,rgba(35,224,255,.16),rgba(138,91,255,.16));border:1px solid var(--line-2);
+  box-shadow:inset 0 0 20px rgba(35,224,255,.08)}
+.price-pill .lbl{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim)}
+.price-pill .val{font-family:var(--mono);font-weight:700;font-size:1.12rem;color:#fff}
+
+/* ---------- Layout ---------- */
+.forge{display:grid;grid-template-columns:264px minmax(0,1fr) 340px;gap:20px;
+  max-width:1640px;margin:0 auto;padding:22px clamp(16px,3vw,38px) 60px;align-items:start}
+.col-rail{position:sticky;top:84px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.panel-pad{padding:18px}
+.eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-mut);font-weight:600}
+
+/* ---------- Step rail ---------- */
+.steps{display:flex;flex-direction:column;gap:4px;margin-top:14px}
+.step{display:flex;align-items:center;gap:13px;padding:11px 12px;border-radius:var(--radius-sm);
+  position:relative;transition:background .25s var(--ease),transform .25s var(--ease);text-align:left;width:100%}
+.step:hover{background:rgba(140,170,255,.06)}
+.step.active{background:linear-gradient(100deg,rgba(35,224,255,.16),rgba(138,91,255,.10));box-shadow:inset 0 0 0 1px var(--line-2)}
+.step .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;
+  background:rgba(10,16,30,.7);border:1px solid var(--line);color:var(--txt-dim);transition:.25s}
+.step.active .ico{color:var(--cyan);border-color:rgba(35,224,255,.5);box-shadow:0 0 16px rgba(35,224,255,.25)}
+.step.done .ico{color:var(--green);border-color:rgba(63,240,168,.4)}
+.step .ico svg{width:18px;height:18px}
+.step .meta{flex:1;min-width:0}
+.step .meta .t{font-size:.82rem;font-weight:600;color:var(--txt)}
+.step .meta .s{font-size:.72rem;color:var(--txt-mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step.active .meta .s{color:var(--cyan)}
+.step .chk{width:16px;height:16px;flex:none;opacity:0;color:var(--green);transition:opacity .2s}
+.step.done .chk{opacity:1}
+.rail-presets{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}
+.preset{font-size:.74rem;font-weight:600;padding:9px 8px;border-radius:10px;border:1px solid var(--line);
+  color:var(--txt-dim);transition:.2s var(--ease);text-align:center}
+.preset:hover{border-color:var(--line-2);color:#fff;background:rgba(140,170,255,.07);transform:translateY(-1px)}
+/* ---------- Center stage ---------- */
+.stage-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.stage-head h1{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.05;letter-spacing:-.01em}
+.stage-head .help{font-size:.82rem;color:var(--txt-dim);max-width:52ch;margin-top:6px}
+.view-toggle{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:99px;background:rgba(10,16,30,.6);flex:none}
+.view-toggle button{font-size:.74rem;font-weight:600;padding:7px 14px;border-radius:99px;color:var(--txt-mut);transition:.2s}
+.view-toggle button.on{background:linear-gradient(120deg,rgba(35,224,255,.22),rgba(138,91,255,.18));color:#fff}
+
+.stage{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(120% 120% at 50% 0%,rgba(20,28,50,.65),rgba(6,9,17,.9));min-height:340px}
+.stage-glow{position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,rgba(35,224,255,.16),transparent 70%);
+  opacity:.8;transition:opacity .5s;pointer-events:none}
+.stage-floor{position:absolute;left:0;right:0;bottom:0;height:42%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.5));pointer-events:none}
+.stage-view{position:relative;display:grid;place-items:center;padding:26px;min-height:340px}
+.stage-media{position:relative;width:100%;max-width:640px}
+.stage-media img.part-photo{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.55)}
+/* ---- Premium spec sheet (real component data, zero fake imagery) ---- */
+.spec-sheet{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(24px,3.5vw,46px);width:100%;align-items:center;animation:specIn .3s var(--ease)}
+@keyframes specIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.spec-sheet.has-photo{grid-template-columns:minmax(0,220px) minmax(0,.85fr) minmax(0,1fr)}
+.spec-photo{border-radius:16px;overflow:hidden;background:rgba(8,12,22,.5);border:1px solid var(--line)}
+.spec-photo img{width:100%;height:auto;display:block}
+.spec-head .kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
+.spec-head .spec-name{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.15rem);line-height:1.08;margin-top:12px;color:#fff;letter-spacing:-.01em}
+.spec-head .spec-tag{font-size:.95rem;color:var(--txt-dim);margin-top:10px;line-height:1.45}
+.spec-price{display:flex;align-items:baseline;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.spec-price .now{font-family:var(--mono);font-weight:700;font-size:1.8rem;color:#fff}
+.spec-price .was{font-size:1rem;color:var(--txt-mut);text-decoration:line-through}
+.spec-price .save{font-family:var(--display);font-weight:700;font-size:.7rem;letter-spacing:.04em;padding:4px 10px;border-radius:99px;color:#04060d;background:linear-gradient(120deg,var(--gold),#ff8a3d)}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.spec-cell{padding:14px 16px;border-radius:13px;background:rgba(8,12,22,.55);border:1px solid var(--line)}
+.spec-cell .sk{display:block;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--txt-mut)}
+.spec-cell .sv{display:block;font-family:var(--mono);font-weight:600;font-size:1.02rem;color:#fff;margin-top:6px;word-break:break-word}
+.stage-tag{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);
+  padding:7px 13px;border-radius:99px;background:rgba(8,12,22,.7);border:1px solid var(--line-2)}
+.stage-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.deal-badge{position:absolute;top:16px;right:16px;font-family:var(--display);font-weight:700;font-size:.74rem;
+  padding:8px 14px;border-radius:99px;color:#04060d;background:linear-gradient(120deg,var(--gold),#ff8a3d);
+  box-shadow:0 8px 24px rgba(255,138,61,.4);display:none}
+.deal-badge.show{display:block}
+.photo-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:.68rem;color:var(--txt-mut);
+  background:rgba(8,12,22,.7);border:1px solid var(--line);padding:5px 12px;border-radius:99px;white-space:nowrap}
+
+/* ---------- Choice cards ---------- */
+.choices-head{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 12px}
+.choices-head .lbl{font-family:var(--display);font-weight:600;font-size:.95rem}
+.choices-head .cnt{font-size:.74rem;color:var(--txt-mut)}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:12px}
+.choice{position:relative;text-align:left;padding:14px;border-radius:14px;border:1px solid var(--line);
+  background:var(--panel);transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);overflow:hidden}
+.choice:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.choice.sel{border-color:rgba(35,224,255,.6);box-shadow:0 0 0 1px rgba(35,224,255,.4),0 16px 34px rgba(0,0,0,.45)}
+.choice.sel::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(35,224,255,.1),rgba(138,91,255,.08));pointer-events:none}
+.choice::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--violet));opacity:0;transition:opacity .25s var(--ease)}
+.choice.sel::after{opacity:1}
+.choice .c-name{font-weight:600;font-size:.9rem;line-height:1.3;position:relative;color:#fff}
+.choice .c-tag{font-size:.74rem;color:var(--txt-mut);margin-top:5px;position:relative;line-height:1.4}
+.choice .c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;position:relative}
+.choice .c-price{font-family:var(--mono);font-weight:700;font-size:.96rem;color:#fff}
+.choice .c-pick{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-mut)}
+.choice.sel .c-pick{color:var(--cyan)}
+.choice .c-deal{position:absolute;top:8px;right:8px;font-size:.6rem;font-weight:700;letter-spacing:.05em;
+  padding:3px 8px;border-radius:99px;color:#04060d;background:var(--gold);z-index:2}
+/* ---------- Right: Live System ---------- */
+.live h3{font-family:var(--display);font-weight:700;font-size:1rem;display:flex;align-items:center;gap:8px}
+.live h3 .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.meter{margin-top:14px}
+.meter .m-top{display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:6px}
+.meter .m-top .k{color:var(--txt-dim)}
+.meter .m-top .v{font-family:var(--mono);font-weight:600;color:#fff}
+.m-track{height:8px;border-radius:99px;background:rgba(10,16,30,.9);overflow:hidden;border:1px solid var(--line)}
+.m-fill{height:100%;border-radius:99px;transform-origin:left;transform:scaleX(0);transition:transform .7s var(--ease)}
+.m-fill.fps{background:linear-gradient(90deg,var(--cyan),var(--violet))}
+.m-fill.pwr{background:linear-gradient(90deg,var(--green),var(--gold))}
+.m-fill.thr{background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+.compat{display:flex;align-items:center;gap:9px;margin-top:16px;padding:11px 13px;border-radius:12px;
+  background:rgba(63,240,168,.08);border:1px solid rgba(63,240,168,.25);font-size:.8rem;color:var(--green)}
+.compat.warn{background:rgba(255,194,77,.08);border-color:rgba(255,194,77,.3);color:var(--gold)}
+.compat svg{width:16px;height:16px;flex:none}
+
+.bom{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.bom-row{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;padding:5px 0;color:var(--txt-dim)}
+.bom-row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bom-row .pp{font-family:var(--mono);color:var(--txt);flex:none}
+.totals{margin-top:12px;padding-top:13px;border-top:1px solid var(--line);font-size:.82rem}
+.totals .tr{display:flex;justify-content:space-between;padding:4px 0;color:var(--txt-dim)}
+.totals .tr .v{font-family:var(--mono);color:var(--txt)}
+.totals .grand{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:11px;border-top:1px solid var(--line)}
+.totals .grand .l{font-family:var(--display);font-weight:700;font-size:.95rem}
+.totals .grand .v{font-family:var(--mono);font-weight:700;font-size:1.5rem;color:#fff}
+.cta{display:block;width:100%;margin-top:16px;padding:15px;border-radius:14px;text-align:center;
+  font-family:var(--display);font-weight:700;font-size:.95rem;color:#04060d;position:relative;overflow:hidden;
+  background:linear-gradient(120deg,var(--cyan),var(--violet));box-shadow:0 12px 30px rgba(35,224,255,.3);transition:transform .25s var(--ease)}
+.cta:hover{transform:translateY(-2px)}
+.cta .sub{display:block;font-family:var(--font);font-weight:500;font-size:.7rem;opacity:.7;margin-top:2px}
+.pricing-note{margin-top:12px;font-size:.7rem;line-height:1.5;color:var(--txt-mut)}
+.pricing-note b{color:var(--txt-dim)}
+
+/* ---------- Reveal-on-load ---------- */
+.rise{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
+.rise.d1{animation-delay:.06s}.rise.d2{animation-delay:.12s}.rise.d3{animation-delay:.18s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1180px){
+  .forge{grid-template-columns:minmax(0,1fr) 320px}
+  .col-left{grid-column:1 / -1;position:static}
+  .steps{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .step{flex:1 1 130px}.step .meta .s{display:none}
+}
+@media(max-width:900px){
+  .forge{grid-template-columns:1fr}
+  .col-rail{position:static}
+  .stage-head{flex-direction:column;align-items:flex-start}
+  .spec-sheet,.spec-sheet.has-photo{grid-template-columns:1fr;gap:22px}
+}
+@media(max-width:560px){
+  .nf-top{flex-wrap:wrap;gap:10px 14px}
+  .nf-top .nf-back{order:3}
+  .nf-brand{font-size:.95rem}
+  .choices{grid-template-columns:1fr}
+  .spec-grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .aurora{animation:none}.rise{animation:none;opacity:1;transform:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="bg-wrap"></div>
+<div class="bg-stars"></div>
+<div class="aurora a1"></div>
+<div class="aurora a2"></div>
+<div class="aurora a3"></div>
+<!-- ===== Top bar ===== -->
+<header class="nf-top">
+  <a class="nf-brand" href="index.html">
+    <span class="mark"></span><b>NEBULA FORGE</b><span>· The Forge</span>
+  </a>
+  <div class="spacer"></div>
+  <a class="nf-back" href="index.html">← Back to site</a>
+  <div class="price-pill"><span class="lbl">Your build</span><span class="val" id="topPrice">$0</span></div>
+</header>
+
+<!-- ===== Configurator ===== -->
+<main class="forge">
+  <!-- LEFT: steps + presets -->
+  <aside class="col-rail col-left rise">
+    <div class="panel panel-pad">
+      <span class="eyebrow">Build steps</span>
+      <div class="steps" id="steps"></div>
+      <div class="rail-presets">
+        <span class="eyebrow">Quick-start presets</span>
+        <div class="preset-grid" id="presets"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER: stage + choices -->
+  <section class="col-center rise d1">
+    <div class="stage-head">
+      <div>
+        <span class="eyebrow" id="stepCount">Step 1 / 7</span>
+        <h1 id="stageTitle">Choose your processor</h1>
+        <p class="help" id="stageHelp"></p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-glow"></div>
+      <div class="stage-view">
+        <span class="stage-tag" id="stageTag"><span class="dot"></span><span>CPU</span></span>
+        <span class="deal-badge" id="dealBadge">DEAL</span>
+        <div class="stage-media" id="stageMedia"></div>
+      </div>
+      <div class="stage-floor"></div>
+    </div>
+
+    <div class="choices-head">
+      <span class="lbl" id="choicesLbl">Pick your processor</span>
+      <span class="cnt" id="choicesCnt"></span>
+    </div>
+    <div class="choices" id="choices"></div>
+  </section>
+
+  <!-- RIGHT: live system -->
+  <aside class="col-rail col-right rise d2">
+    <div class="panel panel-pad live">
+      <h3><span class="pulse"></span>Live system</h3>
+      <div class="meter"><div class="m-top"><span class="k">Gaming performance</span><span class="v" id="fpsV">—</span></div><div class="m-track"><div class="m-fill fps" id="fpsBar"></div></div></div>
+      <div class="meter"><div class="m-top"><span class="k">Power draw</span><span class="v" id="pwrV">—</span></div><div class="m-track"><div class="m-fill pwr" id="pwrBar"></div></div></div>
+      <div class="meter"><div class="m-top"><span class="k">Thermal headroom</span><span class="v" id="thrV">—</span></div><div class="m-track"><div class="m-fill thr" id="thrBar"></div></div></div>
+      <div class="compat" id="compat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="compatTxt">All parts compatible</span></div>
+
+      <div class="bom">
+        <span class="eyebrow">Your configuration</span>
+        <div id="bom"></div>
+      </div>
+      <div class="totals">
+        <div class="tr"><span>Parts subtotal</span><span class="v" id="subV">$0</span></div>
+        <div class="tr"><span>Build &amp; testing <span id="tierName" style="color:var(--cyan)"></span></span><span class="v" id="feeV">$0</span></div>
+        <div class="grand"><span class="l">Total</span><span class="v" id="grandV">$0</span></div>
+      </div>
+      <button class="cta" id="cta">Request this build<span class="sub">24-hour quote · no deposit</span></button>
+      <p class="pricing-note" id="pricingNote"></p>
+    </div>
+  </aside>
+</main>
+
+<script src="assets/parts/photos.js"></script>
+<script>
+/* ============================================================
+   THE FORGE — configurator engine
+   ============================================================ */
+const CATS = [
+  { id:'cpu', title:'Choose your processor', lbl:'Pick your processor', help:'The brain of your build. More cores help rendering, streaming, and heavy multitasking. Higher clock speed = better gaming.' },
+  { id:'gpu', title:'Pick your graphics card', lbl:'Pick your graphics card', help:'The GPU is what makes games look gorgeous. Bigger card = higher framerates and prettier ray tracing.' },
+  { id:'ram', title:'How much memory?', lbl:'Choose your memory', help:'RAM is your short-term memory. 32GB is great for gaming, 64GB+ for creators, 128GB+ for AI work.' },
+  { id:'storage', title:'Storage', lbl:'Choose your storage', help:'NVMe SSDs are silent and ridiculously fast. Pick more if you keep big libraries or work with video.' },
+  { id:'cooling', title:'Cooling', lbl:'Choose your cooling', help:'Bigger radiator = lower temps and quieter fans under load. Air coolers are silent at idle.' },
+  { id:'case', title:'Pick your case', lbl:'Pick your case', help:'The case sets the personality of your build. Bigger cases stay cooler; smaller ones look stealthy.' },
+  { id:'psu', title:'Power supply', lbl:'Choose your power supply', help:'A titanium-rated PSU is silent, efficient, and lasts a decade. Always size up — your future self thanks you.' }
+];
+const PARTS = {
+  cpu:[
+    {id:'cpu1',name:'AMD Ryzen 9 9950X3D',tag:'Gaming + multicore king',specs:{cores:'16C / 32T',clock:'5.7 GHz boost',cache:'144MB L3',tdp:'170W'},mc:709,perf:98,watts:170,heat:88,brand:'amd'},
+    {id:'cpu2',name:'AMD Ryzen 9 9900X',tag:'Balanced powerhouse',specs:{cores:'12C / 24T',clock:'5.6 GHz',cache:'76MB L3',tdp:'120W'},mc:479,perf:90,watts:120,heat:72,brand:'amd'},
+    {id:'cpu3',name:'Intel Core i9-14900KS',tag:'Ultimate Intel beast',specs:{cores:'24C / 32T',clock:'6.2 GHz',cache:'36MB L3',tdp:'150W'},mc:679,perf:96,watts:200,heat:95,brand:'intel'},
+    {id:'cpu4',name:'AMD Ryzen 7 9800X3D',tag:'Pure gaming chip',specs:{cores:'8C / 16T',clock:'5.4 GHz',cache:'96MB L3',tdp:'120W'},mc:449,perf:88,watts:120,heat:68,brand:'amd'},
+    {id:'cpu5',name:'AMD Threadripper 7980X',tag:'Creator workstation',specs:{cores:'64C / 128T',clock:'5.1 GHz',cache:'320MB',tdp:'350W'},mc:4699,perf:100,watts:350,heat:92,brand:'amd'}
+  ],
+  gpu:[
+    {id:'gpu1',name:'NVIDIA GeForce RTX 5090',tag:'Flagship — uncompromised',specs:{vram:'32GB GDDR7',cuda:'21,760',power:'575W',length:'358mm'},mc:1999,perf:100,watts:575,heat:90,tier:'flagship'},
+    {id:'gpu2',name:'NVIDIA GeForce RTX 5080',tag:'4K ray tracing icon',specs:{vram:'16GB GDDR7',cuda:'10,752',power:'400W',length:'310mm'},mc:1199,perf:90,watts:400,heat:78,tier:'high'},
+    {id:'gpu3',name:'NVIDIA GeForce RTX 5070 Ti',tag:'High-frame 1440p hero',specs:{vram:'12GB GDDR7',cuda:'8,448',power:'285W',length:'285mm'},mc:849,perf:80,watts:285,heat:68,tier:'mid'},
+    {id:'gpu4',name:'NVIDIA RTX 6000 Ada',tag:'AI + workstation',specs:{vram:'48GB ECC',cuda:'18,176',power:'300W',length:'267mm'},mc:6499,perf:98,watts:300,heat:72,tier:'pro'},
+    {id:'gpu5',name:'AMD Radeon RX 9900 XTX',tag:'Raster powerhouse',specs:{vram:'24GB GDDR7',stream:'7,680',power:'420W',length:'325mm'},mc:1049,perf:88,watts:420,heat:80,tier:'amd'}
+  ],
+  ram:[
+    {id:'ram1',name:'G.Skill Trident Z5 RGB 64GB',tag:'Sweet spot for everything',specs:{size:'2 × 32GB',speed:'DDR5-6400',cas:'CL30',rgb:'Yes'},mc:289,perf:88,watts:14,heat:0},
+    {id:'ram2',name:'Kingston Fury Renegade 128GB',tag:'Creator + AI / huge',specs:{size:'4 × 32GB',speed:'DDR5-6000',cas:'CL32',rgb:'Yes'},mc:519,perf:94,watts:22,heat:0},
+    {id:'ram3',name:'Corsair Dominator Titanium 32GB',tag:'Cinematic gaming',specs:{size:'2 × 16GB',speed:'DDR5-7200',cas:'CL34',rgb:'Yes'},mc:219,perf:82,watts:10,heat:0},
+    {id:'ram4',name:'Crucial Pro Workstation 256GB',tag:'Industrial / ECC',specs:{size:'4 × 64GB',speed:'DDR5-5600 ECC',cas:'CL46',rgb:'No'},mc:1049,perf:96,watts:32,heat:0}
+  ],
+  storage:[
+    {id:'st1',name:'Samsung 9100 Pro 4TB NVMe',tag:'PCIe 5.0 flagship',specs:{size:'4TB',interface:'PCIe 5.0 x4',read:'14,800 MB/s',write:'13,400 MB/s'},mc:459,perf:96,watts:11,heat:0},
+    {id:'st2',name:'WD Black SN850X 2TB',tag:'Gamer favorite',specs:{size:'2TB',interface:'PCIe 4.0 x4',read:'7,300 MB/s',write:'6,600 MB/s'},mc:164,perf:84,watts:8,heat:0},
+    {id:'st3',name:'Crucial T705 8TB NVMe',tag:'Massive Gen 5 vault',specs:{size:'8TB',interface:'PCIe 5.0 x4',read:'14,500 MB/s',write:'12,700 MB/s'},mc:949,perf:98,watts:14,heat:0},
+    {id:'st4',name:'Solidigm D5 1.6TB Enterprise',tag:'Always-on workstation',specs:{size:'1.6TB',interface:'U.2 NVMe',read:'7,000 MB/s',write:'6,800 MB/s'},mc:399,perf:90,watts:12,heat:0}
+  ],
+  cooling:[
+    {id:'cl1',name:'be quiet! Pure Loop 2 FX 360',tag:'Coolest, quietest, our pick',specs:{size:'360mm AIO',fans:'3 × 120mm',noise:'18 dB idle',rgb:'aRGB pump + fans'},mc:279,perf:98,watts:18,heat:-45},
+    {id:'cl2',name:'Arctic Liquid Freezer III 360',tag:'Silent performer',specs:{size:'360mm AIO',fans:'3 × 120mm',noise:'21 dB idle',rgb:'Pump only'},mc:159,perf:90,watts:16,heat:-38},
+    {id:'cl3',name:'Noctua NH-D15 G2 Air',tag:'Whisper-quiet air',specs:{size:'Dual-tower air',fans:'2 × 140mm',noise:'12 dB idle',rgb:'None'},mc:139,perf:84,watts:8,heat:-32},
+    {id:'cl4',name:'Custom Hardline Loop',tag:'Show-stopper artistry',specs:{size:'480mm custom',fans:'4 × 140mm',noise:'14 dB idle',rgb:'Full RGB'},mc:1249,perf:100,watts:24,heat:-55}
+  ],
+  case:[
+    {id:'cs1',name:'Corsair iCUE 5000X RGB',tag:'Four-panel tempered glass',specs:{form:'Mid tower',glass:'Front + side tempered',drives:'4 × 2.5" + 2 × 3.5"',fans:'3 RGB included'},mc:224,perf:0,watts:0,heat:-8,model:'5000X'},
+    {id:'cs2',name:'Lian Li O11 Vision',tag:'Three-sided glass',specs:{form:'Mid tower',glass:'Tri-panel',drives:'4 × NVMe',fans:'Sold separately'},mc:174,perf:0,watts:0,heat:-5,model:'VISION'},
+    {id:'cs3',name:'Fractal Define 7 Stealth',tag:'Stealth + silent',specs:{form:'Mid tower',glass:'Sound-dampened',drives:'14 × storage',fans:'3 included'},mc:149,perf:0,watts:0,heat:-3,model:'DEFINE'},
+    {id:'cs4',name:'Lian Li O11 Dynamic EVO XL',tag:'Dual-chamber showcase',specs:{form:'Full tower',glass:'Wraparound',drives:'4 × 2.5" + 4 × 3.5"',fans:'Up to 10 fans'},mc:499,perf:0,watts:0,heat:-15,model:'O11 XL'}
+  ],
+  psu:[
+    {id:'ps1',name:'ASUS ROG Thor 1200W',tag:'Silent, modular, future-proof',specs:{watts:'1200W',cert:'80+ Platinum',cables:'Fully modular',warranty:'10 years'},mc:299,perf:0,cap:1200,watts:0,heat:0,label:'1200W'},
+    {id:'ps2',name:'Seasonic Prime PX-1000',tag:'Reference quality',specs:{watts:'1000W',cert:'80+ Platinum',cables:'Fully modular',warranty:'12 years'},mc:219,perf:0,cap:1000,watts:0,heat:0,label:'1000W'},
+    {id:'ps3',name:'Corsair AX1600i',tag:'Workstation grade',specs:{watts:'1600W',cert:'80+ Titanium',cables:'Fully modular + iCUE',warranty:'10 years'},mc:499,perf:0,cap:1600,watts:0,heat:0,label:'1600W'}
+  ]
+};
+const PRESETS = {
+  'High-FPS Gaming':{cpu:'cpu1',gpu:'gpu1',ram:'ram3',storage:'st2',cooling:'cl1',case:'cs1',psu:'ps1'},
+  'Silent Build':{cpu:'cpu4',gpu:'gpu3',ram:'ram1',storage:'st1',cooling:'cl3',case:'cs3',psu:'ps2'},
+  'Streamer':{cpu:'cpu1',gpu:'gpu2',ram:'ram2',storage:'st3',cooling:'cl1',case:'cs1',psu:'ps1'},
+  'Creator / AI':{cpu:'cpu5',gpu:'gpu4',ram:'ram4',storage:'st3',cooling:'cl4',case:'cs4',psu:'ps3'},
+  'Balanced':{cpu:'cpu2',gpu:'gpu3',ram:'ram1',storage:'st2',cooling:'cl2',case:'cs1',psu:'ps2'},
+  'Full RGB':{cpu:'cpu1',gpu:'gpu1',ram:'ram1',storage:'st1',cooling:'cl4',case:'cs2',psu:'ps1'}
+};
+
+/* ---- Pricing model (internal price index per category) ---- */
+const MARKUP = {cpu:.08,gpu:.06,ram:.12,storage:.15,cooling:.18,case:.20,psu:.15};
+/* Current promotions — % off the listed price */
+const DEALS = {gpu3:0.08, st1:0.10, cl1:0.07, ram3:0.12, cs2:0.06};
+
+function sell(cat,part){
+  const base = Math.round(part.mc*(1+(MARKUP[cat]||.1)));
+  const d = DEALS[part.id]||0;
+  return d ? {now:Math.round(base*(1-d)), was:base, deal:Math.round(d*100)} : {now:base, was:null, deal:0};
+}
+function buildFee(sub){
+  if(sub<1800) return {fee:250,name:'· Spark'};
+  if(sub<2800) return {fee:400,name:'· Surge'};
+  if(sub<4500) return {fee:600,name:'· Pulse'};
+  if(sub<9000) return {fee:900,name:'· Apex'};
+  return {fee:1500,name:'· Halo'};
+}
+const ICONS={
+  cpu:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
+  gpu:'<rect x="2" y="6" width="20" height="11" rx="2"/><circle cx="8" cy="11.5" r="2.6"/><circle cx="15" cy="11.5" r="2.6"/>',
+  ram:'<rect x="2" y="8" width="20" height="9" rx="1"/><path d="M6 17v3M10 17v3M14 17v3M18 17v3"/>',
+  storage:'<rect x="3" y="7" width="18" height="10" rx="2"/><circle cx="17" cy="12" r="1.3"/>',
+  cooling:'<circle cx="12" cy="12" r="3"/><path d="M12 3a9 9 0 0 1 0 18M12 3a9 9 0 0 0 0 18M3 12h18"/>',
+  case:'<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 7h6M9 11h6"/><circle cx="12" cy="16.5" r="1.4"/>',
+  psu:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="9" cy="12" r="3"/><path d="M16 10v4"/>'
+};
+/* ---------- State ---------- */
+const state = { step:'cpu', view:'part',
+  sel:{cpu:'cpu1',gpu:'gpu1',ram:'ram1',storage:'st1',cooling:'cl1',case:'cs1',psu:'ps1'} };
+const $=s=>document.querySelector(s);
+const getPart=(cat,id)=>PARTS[cat].find(p=>p.id===id);
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* The stage shows a premium SPEC SHEET built from real component data.
+   If a real product photo has been dropped in (photos.js), it sits alongside
+   the specs. No fake renders, no glowing placeholder boxes. */
+function partPhotoTag(part){
+  const src = window.PART_IMAGES && PART_IMAGES[part.id];
+  if(!src) return '';
+  const alt=(part.name||'').replace(/"/g,'&quot;');
+  return `<div class="spec-photo"><img class="part-photo" src="${src}" alt="${alt}" loading="lazy" decoding="async" onerror="this.closest('.spec-photo').remove();this.closest('.spec-sheet').classList.remove('has-photo')"></div>`;
+}
+function specSheet(cat,part){
+  const photo=partPhotoTag(part);
+  const pr=sell(cat,part);
+  const cells=Object.entries(part.specs).map(([k,v])=>
+    `<div class="spec-cell"><span class="sk">${k}</span><span class="sv">${v}</span></div>`).join('');
+  const price=`<div class="spec-price">
+      <span class="now">$${pr.now.toLocaleString()}</span>
+      ${pr.was?`<span class="was">$${pr.was.toLocaleString()}</span>`:''}
+      ${pr.deal?`<span class="save">SAVE ${pr.deal}%</span>`:''}
+    </div>`;
+  return `<div class="spec-sheet ${photo?'has-photo':''}">
+    ${photo}
+    <div class="spec-head">
+      <span class="kicker">${cat.toUpperCase()} · Spec sheet</span>
+      <div class="spec-name">${part.name}</div>
+      <div class="spec-tag">${part.tag}</div>
+      ${price}
+    </div>
+    <div class="spec-grid">${cells}</div>
+  </div>`;
+}
+
+/* ---------- Number tween ---------- */
+function tween(el,to,prefix='$'){
+  const from=parseFloat(el.dataset.v||'0'); el.dataset.v=to;
+  if(reduceMotion){el.textContent=prefix+Math.round(to).toLocaleString();return;}
+  const t0=performance.now(),dur=600;
+  (function step(now){
+    const t=Math.min((now-t0)/dur,1), e=1-Math.pow(1-t,4), v=from+(to-from)*e;
+    el.textContent=prefix+Math.round(v).toLocaleString();
+    if(t<1)requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ---------- Render: step rail ---------- */
+function renderSteps(){
+  $('#steps').innerHTML=CATS.map((c,i)=>{
+    const p=getPart(c.id,state.sel[c.id]);
+    const active=state.step===c.id;
+    return `<button class="step ${active?'active':''} done" data-cat="${c.id}">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[c.id]}</svg></span>
+      <span class="meta"><span class="t">${c.id.toUpperCase()}</span><span class="s">${p.name}</span></span>
+      <svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>
+    </button>`;
+  }).join('');
+  $('#steps').querySelectorAll('.step').forEach(s=>s.onclick=()=>goStep(s.dataset.cat));
+}
+function renderPresets(){
+  $('#presets').innerHTML=Object.keys(PRESETS).map(n=>`<button class="preset" data-p="${n}">${n}</button>`).join('');
+  $('#presets').querySelectorAll('.preset').forEach(b=>b.onclick=()=>applyPreset(b.dataset.p));
+}
+
+/* ---------- Render: stage (instant; CSS handles the fade-in) ---------- */
+function renderStage(){
+  const cat=state.step, meta=CATS.find(c=>c.id===cat), part=getPart(cat,state.sel[cat]);
+  $('#stepCount').textContent=`Step ${CATS.findIndex(c=>c.id===cat)+1} / ${CATS.length}`;
+  $('#stageTitle').textContent=meta.title;
+  $('#stageHelp').textContent=meta.help;
+  $('#stageTag').querySelector('span:last-child').textContent=cat.toUpperCase();
+  $('#choicesLbl').textContent=meta.lbl;
+  $('#choicesCnt').textContent=`${PARTS[cat].length} options`;
+  $('#stageMedia').innerHTML=specSheet(cat,part);
+
+  // deal badge on the stage corner
+  const pr=sell(cat,part);
+  const badge=$('#dealBadge');
+  if(pr.deal){badge.textContent=`DEAL · ${pr.deal}% OFF`;badge.classList.add('show');}
+  else badge.classList.remove('show');
+}
+
+/* ---------- Render: choices ---------- */
+function renderChoices(){
+  const cat=state.step;
+  $('#choices').innerHTML=PARTS[cat].map(p=>{
+    const pr=sell(cat,p), s=state.sel[cat]===p.id;
+    const specs=Object.entries(p.specs).slice(0,3).map(([k,v])=>`${v}`).join(' · ');
+    return `<button class="choice ${s?'sel':''}" data-id="${p.id}">
+      ${pr.deal?`<span class="c-deal">-${pr.deal}%</span>`:''}
+      <div class="c-name">${p.name}</div>
+      <div class="c-tag">${specs}</div>
+      <div class="c-foot"><span class="c-price">$${pr.now.toLocaleString()}</span><span class="c-pick">${s?'Selected':'Select'}</span></div>
+    </button>`;
+  }).join('');
+  $('#choices').querySelectorAll('.choice').forEach(c=>c.onclick=()=>select(cat,c.dataset.id));
+}
+
+/* ---------- Live system ---------- */
+function compute(){
+  const c=state.sel;
+  const cpu=getPart('cpu',c.cpu),gpu=getPart('gpu',c.gpu),ram=getPart('ram',c.ram),
+        stor=getPart('storage',c.storage),cool=getPart('cooling',c.cooling),
+        kase=getPart('case',c.case),psu=getPart('psu',c.psu);
+  let sub=0; const bom=[];
+  CATS.forEach(cat=>{const p=getPart(cat.id,c[cat.id]);const pr=sell(cat.id,p);sub+=pr.now;bom.push({cat:cat.id,name:p.name,price:pr.now});});
+  const watts=CATS.reduce((a,cat)=>a+(getPart(cat.id,c[cat.id]).watts||0),0)+90;
+  /* GPU & CPU drive most frames; faster RAM and storage lift 1% lows + load responsiveness */
+  const fps=Math.round(gpu.perf*0.62 + cpu.perf*0.23 + (ram.perf||0)*0.10 + (stor.perf||0)*0.05);
+  const fpsNum=Math.round(60+fps*1.9);
+  /* Cooler removes heat; the case adds airflow headroom (case.heat is negative) */
+  const load=cpu.heat+gpu.heat*0.85, cap=(-cool.heat)+(-(kase.heat||0));
+  const thermal=Math.max(6,Math.min(100,Math.round(100-Math.max(0,load-cap*2.3)*0.62)));
+  const pwrPct=Math.min(100,Math.round(watts/psu.cap*100));
+  const okPower=watts*1.2<=psu.cap;
+  return {sub,bom,watts,fps,fpsNum,thermal,pwrPct,psuCap:psu.cap,okPower};
+}
+function renderLive(){
+  const m=compute();
+  $('#fpsV').textContent=`~${m.fpsNum} fps · 1440p ultra`;
+  $('#pwrV').textContent=`${m.watts} W / ${m.psuCap} W`;
+  const tlabel=m.thermal>78?'Excellent':m.thermal>55?'Good':'Tight';
+  $('#thrV').textContent=`${tlabel} · ${m.thermal}%`;
+  requestAnimationFrame(()=>{
+    $('#fpsBar').style.transform=`scaleX(${m.fps/100})`;
+    $('#pwrBar').style.transform=`scaleX(${m.pwrPct/100})`;
+    $('#thrBar').style.transform=`scaleX(${m.thermal/100})`;
+  });
+  const compat=$('#compat'),ct=$('#compatTxt');
+  if(m.okPower){compat.classList.remove('warn');ct.textContent='All parts compatible · healthy power headroom';}
+  else{compat.classList.add('warn');ct.textContent='Tip: size up the PSU for safe headroom under load';}
+
+  $('#bom').innerHTML=m.bom.map(b=>`<div class="bom-row"><span class="nm">${b.name}</span><span class="pp">$${b.price.toLocaleString()}</span></div>`).join('');
+  const bf=buildFee(m.sub);
+  $('#tierName').textContent=bf.name;
+  $('#subV').textContent='$'+m.sub.toLocaleString();
+  $('#feeV').textContent='$'+bf.fee.toLocaleString();
+  tween($('#grandV'),m.sub+bf.fee);
+  tween($('#topPrice'),m.sub+bf.fee);
+}
+
+/* ---------- Actions ---------- */
+function select(cat,id){ state.sel[cat]=id; renderStage(); renderChoices(); renderSteps(); renderLive(); }
+function goStep(cat){ state.step=cat; renderStage(); renderChoices(); renderSteps(); }
+function applyPreset(name){ state.sel={...PRESETS[name]}; renderStage(); renderChoices(); renderSteps(); renderLive(); }
+
+$('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub);
+  alert(`Build request started!\n\nTotal: $${(m.sub+bf.fee).toLocaleString()} (parts + ${bf.name.replace('· ','')} build)\n\nIn the live site this opens your quote form — no deposit, 24-hour reply.`); };
+
+$('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, 48-hour stress testing, and your 1-year workmanship warranty. No hidden fees.';
+
+/* ---------- Boot ---------- */
+renderSteps(); renderPresets(); renderStage(); renderChoices(); renderLive();
+
+</script>
+</body>
+</html>

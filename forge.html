@@ -16,8 +16,8 @@
    thrash, no per-frame blur, reduced-motion aware.
    ============================================================ */
 :root{
-  --bg:#04060d; --bg-2:#070b16; --panel:rgba(13,19,34,.92);
-  --panel-solid:#0c1220; --line:rgba(140,170,255,.12); --line-2:rgba(140,170,255,.22);
+  --bg:#08070e; --bg-2:#0c0a16; --panel:rgba(20,18,32,.92);
+  --panel-solid:#12101c; --line:rgba(150,160,255,.13); --line-2:rgba(150,160,255,.24);
   --txt:#eaf1ff; --txt-dim:#9fb0d4; --txt-mut:#647399;
   --cyan:#23e0ff; --violet:#8a5bff; --magenta:#ff4dc4; --gold:#ffc24d; --green:#3ff0a8;
   --accent:var(--cyan);
@@ -50,6 +50,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .aurora.a1{width:42vw;height:42vw;top:-12vw;right:-8vw;background:radial-gradient(circle,rgba(35,224,255,.30),transparent 62%)}
 .aurora.a2{width:40vw;height:40vw;bottom:-14vw;left:-10vw;background:radial-gradient(circle,rgba(138,91,255,.28),transparent 62%)}
 .aurora.a3{width:28vw;height:28vw;top:42%;left:56%;background:radial-gradient(circle,rgba(255,77,196,.16),transparent 62%)}
+/* Slow ambient drift — transform-only, compositor-cheap, accessible. */
+@media (prefers-reduced-motion: no-preference){
+  .aurora{will-change:transform}
+  .aurora.a1{animation:auroraDriftA 52s ease-in-out infinite}
+  .aurora.a2{animation:auroraDriftB 64s ease-in-out infinite}
+  .aurora.a3{animation:auroraDriftC 72s ease-in-out infinite}
+}
+@keyframes auroraDriftA{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-5vw,4vh,0)}}
+@keyframes auroraDriftB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(6vw,-3vh,0)}}
+@keyframes auroraDriftC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4vw,-5vh,0)}}
 /* ---------- Top bar ---------- */
 .nf-top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:18px;
   padding:14px clamp(16px,3vw,38px);
@@ -66,7 +76,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .price-pill{display:flex;align-items:baseline;gap:8px;padding:9px 18px;border-radius:99px;
   background:linear-gradient(120deg,rgba(35,224,255,.16),rgba(138,91,255,.16));border:1px solid var(--line-2);
   box-shadow:inset 0 0 20px rgba(35,224,255,.08)}
-.price-pill .lbl{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim)}
+.price-pill .lbl{font-size:.68rem;letter-spacing:.02em;color:var(--txt-dim)}
 .price-pill .val{font-family:var(--mono);font-weight:700;font-size:1.12rem;color:#fff}
 
 /* ---------- Layout ---------- */
@@ -75,7 +85,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .col-rail{position:sticky;top:84px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
 .panel-pad{padding:18px}
-.eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-mut);font-weight:600}
+.eyebrow{font-size:.7rem;letter-spacing:.06em;text-transform:none;color:var(--txt-dim);font-weight:600}
 
 /* ---------- Step rail ---------- */
 .steps{display:flex;flex-direction:column;gap:4px;margin-top:14px}

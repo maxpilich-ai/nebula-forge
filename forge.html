@@ -796,7 +796,7 @@ function applyPreset(name){ state.sel={...PRESETS[name]}; renderStage(); renderC
 $('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub);
   alert(`Build request started!\n\nTotal: $${(m.sub+bf.fee).toLocaleString()} (parts + ${bf.name.replace('· ','')} build)\n\nIn the live site this opens your quote form — no deposit, 24-hour reply.`); };
 
-$('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, 48-hour stress testing, and your 1-year workmanship warranty. No hidden fees.';
+$('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, overnight stress testing, and full manufacturer warranty with RMAs handled by us. No hidden fees.';
 
 /* ---------- Boot ---------- */
 renderSteps(); renderPresets(); renderUseChips(); renderSetup(); buildShowSkeleton(); renderStage(); renderChoices(); renderLive();

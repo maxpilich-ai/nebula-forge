@@ -91,6 +91,19 @@
     });
   }, { passive: true });
 
+  // ---------- Mobile nav toggle ----------
+  (function mobileNav() {
+    const toggle = document.querySelector('.nf-nav-toggle');
+    if (!nav || !toggle) return;
+    const close = () => { nav.classList.remove('nav-open'); toggle.setAttribute('aria-expanded', 'false'); };
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('.nf-nav-link, .nf-nav-cta a').forEach(a => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  })();
+
   // ---------- Fade up observer ----------
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {

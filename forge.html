@@ -249,54 +249,33 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .bs-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3vw,2.15rem);margin-top:6px;line-height:1.1}
 .bs-head h2 span{background:linear-gradient(120deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .bs-head p{color:var(--txt-dim);margin-top:9px;font-size:.92rem;max-width:560px;margin-left:auto;margin-right:auto}
-.bs-stage{display:grid;grid-template-columns:1.45fr 1fr;gap:24px;align-items:start}
+.bs-stage{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:22px;align-items:stretch}
 
-/* ---- Inside-the-case build bay (3D tilt) ---- */
-.bay-wrap{position:relative;perspective:1600px;min-height:480px}
-.bay{position:relative;width:100%;max-width:560px;margin:0 auto;aspect-ratio:9/10;transform-style:preserve-3d;
-  transition:transform .5s var(--ease);will-change:transform;cursor:grab}
-.bay.dragging{cursor:grabbing;transition:none}
-.bay-chassis{position:absolute;inset:0;border-radius:18px;transform-style:preserve-3d;
-  background:linear-gradient(155deg,#11151f,#0a0d15 60%);border:1px solid var(--line-2);
-  box-shadow:0 40px 90px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.05)}
-.bay-glass{position:absolute;inset:8px;border-radius:13px;border:1px solid rgba(120,200,255,.16);
-  background:linear-gradient(135deg,rgba(80,180,255,.05),rgba(140,91,255,.04));
-  box-shadow:inset 0 0 60px rgba(35,224,255,.05);pointer-events:none;transform:translateZ(28px)}
-.bay-shroud{position:absolute;left:8px;right:8px;bottom:8px;height:17%;border-radius:0 0 13px 13px;
-  background:linear-gradient(180deg,#0d1019,#070a11);border-top:1px solid var(--line-2);transform:translateZ(6px)}
-.bay-grid{position:absolute;inset:8px;border-radius:13px;transform:translateZ(2px);opacity:.5;
-  background-image:linear-gradient(rgba(120,160,200,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,200,.06) 1px,transparent 1px);
-  background-size:26px 26px}
-.slot{position:absolute;display:flex;align-items:center;justify-content:center;transform-style:preserve-3d;
-  transition:filter .25s var(--ease)}
-.slot .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform:translateZ(20px)}
-.slot .ph img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 14px 20px rgba(0,0,0,.6))}
-.slot .ph .bay-fallback{font-size:.6rem;color:var(--txt-mut);text-align:center;line-height:1.3;padding:4px 6px;
-  border:1px dashed var(--line-2);border-radius:8px;background:rgba(0,0,0,.3)}
-.slot .tag{position:absolute;top:-7px;left:0;font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;
-  color:var(--cyan);text-transform:uppercase;background:rgba(4,6,13,.82);padding:2px 6px;border-radius:5px;
-  border:1px solid var(--line);transform:translateZ(34px);white-space:nowrap;opacity:0;transition:opacity .25s var(--ease)}
-.bay:hover .slot .tag{opacity:1}
-.slot.cooling{top:5%;left:7%;width:86%;height:12%}
-.slot.cpu{top:22%;left:11%;width:19%;height:16%}
-.slot.ram{top:20%;left:34%;width:11%;height:23%}
-.slot.storage{top:23%;left:49%;width:17%;height:13%}
-.slot.gpu{top:49%;left:6%;width:80%;height:22%}
-.slot.psu{top:84.5%;left:9%;width:40%;height:12%}
-.bay-hint{position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);font-family:var(--mono);
-  font-size:.62rem;letter-spacing:.06em;color:var(--txt-mut);display:flex;align-items:center;gap:6px}
-.bay-hint svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8}
-/* legend */
-.bs-legend{display:flex;flex-direction:column;gap:9px}
-.bs-legend .lg-case{font-family:var(--display);font-weight:700;font-size:1rem;padding-bottom:11px;margin-bottom:3px;border-bottom:1px solid var(--line)}
-.bs-legend .lg-case span{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--cyan);font-weight:700;margin-bottom:5px}
-.lg-row{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04)}
-.lg-row .d{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:linear-gradient(120deg,var(--cyan),var(--violet));align-self:center}
-.lg-row .lg-lbl{flex:0 0 76px;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--txt-mut);text-transform:uppercase}
-.lg-row .lg-nm{flex:1;font-size:.85rem;color:var(--txt);line-height:1.3}
-.bs-case-legacy{position:relative;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;overflow:hidden;min-height:380px}
-@media(max-width:900px){.bs-stage{grid-template-columns:1fr}.bay-wrap{min-height:auto}.bay{max-width:440px}}
+/* ---- Case hero ---- */
+.bs-case{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 12%,rgba(35,224,255,.10),transparent 60%),var(--panel);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;min-height:420px}
+.bs-case::after{content:"";position:absolute;left:50%;bottom:9%;width:62%;height:30px;transform:translateX(-50%);
+  background:radial-gradient(ellipse,rgba(0,0,0,.55),transparent 70%);filter:blur(4px)}
+.bs-case img{max-width:84%;max-height:330px;object-fit:contain;position:relative;z-index:1;
+  filter:drop-shadow(0 30px 46px rgba(0,0,0,.6))}
+.bs-case-cap{position:relative;z-index:1;margin-top:20px;text-align:center}
+.bs-case-cap .t{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;color:var(--cyan);font-weight:700}
+.bs-case-cap .n{display:block;font-family:var(--display);font-weight:600;margin-top:5px;font-size:1.05rem}
+
+/* ---- Parts grid ---- */
+.bs-parts{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.bs-part{position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--panel);
+  padding:15px 15px 14px;display:flex;flex-direction:column;
+  transition:transform .2s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.bs-part:hover{border-color:var(--line-2);transform:translateY(-3px);box-shadow:0 18px 34px rgba(0,0,0,.42)}
+.bs-lbl{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;color:var(--cyan);font-weight:700;text-transform:uppercase}
+.bs-ph{height:120px;display:flex;align-items:center;justify-content:center;margin:12px 0 11px}
+.bs-ph img{max-width:100%;max-height:120px;object-fit:contain;filter:drop-shadow(0 14px 20px rgba(0,0,0,.5))}
+.bs-ph .bs-fallback{font-size:.72rem;color:var(--txt-mut);text-align:center;line-height:1.4;padding:0 8px}
+.bs-nm{font-size:.85rem;color:var(--txt);font-weight:500;line-height:1.35;margin-top:auto}
+@media(max-width:900px){.bs-stage{grid-template-columns:1fr}.bs-parts{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.bs-parts{grid-template-columns:repeat(2,1fr)}}
 
 /* ---------- Reveal-on-load ---------- */
 .rise{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
@@ -441,27 +420,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <section class="buildshow rise" id="buildshow">
   <div class="bs-head">
     <span class="eyebrow">Your build</span>
-    <h2>Look inside your <span>Nebula Forge</span></h2>
-    <p>Your real parts, mounted where they actually live inside the case. Drag to spin it around — change any part above and the build updates live.</p>
+    <h2>Everything in your <span>Nebula Forge</span></h2>
+    <p>The real parts you picked — hand-assembled, tested and cable-managed in Minnesota. Change any part above and your build updates live.</p>
   </div>
   <div class="bs-stage">
-    <div class="bay-wrap">
-      <div class="bay" id="bay">
-        <div class="bay-chassis">
-          <div class="bay-grid"></div>
-          <div class="bay-shroud"></div>
-          <div class="slot cooling" data-cat="cooling"><span class="tag">Cooling</span><span class="ph" data-ph="cooling"></span></div>
-          <div class="slot cpu" data-cat="cpu"><span class="tag">CPU</span><span class="ph" data-ph="cpu"></span></div>
-          <div class="slot ram" data-cat="ram"><span class="tag">Memory</span><span class="ph" data-ph="ram"></span></div>
-          <div class="slot storage" data-cat="storage"><span class="tag">Storage</span><span class="ph" data-ph="storage"></span></div>
-          <div class="slot gpu" data-cat="gpu"><span class="tag">Graphics</span><span class="ph" data-ph="gpu"></span></div>
-          <div class="slot psu" data-cat="psu"><span class="tag">Power</span><span class="ph" data-ph="psu"></span></div>
-          <div class="bay-glass"></div>
-        </div>
-      </div>
-      <div class="bay-hint"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4"/></svg>drag to rotate</div>
+    <div class="bs-case">
+      <img id="bsCaseImg" alt="">
+      <div class="bs-case-cap"><span class="t">YOUR CHASSIS</span><span class="n" id="bsCaseName"></span></div>
     </div>
-    <div class="bs-legend" id="bsLegend"></div>
+    <div class="bs-parts" id="bsParts"></div>
   </div>
 </section>
 
@@ -790,46 +757,35 @@ $('#ramFix').onclick=()=>{const uc=USE_CASES.find(u=>u.id===state.useCase)||USE_
 const SHOW_ORDER=['gpu','cpu','cooling','ram','storage','psu'];
 const SHOW_LBL={gpu:'Graphics',cpu:'Processor',cooling:'Cooling',ram:'Memory',storage:'Storage',psu:'Power supply'};
 function imgSrcFor(id){return window.PART_IMAGES&&PART_IMAGES[id];}
-/* Drop each real part photo into its mounting slot inside the chassis.
-   If a part has no photo yet (e.g. custom loop), the slot shows a tidy label. */
-function fillSlot(box,part){
+function buildShowSkeleton(){
+  $('#bsParts').innerHTML=SHOW_ORDER.map(cat=>
+    `<div class="bs-part" data-cat="${cat}">
+      <span class="bs-lbl">${SHOW_LBL[cat]}</span>
+      <div class="bs-ph" data-ph="${cat}"></div>
+      <span class="bs-nm" data-nm="${cat}"></span>
+    </div>`).join('');
+}
+function fillPhoto(box,part){
   const src=imgSrcFor(part.id), alt=(part.name||'').replace(/"/g,'&quot;');
   if(src){
     const cur=box.querySelector('img');
     if(!cur||cur.getAttribute('src')!==src){
-      box.innerHTML=`<img src="${src}" alt="${alt}" loading="lazy" decoding="async" onerror="this.parentNode.innerHTML='<span class=&quot;bay-fallback&quot;>'+this.alt+'</span>'">`;
+      box.innerHTML=`<img src="${src}" alt="${alt}" loading="lazy" decoding="async" onerror="this.parentNode.innerHTML='<span class=&quot;bs-fallback&quot;>'+this.alt+'</span>'">`;
     }
   }else{
-    box.innerHTML=`<span class="bay-fallback">${alt}</span>`;
+    box.innerHTML=`<span class="bs-fallback">${alt}</span>`;
   }
 }
 function renderBuildShow(){
-  const c=state.sel, kase=getPart('case',c.case);
-  /* parts mounted inside the case */
+  const c=state.sel, kase=getPart('case',c.case), ksrc=imgSrcFor(c.case), ci=$('#bsCaseImg');
+  if(ksrc){ci.style.display='';if(ci.getAttribute('src')!==ksrc)ci.src=ksrc;ci.alt=kase.name;}
+  else ci.style.display='none';
+  $('#bsCaseName').textContent=kase.name;
   SHOW_ORDER.forEach(cat=>{
-    const ph=document.querySelector(`#bay .ph[data-ph="${cat}"]`);
-    if(ph) fillSlot(ph,getPart(cat,c[cat]));
+    const part=getPart(cat,c[cat]);
+    fillPhoto(document.querySelector(`#bsParts .bs-ph[data-ph="${cat}"]`),part);
+    document.querySelector(`#bsParts .bs-nm[data-nm="${cat}"]`).textContent=part.name;
   });
-  /* side legend (case + every chosen part) */
-  const lg=$('#bsLegend'); if(!lg) return;
-  const rows=SHOW_ORDER.map(cat=>{
-    const p=getPart(cat,c[cat]);
-    return `<div class="lg-row"><span class="d"></span><span class="lg-lbl">${SHOW_LBL[cat]}</span><span class="lg-nm">${p.name}</span></div>`;
-  }).join('');
-  lg.innerHTML=`<div class="lg-case"><span>YOUR CHASSIS</span>${kase.name}</div>${rows}`;
-}
-/* ---- drag to rotate the chassis (pointer-fine only; reduced-motion stays flat) ---- */
-function initBayTilt(){
-  const bay=$('#bay'); if(!bay) return;
-  let ry=-16, rx=8;                         /* resting 3/4 view */
-  const apply=()=>{ bay.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`; };
-  if(reduceMotion){ bay.style.transform='none'; return; }
-  apply();
-  let drag=false,sx=0,sy=0,sry=0,srx=0;
-  bay.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sy=e.clientY;sry=ry;srx=rx;bay.classList.add('dragging');bay.setPointerCapture&&bay.setPointerCapture(e.pointerId);});
-  bay.addEventListener('pointermove',e=>{if(!drag)return;ry=sry+(e.clientX-sx)*0.35;rx=Math.max(-22,Math.min(34,srx-(e.clientY-sy)*0.3));apply();});
-  const end=()=>{if(!drag)return;drag=false;bay.classList.remove('dragging');};
-  bay.addEventListener('pointerup',end);bay.addEventListener('pointercancel',end);bay.addEventListener('pointerleave',end);
 }
 
 /* ---------- Actions ---------- */
@@ -843,7 +799,7 @@ $('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub);
 $('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, 48-hour stress testing, and your 1-year workmanship warranty. No hidden fees.';
 
 /* ---------- Boot ---------- */
-renderSteps(); renderPresets(); renderUseChips(); renderSetup(); initBayTilt(); renderStage(); renderChoices(); renderLive();
+renderSteps(); renderPresets(); renderUseChips(); renderSetup(); buildShowSkeleton(); renderStage(); renderChoices(); renderLive();
 
 </script>
 </body>

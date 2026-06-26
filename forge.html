@@ -492,12 +492,12 @@ const PARTS = {
   ]
 };
 const PRESETS = {
-  'High-FPS Gaming':{cpu:'cpu1',gpu:'gpu1',ram:'ram3',storage:'st2',cooling:'cl1',case:'cs1',psu:'ps1'},
-  'Silent Build':{cpu:'cpu4',gpu:'gpu3',ram:'ram1',storage:'st1',cooling:'cl3',case:'cs3',psu:'ps2'},
-  'Streamer':{cpu:'cpu1',gpu:'gpu2',ram:'ram2',storage:'st3',cooling:'cl1',case:'cs1',psu:'ps1'},
-  'Creator / AI':{cpu:'cpu5',gpu:'gpu4',ram:'ram4',storage:'st3',cooling:'cl4',case:'cs4',psu:'ps3'},
+  'High-FPS Gaming':{cpu:'cpu4',gpu:'gpu2',ram:'ram3',storage:'st2',cooling:'cl2',case:'cs1',psu:'ps2'},
+  'Silent Build':{cpu:'cpu4',gpu:'gpu3',ram:'ram1',storage:'st2',cooling:'cl3',case:'cs3',psu:'ps2'},
+  'Streamer':{cpu:'cpu2',gpu:'gpu2',ram:'ram1',storage:'st1',cooling:'cl2',case:'cs1',psu:'ps2'},
+  'Creator / AI':{cpu:'cpu1',gpu:'gpu1',ram:'ram2',storage:'st1',cooling:'cl1',case:'cs1',psu:'ps1'},
   'Balanced':{cpu:'cpu2',gpu:'gpu3',ram:'ram1',storage:'st2',cooling:'cl2',case:'cs1',psu:'ps2'},
-  'Full RGB':{cpu:'cpu1',gpu:'gpu1',ram:'ram1',storage:'st1',cooling:'cl4',case:'cs2',psu:'ps1'}
+  'Full RGB':{cpu:'cpu4',gpu:'gpu2',ram:'ram1',storage:'st2',cooling:'cl1',case:'cs2',psu:'ps2'}
 };
 
 /* ---- Pricing model (internal price index per category) ---- */
@@ -528,7 +528,7 @@ const ICONS={
 };
 /* ---------- State ---------- */
 const state = { step:'cpu', view:'part', useCase:'gaming', addons:new Set(),
-  sel:{cpu:'cpu1',gpu:'gpu1',ram:'ram1',storage:'st1',cooling:'cl1',case:'cs1',psu:'ps1'} };
+  sel:{cpu:'cpu4',gpu:'gpu2',ram:'ram3',storage:'st2',cooling:'cl2',case:'cs1',psu:'ps2'} };
 /* Most-added "complete your setup" peripherals (sourced from Micro Center, installed free) */
 const ADDONS=[
   {id:'mon27',name:'27" 1440p 180Hz IPS',spec:'Fast gaming monitor · 1ms',price:329},

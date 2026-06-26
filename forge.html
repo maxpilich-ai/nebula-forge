@@ -200,6 +200,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .pricing-note{margin-top:12px;font-size:.7rem;line-height:1.5;color:var(--txt-mut)}
 .pricing-note b{color:var(--txt-dim)}
 
+/* ---------- Build helper (PSU + RAM advisor) ---------- */
+.helper{margin-top:16px}
+.helper h3{font-family:var(--display);font-weight:700;font-size:1rem;display:flex;align-items:center;gap:8px}
+.helper h3 .pulse{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+.helper .sub-h{font-size:.72rem;color:var(--txt-mut);margin-top:5px;line-height:1.5}
+.hlp-block{margin-top:15px;padding-top:14px;border-top:1px solid var(--line)}
+.hlp-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.78rem}
+.hlp-top .hlp-k{color:var(--txt-dim);font-weight:500}
+.hlp-top .hlp-v{font-family:var(--mono);font-weight:700;color:var(--cyan);font-size:1.05rem}
+.hlp-note{font-size:.74rem;color:var(--txt-mut);line-height:1.55;margin-top:7px}
+.hlp-note b{color:var(--txt-dim)}
+.hlp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.uc{font-size:.72rem;font-weight:600;padding:7px 11px;border-radius:9px;border:1px solid var(--line);color:var(--txt-dim);background:rgba(140,170,255,.04);transition:.18s var(--ease)}
+.uc:hover{border-color:var(--line-2);color:#fff;transform:translateY(-1px)}
+.uc.on{border-color:var(--cyan);color:#fff;background:rgba(35,224,255,.12);box-shadow:0 0 0 1px rgba(35,224,255,.3) inset}
+.hlp-btn{display:inline-flex;align-items:center;gap:6px;margin-top:11px;padding:9px 13px;border-radius:10px;font-size:.74rem;font-weight:700;
+  border:1px solid rgba(35,224,255,.4);color:var(--cyan);background:rgba(35,224,255,.08);transition:.18s var(--ease)}
+.hlp-btn:hover{background:rgba(35,224,255,.16);transform:translateY(-1px)}
+.hlp-btn[hidden]{display:none}
+
 /* ---------- Reveal-on-load ---------- */
 .rise{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
 .rise.d1{animation-delay:.06s}.rise.d2{animation-delay:.12s}.rise.d3{animation-delay:.18s}
@@ -309,6 +329,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <button class="cta" id="cta">Request this build<span class="sub">24-hour quote · no deposit</span></button>
       <p class="pricing-note" id="pricingNote"></p>
     </div>
+
+    <div class="panel panel-pad helper">
+      <h3><span class="pulse"></span>Build helper</h3>
+      <p class="sub-h">Not sure if your parts fit together? We'll size the power supply and memory for you.</p>
+
+      <div class="hlp-block">
+        <div class="hlp-top"><span class="hlp-k">Recommended power supply</span><span class="hlp-v" id="psuRecV">—</span></div>
+        <p class="hlp-note" id="psuRecNote"></p>
+        <button class="hlp-btn" id="psuFix" hidden></button>
+      </div>
+
+      <div class="hlp-block">
+        <div class="hlp-top"><span class="hlp-k">What will you use it for?</span></div>
+        <div class="hlp-chips" id="useChips"></div>
+        <p class="hlp-note" id="ramRecNote"></p>
+        <button class="hlp-btn" id="ramFix" hidden></button>
+      </div>
+    </div>
   </aside>
 </main>
 
@@ -407,8 +445,15 @@ const ICONS={
   psu:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="9" cy="12" r="3"/><path d="M16 10v4"/>'
 };
 /* ---------- State ---------- */
-const state = { step:'cpu', view:'part',
+const state = { step:'cpu', view:'part', useCase:'gaming',
   sel:{cpu:'cpu1',gpu:'gpu1',ram:'ram1',storage:'st1',cooling:'cl1',case:'cs1',psu:'ps1'} };
+/* Use-case → recommended memory amount (mapped to the closest part we carry) */
+const USE_CASES=[
+  {id:'gaming',label:'Gaming',phrase:'gaming',gb:32,ram:'ram3',why:'the sweet spot for modern AAA games and smooth multitasking.'},
+  {id:'stream',label:'Streaming',phrase:'streaming while you game',gb:64,ram:'ram1',why:'enough to game, stream, and run overlays without a hitch.'},
+  {id:'create',label:'Creating',phrase:'content creation',gb:64,ram:'ram1',why:'great for 4K video editing, big photo files, and design suites.'},
+  {id:'ai',label:'AI / 3D',phrase:'AI and 3D work',gb:128,ram:'ram2',why:'built for AI models, heavy 3D scenes, and virtual machines.'}
+];
 const $=s=>document.querySelector(s);
 const getPart=(cat,id)=>PARTS[cat].find(p=>p.id===id);
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -549,7 +594,48 @@ function renderLive(){
   $('#feeV').textContent='$'+bf.fee.toLocaleString();
   tween($('#grandV'),m.sub+bf.fee);
   tween($('#topPrice'),m.sub+bf.fee);
+  renderHelper();
 }
+
+/* ---------- Build helper: PSU sizing + RAM advisor ---------- */
+function recommendPSU(){
+  const watts=compute().watts;
+  /* Smallest PSU we carry that safely covers the draw (>= draw × 1.25 headroom) */
+  const need=watts*1.25;
+  const ranked=[...PARTS.psu].sort((a,b)=>a.cap-b.cap);
+  const pick=ranked.find(p=>p.cap>=need)||ranked[ranked.length-1];
+  return {watts,target:pick.cap,pick};
+}
+function renderUseChips(){
+  $('#useChips').innerHTML=USE_CASES.map(u=>`<button class="uc" data-uc="${u.id}">${u.label}</button>`).join('');
+  $('#useChips').querySelectorAll('.uc').forEach(b=>b.onclick=()=>{state.useCase=b.dataset.uc;renderHelper();});
+}
+function renderHelper(){
+  /* --- power supply --- */
+  const r=recommendPSU(), cur=getPart('psu',state.sel.psu);
+  $('#psuRecV').textContent=`${r.target} W`;
+  if(r.pick.id===state.sel.psu){
+    $('#psuRecNote').innerHTML=`Your build pulls about <b>${r.watts} W</b> under load. The <b>${cur.name}</b> you picked has comfortable headroom — you're all set.`;
+    $('#psuFix').hidden=true;
+  }else{
+    $('#psuRecNote').innerHTML=`Your build pulls about <b>${r.watts} W</b> under load. We'd pair it with the <b>${r.pick.name}</b> (${r.pick.label}) for safe, efficient headroom.`;
+    $('#psuFix').hidden=false;
+    $('#psuFix').textContent=`Switch to the ${r.pick.label} PSU`;
+  }
+  /* --- memory --- */
+  const uc=USE_CASES.find(u=>u.id===state.useCase)||USE_CASES[0];
+  $('#useChips').querySelectorAll('.uc').forEach(b=>b.classList.toggle('on',b.dataset.uc===uc.id));
+  const recRam=getPart('ram',uc.ram);
+  $('#ramRecNote').innerHTML=`For <b>${uc.phrase}</b>, we recommend <b>${uc.gb}GB</b> — ${uc.why}`;
+  if(state.sel.ram===uc.ram){
+    $('#ramFix').hidden=true;
+  }else{
+    $('#ramFix').hidden=false;
+    $('#ramFix').textContent=`Apply ${uc.gb}GB · ${recRam.name}`;
+  }
+}
+$('#psuFix').onclick=()=>select('psu',recommendPSU().pick.id);
+$('#ramFix').onclick=()=>{const uc=USE_CASES.find(u=>u.id===state.useCase)||USE_CASES[0];select('ram',uc.ram);};
 
 /* ---------- Actions ---------- */
 function select(cat,id){ state.sel[cat]=id; renderStage(); renderChoices(); renderSteps(); renderLive(); }
@@ -562,7 +648,7 @@ $('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub);
 $('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, 48-hour stress testing, and your 1-year workmanship warranty. No hidden fees.';
 
 /* ---------- Boot ---------- */
-renderSteps(); renderPresets(); renderStage(); renderChoices(); renderLive();
+renderSteps(); renderPresets(); renderUseChips(); renderStage(); renderChoices(); renderLive();
 
 </script>
 </body>

@@ -1,5 +1,5 @@
 /* ============================================================
-   NEBULA FORGE — Real Part Photo Manifest
+   VOIDFORGE SYSTEMS — Real Part Photo Manifest
    ============================================================
    HOW THIS WORKS (the easy part):
    1. Drop a photo into this folder: nebula-forge/assets/parts/

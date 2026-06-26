@@ -1,5 +1,5 @@
 /* ============================================================
-   NEBULA FORGE — Core Interactions  (performance pass)
+   VOIDFORGE SYSTEMS — Core Interactions  (performance pass)
    ------------------------------------------------------------
    Principles:
    - Animate ONLY transform / opacity (compositor-only).

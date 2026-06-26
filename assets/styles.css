@@ -1,5 +1,5 @@
 /* ============================================================
-   NEBULA FORGE — Design System
+   VOIDFORGE SYSTEMS — Design System
    Obsidian + Plasma Cyan + Aurora accents
    ============================================================ */
 
@@ -793,7 +793,7 @@ section[id], a[id], div[id] { scroll-margin-top: 100px; }
 }
 
 /* ============================================================
-   PERFORMANCE PASS — Nebula Forge (site-wide)
+   PERFORMANCE PASS — VoidForge Systems (site-wide)
    The M-series compositor was thrashing on animated big-radius
    blur + backdrop-filter recompute on scroll. These overrides
    remove the expensive effects while preserving the look.

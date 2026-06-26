@@ -1,6 +1,6 @@
-# Nebula Forge
+# VoidForge Systems
 
-Marketing site and live PC configurator for **Nebula Forge** — a boutique custom-PC shop in Minnesota.
+Marketing site and live PC configurator for **VoidForge Systems** — a boutique custom-PC shop in Minnesota.
 
 It's a static site (plain HTML/CSS/JS, no build step). Open any page directly in a browser or serve the folder with any static host.
 
@@ -46,4 +46,4 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-© Nebula Forge LLC · Minnesota · USA
+© VoidForge Systems LLC · Minnesota · USA

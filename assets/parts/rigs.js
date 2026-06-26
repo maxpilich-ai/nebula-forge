@@ -1,5 +1,5 @@
 /* ============================================================
-   NEBULA FORGE — Rig visuals (photo-ready, zero fake renders)
+   VOIDFORGE SYSTEMS — Rig visuals (photo-ready, zero fake renders)
    ------------------------------------------------------------
    Each prebuilt rig shows a REAL product photo when one is
    present. Until then it shows a clean, premium branded plate
@@ -38,7 +38,7 @@
     var r = RIGS[key] || RIGS.quasar;
     var src = w.RIG_IMAGES && w.RIG_IMAGES[key];
     if (src) {
-      return '<img class="rig-photo" src="' + esc(src) + '" alt="Nebula Forge ' +
+      return '<img class="rig-photo" src="' + esc(src) + '" alt="VoidForge Systems ' +
         esc(r.label) + ' custom PC" loading="lazy" decoding="async" ' +
         'onerror="this.parentNode.innerHTML=window.rigPlate(\'' + esc(key) + '\')">';
     }

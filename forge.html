@@ -63,7 +63,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* ---------- Top bar ---------- */
 .nf-top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:18px;
   padding:14px clamp(16px,3vw,38px);
-  background:linear-gradient(180deg,rgba(4,6,13,.97),rgba(6,9,18,.92));border-bottom:1px solid var(--line)}
+  background:linear-gradient(180deg,#0a0912,#08070e);border-bottom:1px solid var(--line)}
 .nf-brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;letter-spacing:.5px;font-size:1.05rem}
 .nf-brand .mark{width:30px;height:30px;border-radius:9px;position:relative;background:
   radial-gradient(circle at 30% 30%,var(--cyan),transparent 60%),radial-gradient(circle at 70% 70%,var(--violet),transparent 60%);
@@ -123,8 +123,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   opacity:.8;transition:opacity .5s;pointer-events:none}
 .stage-floor{position:absolute;left:0;right:0;bottom:0;height:42%;
   background:linear-gradient(180deg,transparent,rgba(0,0,0,.5));pointer-events:none}
-.stage-view{position:relative;display:grid;place-items:center;padding:26px;min-height:340px}
-.stage-media{position:relative;width:100%;max-width:640px}
+.stage-view{position:relative;display:grid;place-items:center;padding:18px;min-height:240px}
+.stage-media{position:relative;width:100%;max-width:440px}
 .stage-media img.part-photo{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.55)}
 /* ---- Premium spec sheet (real component data, zero fake imagery) ---- */
 .spec-sheet{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(24px,3.5vw,46px);width:100%;align-items:center;animation:specIn .3s var(--ease)}

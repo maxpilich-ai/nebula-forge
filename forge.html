@@ -124,23 +124,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .stage-floor{position:absolute;left:0;right:0;bottom:0;height:42%;
   background:linear-gradient(180deg,transparent,rgba(0,0,0,.5));pointer-events:none}
 .stage-view{position:relative;display:grid;place-items:center;padding:18px;min-height:240px}
-.stage-media{position:relative;width:100%;max-width:440px}
+.stage-media{position:relative;width:100%;max-width:600px}
 .stage-media img.part-photo{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.55)}
 /* ---- Premium spec sheet (real component data, zero fake imagery) ---- */
-.spec-sheet{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(24px,3.5vw,46px);width:100%;align-items:center;animation:specIn .3s var(--ease)}
+.spec-sheet{display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;width:100%;max-width:560px;margin:0 auto;animation:specIn .3s var(--ease)}
 @keyframes specIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.spec-sheet.has-photo{grid-template-columns:minmax(0,220px) minmax(0,.85fr) minmax(0,1fr)}
-.spec-photo{border-radius:16px;overflow:hidden;background:rgba(8,12,22,.5);border:1px solid var(--line)}
+.spec-photo{width:100%;max-width:300px;border-radius:16px;overflow:hidden;background:rgba(8,12,22,.5);border:1px solid var(--line)}
 .spec-photo img{width:100%;height:auto;display:block}
 .spec-head .kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
 .spec-head .spec-name{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.15rem);line-height:1.08;margin-top:12px;color:#fff;letter-spacing:-.01em}
 .spec-head .spec-tag{font-size:.95rem;color:var(--txt-dim);margin-top:10px;line-height:1.45}
-.spec-price{display:flex;align-items:baseline;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.spec-head{width:100%}
+.spec-price{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
 .spec-price .now{font-family:var(--mono);font-weight:700;font-size:1.8rem;color:#fff}
 .spec-price .was{font-size:1rem;color:var(--txt-mut);text-decoration:line-through}
 .spec-price .save{font-family:var(--display);font-weight:700;font-size:.7rem;letter-spacing:.04em;padding:4px 10px;border-radius:99px;color:#04060d;background:linear-gradient(120deg,var(--gold),#ff8a3d)}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.spec-cell{padding:14px 16px;border-radius:13px;background:rgba(8,12,22,.55);border:1px solid var(--line)}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(116px,1fr));gap:11px;width:100%}
+.spec-cell{padding:14px 16px;border-radius:13px;background:rgba(8,12,22,.55);border:1px solid var(--line);text-align:center;min-width:0}
 .spec-cell .sk{display:block;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--txt-mut)}
 .spec-cell .sv{display:block;font-family:var(--mono);font-weight:600;font-size:1.02rem;color:#fff;margin-top:6px;word-break:break-word}
 .stage-tag{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:8px;
@@ -307,7 +307,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .forge{grid-template-columns:1fr}
   .col-rail{position:static}
   .stage-head{flex-direction:column;align-items:flex-start}
-  .spec-sheet,.spec-sheet.has-photo{grid-template-columns:1fr;gap:22px}
 }
 @media(max-width:560px){
   .nf-top{flex-wrap:wrap;gap:10px 14px}
@@ -319,6 +318,32 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @media(prefers-reduced-motion:reduce){
   .aurora{animation:none}.rise{animation:none;opacity:1;transform:none}
   *{transition-duration:.01ms!important}
+}
+/* ---- Device coverage: phones · laptops · 4K TVs ---- */
+img,svg,video,canvas{max-width:100%;height:auto}
+html,body{max-width:100%}
+*,*::before,*::after{min-width:0}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+@media(min-width:1900px){
+  .forge{max-width:1860px}
+  html{font-size:17.5px}
+}
+@media(min-width:2400px){
+  .forge{max-width:2160px}
+  .buildshow{max-width:1640px}
+  html{font-size:20px}
+}
+@media(min-width:3400px){
+  .forge{max-width:2600px}
+  html{font-size:23px}
+}
+@media(max-width:480px){
+  .step{flex:1 1 100%}
+  .choices{grid-template-columns:1fr}
+  .choice,.preset{min-height:44px}
+}
+@media(max-height:460px) and (orientation:landscape){
+  .forge{padding-top:14px}
 }
 </style>
 </head>
@@ -464,6 +489,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* ============================================================
    THE FORGE — configurator engine
    ============================================================ */
+/* Cancel stray middle-click autoscroll on empty space (leaves links alone) */
+document.addEventListener('mousedown', (e) => {
+  if (e.button === 1 && !(e.target.closest && e.target.closest('a, button, [role="button"], input, textarea, select'))) {
+    e.preventDefault();
+  }
+}, false);
 const CATS = [
   { id:'cpu', title:'Choose your processor', lbl:'Pick your processor', help:'The brain of your build. More cores help rendering, streaming, and heavy multitasking. Higher clock speed = better gaming.' },
   { id:'gpu', title:'Pick your graphics card', lbl:'Pick your graphics card', help:'The GPU is what makes games look gorgeous. Bigger card = higher framerates and prettier ray tracing.' },

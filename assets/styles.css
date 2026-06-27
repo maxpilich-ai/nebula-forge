@@ -896,3 +896,103 @@ section[id], a[id], div[id] { scroll-margin-top: 100px; }
   .nf-pricing-card:hover,
   .glass-hover:hover { border-color: var(--surface-line-hi); }
 }
+
+/* ============================================================
+   DEVICE COVERAGE + EXTRA POLISH  (phones · laptops · 4K TVs)
+   Appended last so it wins the cascade. Everything motion-y is
+   transform/opacity only and gated behind reduced-motion.
+   ============================================================ */
+
+/* ---- 1. Cursor fix --------------------------------------------------
+   The custom cursor is only built on fine pointers with motion allowed.
+   So only hide the real cursor in that exact case — otherwise touch /
+   reduced-motion users were left with an invisible pointer. */
+body { cursor: auto; }
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body { cursor: none; }
+}
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+  .nf-cursor, .nf-cursor-ring { display: none !important; }
+}
+
+/* ---- 2. Universal overflow / media safety -------------------------- */
+img, svg, video, canvas { max-width: 100%; height: auto; }
+html, body { max-width: 100%; }
+*, *::before, *::after { min-width: 0; }
+/* honour iPhone notches / rounded TV bezels */
+body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+
+/* ---- 3. Phones: tighten gutters + guarantee tappable targets ------- */
+@media (max-width: 480px) {
+  :root { --container: calc(100vw - 32px); }
+  .btn, .nf-nav-cta a, a.btn { min-height: 44px; }      /* iOS tap target */
+  h1, h2, .gradient-text, .aurora-text { overflow-wrap: anywhere; }
+}
+@media (max-width: 360px) {
+  :root { --container: calc(100vw - 24px); }
+}
+
+/* ---- 4. Big screens & TVs: scale up so it isn't a tiny island ------ */
+@media (min-width: 1800px) {
+  :root { --container: min(1560px, calc(100vw - 80px)); }
+  html { font-size: 17.5px; }
+}
+@media (min-width: 2400px) {                              /* 4K TVs */
+  :root { --container: min(1840px, calc(100vw - 120px)); }
+  html { font-size: 20px; }
+}
+@media (min-width: 3400px) {                              /* 5K / 8K */
+  :root { --container: min(2200px, calc(100vw - 160px)); }
+  html { font-size: 23px; }
+}
+
+/* ---- 5. EXTRA COOL (GPU-cheap, accessible) ------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Hero headline: keep the gradient alive with a slow shimmer. */
+  .gradient-text {
+    background-size: 240% 240%;
+    animation: vfHeroShimmer 11s ease-in-out infinite;
+  }
+  @keyframes vfHeroShimmer {
+    0%,100% { background-position: 0% 50%; }
+    50%     { background-position: 100% 50%; }
+  }
+
+  /* Nav links get a neon underline that sweeps in on hover. */
+  .nf-nav-link { position: relative; }
+  .nf-nav-link::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -4px;
+    height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--plasma-500), var(--aurora-violet));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s var(--ease-out-expo);
+  }
+  .nf-nav-link:hover::after { transform: scaleX(1); }
+
+  /* Cards get a soft colored halo when you hover — real depth. */
+  .nf-rig-card:hover,
+  .nf-pricing-card:hover,
+  .nf-builder-card:hover,
+  .nf-config-feat:hover,
+  .glass-hover:hover {
+    box-shadow: var(--shadow-deep),
+                0 0 0 1px rgba(0,212,255,0.22),
+                0 24px 70px rgba(0,168,255,0.18);
+  }
+
+  /* Section eyebrows / pills get a slow living glow. */
+  .eyebrow, .nf-badge, .pill, .tag {
+    animation: vfPillGlow 5s ease-in-out infinite;
+  }
+  @keyframes vfPillGlow {
+    0%,100% { text-shadow: 0 0 0 transparent; }
+    50%     { text-shadow: 0 0 14px rgba(0,212,255,0.35); }
+  }
+}
+
+/* ---- 6. Landscape phones: don't let a tall hero trap the user ------ */
+@media (max-height: 460px) and (orientation: landscape) {
+  .section { padding: 56px 0; }
+}

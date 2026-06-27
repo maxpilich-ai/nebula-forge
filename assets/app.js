@@ -27,6 +27,18 @@
     }, 500);
   });
 
+  // ---------- Kill stray middle-click autoscroll ----------
+  // A scroll-wheel (middle button) click puts the browser into "autoscroll"
+  // mode — the page drifts down when the cursor sits low and up when it sits
+  // high. That's what was randomly scrolling the page on click. We cancel it
+  // for clicks on empty space / cards, but leave real links & buttons alone so
+  // middle-click-to-open-in-new-tab still works exactly as expected.
+  document.addEventListener('mousedown', (e) => {
+    if (e.button === 1 && !(e.target.closest && e.target.closest('a, button, [role="button"], input, textarea, select'))) {
+      e.preventDefault();
+    }
+  }, false);
+
   // ---------- Custom Cursor ----------
   // Only on real mice. A trailing cursor on touch / reduced-motion just
   // reads as lag, so we skip it entirely there and let the OS cursor show.

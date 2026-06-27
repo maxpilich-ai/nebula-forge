@@ -996,3 +996,66 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 @media (max-height: 460px) and (orientation: landscape) {
   .section { padding: 56px 0; }
 }
+
+/* ============================================================
+   COOL LAYER v2 — deeper motion polish (GPU-cheap, gated)
+   transform/opacity/filter only · reduced-motion safe
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Smoother lift on every hoverable surface. */
+  .nf-rig-card, .nf-pricing-card, .nf-builder-card,
+  .nf-trust-card, .glass-hover, .hover-light, .pd-box-item {
+    transition: transform .4s var(--ease-out-expo),
+                box-shadow .4s var(--ease-out-expo),
+                border-color .4s var(--ease-out-expo);
+    will-change: transform;
+  }
+  .nf-rig-card:hover, .nf-pricing-card:hover, .nf-builder-card:hover,
+  .nf-trust-card:hover, .glass-hover:hover, .hover-light:hover,
+  .pd-box-item:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Primary buttons: light sweep across on hover.
+     Uses ::after so the base ::before cursor-glow is preserved. */
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; left: -120%;
+    width: 60%; height: 100%; pointer-events: none; z-index: 1;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-18deg);
+    transition: left .6s var(--ease-out-expo);
+  }
+  .btn-primary:hover::after { left: 130%; }
+
+  /* Loader mark + nav logo: gentle living pulse. */
+  .nf-loader-mark { animation: vfMarkPulse 2.4s ease-in-out infinite; }
+  @keyframes vfMarkPulse {
+    0%,100% { transform: scale(1);    filter: drop-shadow(0 0 6px rgba(0,212,255,.5)); }
+    50%     { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(0,212,255,.85)); }
+  }
+
+  /* Hero status badge floats so the fold feels alive. */
+  .nf-hero-badge, .hero-badge, .nf-status-pill {
+    animation: vfFloat 6s ease-in-out infinite;
+  }
+  @keyframes vfFloat {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-5px); }
+  }
+
+  /* Aurora headline gets a slow hue drift for extra depth. */
+  .aurora-text {
+    background-size: 220% 220%;
+    animation: vfHeroShimmer 13s ease-in-out infinite;
+  }
+
+  /* Spec/stat numbers subtly breathe their glow. */
+  .nf-stat-num, .stat-num, .nf-metric-value {
+    animation: vfNumGlow 6s ease-in-out infinite;
+  }
+  @keyframes vfNumGlow {
+    0%,100% { text-shadow: 0 0 0 transparent; }
+    50%     { text-shadow: 0 0 22px rgba(0,168,255,.30); }
+  }
+}

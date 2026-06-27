@@ -116,6 +116,48 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
   })();
 
+  // ---------- Scroll-spy: light the right nav link ----------
+  // Was: "Home" stayed highlighted even after you scrolled down to Reviews.
+  // Now the active link follows the section you're actually looking at, and
+  // falls back to the current-page link (Home) when you're up at the top.
+  (function scrollSpy() {
+    if (!nav) return;
+    const links = Array.from(nav.querySelectorAll('.nf-nav-link'));
+    if (!links.length) return;
+    let page = location.pathname.split('/').pop();
+    if (!page) page = 'index.html';
+    let homeLink = null;
+    const spy = [];
+    links.forEach(a => {
+      const href = a.getAttribute('href') || '';
+      const hash = href.indexOf('#');
+      if (hash === -1) {
+        if (href === page) homeLink = a;           // current-page link (e.g. Home on index)
+        return;
+      }
+      const file = href.slice(0, hash);            // '' or a filename before the #
+      if (file === '' || file === page) {
+        const el = document.getElementById(href.slice(hash + 1));
+        if (el) spy.push({ a: a, el: el });
+      }
+    });
+    if (!spy.length) return;                        // no same-page sections to track here
+    const setActive = (active) => links.forEach(l => l.classList.toggle('active', l === active));
+    let tick = false;
+    function update() {
+      tick = false;
+      const line = window.innerHeight * 0.35;
+      let current = null, best = -Infinity;
+      spy.forEach(s => {
+        const top = s.el.getBoundingClientRect().top;
+        if (top <= line && top > best) { best = top; current = s.a; }
+      });
+      setActive(current || homeLink);
+    }
+    window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  })();
+
   // ---------- Fade up observer ----------
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {

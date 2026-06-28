@@ -137,7 +137,7 @@
     <span class="g-bar-txt"><b id="gbN">0</b> items selected · <b class="t" id="gbT">$0</b></span>
     <div class="g-bar-cta">
       <button class="btn btn-ghost btn-sm" id="gbClear">Clear</button>
-      <a href="forge.html" class="btn btn-primary btn-sm magnetic">Add to my build
+      <a href="index.html#request" id="gbGo" class="btn btn-primary btn-sm magnetic">Add to my build
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </a>
     </div>
@@ -271,6 +271,14 @@ function renderBar(){
   bar.classList.add('show');
 }
 $('#gbClear').onclick=()=>{picked.clear();renderGrid();renderBar();};
+$('#gbGo').onclick=(e)=>{
+  if(!picked.size) return; /* nothing selected — just go to the request form */
+  e.preventDefault();
+  let total=0; const lines=[];
+  picked.forEach(i=>{const g=GEAR[i]; total+=g.price; lines.push(`${g.name} (${g.cat}) — ${money(g.price)}`);});
+  const summary=`Gear & peripherals I'd like to add:\n${lines.join('\n')}\n\nGear subtotal: ${money(total)}`;
+  location.href='index.html?'+new URLSearchParams({gear:summary}).toString()+'#request';
+};
 
 renderChips(); renderGrid(); renderBar();
 </script>

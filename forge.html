@@ -846,8 +846,12 @@ function select(cat,id){ state.sel[cat]=id; renderStage(); renderChoices(); rend
 function goStep(cat){ state.step=cat; renderStage(); renderChoices(); renderSteps(); }
 function applyPreset(name){ state.sel={...PRESETS[name]}; renderStage(); renderChoices(); renderSteps(); renderLive(); }
 
-$('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub);
-  alert(`Build request started!\n\nTotal: $${(m.sub+bf.fee).toLocaleString()} (parts + ${bf.name.replace('· ','')} build)\n\nIn the live site this opens your quote form — no deposit, 24-hour reply.`); };
+$('#cta').onclick=()=>{ const m=compute(); const bf=buildFee(m.sub); const c=state.sel;
+  const total=m.sub+bf.fee;
+  const lbl={case:'Case',gpu:'Graphics',cpu:'Processor',cooling:'Cooling',ram:'Memory',storage:'Storage',psu:'Power supply'};
+  const lines=['case',...SHOW_ORDER].map(cat=>{const p=getPart(cat,c[cat]);return p?`${lbl[cat]}: ${p.name}`:'';}).filter(Boolean);
+  const summary=`Custom build from the configurator:\n${lines.join('\n')}\n\nEstimated total: $${total.toLocaleString()} (parts + ${bf.name.replace('· ','')} build)`;
+  location.href='index.html?'+new URLSearchParams({build:summary}).toString()+'#request'; };
 
 $('#pricingNote').innerHTML='<b>How our pricing works:</b> every component is listed at a clear, fair price. The build line covers hand-assembly, cable management, and a 2-hour stress test before it ships. Parts are brand-new and keep their own manufacturer warranty. No hidden fees.';
 

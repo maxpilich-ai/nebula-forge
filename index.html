@@ -1613,6 +1613,27 @@
       }
     }
   })();
+  // Return the user to THIS site's thank-you page after submit, whatever domain it's on
+  (function(){
+    var f = document.querySelector('.nf-request-form');
+    if (!f) return;
+    var n = f.querySelector('[name="_next"]');
+    if (n) n.value = location.origin + location.pathname + '?thanks=1';
+  })();
+  // Prefill the request form when arriving from the configurator (?build=...) or gear page (?gear=...)
+  (function(){
+    var p = new URLSearchParams(location.search);
+    var build = p.get('build'); var gear = p.get('gear');
+    var pre = [build, gear].filter(Boolean).join('\n\n');
+    if (!pre) return;
+    var form = document.querySelector('.nf-request-form');
+    if (!form) return;
+    var notes = form.querySelector('[name="notes"]');
+    if (notes) notes.value = pre + (notes.value ? '\n\n' + notes.value : '');
+    var tier = form.querySelector('[name="tier"]');
+    if (tier && build) tier.value = 'Custom';
+    setTimeout(function(){ form.scrollIntoView({behavior:'smooth', block:'start'}); }, 250);
+  })();
 </script>
 
 <!-- ========== FINAL CTA ========== -->

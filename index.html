@@ -48,6 +48,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/styles.css">
+<noscript><style>.fade-up{opacity:1!important;transform:none!important}</style></noscript>
 
 <style>
 /* ===== Landing page specifics ===== */
@@ -1998,6 +1999,20 @@
 
 <script src="assets/parts/rigs.js"></script>
 <script src="assets/app.js"></script>
+<script>
+/* Reveal failsafe — guarantees content is never permanently invisible.
+   The .fade-up reveal relies on an IntersectionObserver in app.js. If app.js
+   fails to load, throws, or the tab loaded hidden (observer never fires),
+   this reveals everything after a short delay. It no-ops the moment the
+   observer has revealed anything, so normal scroll animations are preserved. */
+(function(){
+  setTimeout(function(){
+    if (document.querySelector('.fade-up.visible')) return;
+    var els = document.querySelectorAll('.fade-up:not(.visible)');
+    for (var i = 0; i < els.length; i++) els[i].classList.add('visible');
+  }, 2000);
+})();
+</script>
 <script>
 // ===== Hero canvas: animated GPU schematic / aurora =====
 (() => {

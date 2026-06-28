@@ -908,8 +908,9 @@ section[id], a[id], div[id] { scroll-margin-top: 100px; }
    So only hide the real cursor in that exact case — otherwise touch /
    reduced-motion users were left with an invisible pointer. */
 body { cursor: auto; }
+.btn { cursor: pointer; }
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  body { cursor: none; }
+  body, .btn { cursor: none; }
 }
 @media (hover: none), (pointer: coarse) {
   body { cursor: auto; }

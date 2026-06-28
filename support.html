@@ -124,7 +124,7 @@
 
 .ch-icon {
   width: 56px; height: 56px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 212, 255, 0.04));
   border: 1px solid var(--surface-line-hi);
   display: grid; place-items: center;
@@ -216,7 +216,7 @@
 }
 .ai-msg {
   padding: 14px 16px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   font-size: 14px;
   line-height: 1.55;
   max-width: 85%;
@@ -249,7 +249,7 @@
   padding: 12px 14px;
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--surface-line);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   display: flex; gap: 12px; align-items: center;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -322,12 +322,8 @@
 .now-dot::after {
   content: ''; position: absolute; inset: -4px;
   border-radius: 50%;
-  border: 2px solid #22ff88;
-  animation: ripple 2s ease-out infinite;
-}
-@keyframes ripple {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
+  border: 2px solid rgba(34, 255, 136, 0.28);
+  /* static ring — continuous radar ping removed for a calmer premium feel */
 }
 .now h4 { font-size: 18px; margin-bottom: 4px; }
 .now p { color: var(--text-300); font-size: 13px; font-family: var(--font-mono); letter-spacing: 0.08em; }

@@ -1,0 +1,6 @@
+# VoidForge Systems
+# When the custom domain (voidforgesystems.com) goes live, update the Sitemap URL below.
+User-agent: *
+Allow: /
+
+Sitemap: https://maxpilich-ai.github.io/nebula-forge/sitemap.xml

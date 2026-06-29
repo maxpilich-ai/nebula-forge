@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://maxpilich-ai.github.io/nebula-forge/sitemap.xml
+Sitemap: https://voidforgesystems.com/sitemap.xml
